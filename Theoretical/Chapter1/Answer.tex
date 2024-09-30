@@ -1,0 +1,169 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis homework \# 1}
+
+\author{WangHao 3220103613
+  \thanks{Electronic address: \texttt{3220103613@zju.edu.cn}}}
+\affil{(Information and Computing Sciences, Class 2201), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+
+
+
+
+
+
+% ============================================
+\section*{I.}
+Consider the bisection method starting with the initial interval $[1.5, 3.5]$. In the following questions “the
+interval” refers to the bisection interval whose width
+changes across different loops.
+\begin{itemize}
+    \item What is the width of the interval at the $n$th step?
+    \item What is the supremum of the distance between the root $r$ and the midpoint of the interval?
+\end{itemize}
+
+\subsection*{Answer of I-a}
+Each step will halve the width of the interval. 
+Thus, at $n$th step, the width of the interval is $(3.5-1.5) * \left(\frac{1}{2} \right)^n = \left( \frac{1}{2} \right)^{n-1} $.
+
+\subsection*{Answer of I-b}
+It is obvious that $\text{left point} \leq r \leq \text{right point}$, 
+then the supremum of the distance is $\frac{1}{2} * \text{width of the interval} = \frac{1}{2} * \left( \frac{1}{2} \right)^{n-1} =\left( \frac{1}{2} \right)^{n}$ (note: at $n$th step)
+
+\section*{II.}
+In using the bisection algorithm with its initial interval as $[a_0, b_0]$ with $a_0 > 0$, we want to determine the root with its relative error no greater than $\epsilon$. Prove that this goal of accuracy is guaranteed by the following choice of the number of steps, $$n \geq \frac{log(b_0-a_0)-log\epsilon -log(a_0)}{log2} -1$$
+
+\subsection*{Answer of II}
+Let the relative error be $E_r$.
+
+Let the root be $\alpha$, we can notice that $0<a<\alpha<b$.
+
+By I, at $n$th step, $ E_r = \frac{(b_0 - a_0)*(\frac{1}{2})^{n+1}}{\alpha}$.
+
+let $E_r\leq\epsilon$, we have $n \geq \frac{log(b_0-a_0)-log\epsilon -log\alpha}{log2} -1$. This mean that when n satisfy the inequality, the relative error is no greater than $\epsilon$.
+
+As $0<a<\alpha$, we have $log(a)<log(\alpha)$. Thus, when $n \geq \frac{log(b_0-a_0)-log\epsilon -log(a_0)}{log2} -1$, we have $n \geq \frac{log(b_0-a_0)-log\epsilon -log\alpha}{log2} -1$, then the relative error is no greater than $\epsilon$.
+
+\section*{III.}
+Perform four iterations of Newton's method for the polynomial equation $p(x) = 4x^3-2x^2+3 = 0$ with the starting point $x_0 = -1$. Use a hand calculator and organize results of the iterations in a table.
+
+\subsection*{Answer of III}
+$p'(x) = 12x^2-4x$.
+
+Newton's method: $x_{n+1} = x_n - \frac{p(x_n)}{p'(x_n)}$
+
+By iteration, we have:
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|}
+  \hline
+  Iteration & Value of $x_n$ \\ \hline
+  $x_1$ & $-\frac{13}{16}$    \\ \hline
+  $x_2$ & $-\frac{4409}{5720}$  \\ \hline
+  $x_3$ & -0.768832384  \\ \hline
+  $x_4$ & -0.768828085  \\ \hline
+  \end{tabular}
+  \caption{results of the iterations}
+\end{table}
+
+% ===============================================
+
+\section*{IV.}
+Consider a variation of Newton's method in which only the derivative at $x_0$ is used, $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_0)}$$
+Find $C$ and $s$ such that $$e_{n+1} = C(e_n)^s$$
+where $e_n$ is the error of Newton's method at step n, s is a constant, and C may depend on $x_n$, the true solution $\alpha$, and the derivative of the function $f$.
+
+\subsection*{Answer of IV}
+Taylor's theorem at $x_n$: $$f(x)=f(x_n)+f'(\xi)(x-x_n)$$
+where $\xi$ is between $x$ and $x_n$.
+
+Let $x=\alpha$, we have $$0=f(x_n)+f'(\xi)(\alpha-x_n)$$
+
+Substitute it into the variation of Newton's method, we have $$e_{n+1}=e_n-\frac{f'(\xi)}{f'(x_0)}e_n$$.
+
+Thus, we find $C=1-\frac{f'(\xi)}{f'(x_0)}$ and $s=1$, where $\xi$ is between $\alpha$ and $x_n$.
+
+\section*{V.}
+Within $(-\frac{\pi}{2},\frac{\pi}{2})$, will the iteration $x_{n+1} =tan^{-1}x_n$ converge?
+
+\subsection*{Answer of V}
+Let $f:(-\frac{\pi}{2},\frac{\pi}{2}) \rightarrow (-\frac{\pi}{2},\frac{\pi}{2})$ and $f(x)=tan^{-1}x_n$.
+
+As $f'(x)=\frac{1}{1+x^2} \leq 1$, $f(x)$ is a contraction.
+
+By theorem 1.39, the iteration converges for any choice $x_0 \in (-\frac{\pi}{2},\frac{\pi}{2})$.
+
+\section*{VI.}
+Let $p>1$. What is the value of the following continued fraction?
+$$x = \frac{1}{p+\frac{1}{p+\frac{1}{p+\dots}}}$$
+Prove that the sequence of values converges. (Hint: this can be interpreted as $ x = \lim_{n \to \infty} x_n $, where $x_1 = \frac{1}{p}, x_2 = \frac{1}{p+\frac{1}{p}}, x_3 = \frac{1}{p+\frac{1}{p+\frac{1}{p}}}$, \dots, and so forth. Formulate $x$ as a fixed point of some function.)
+
+\subsection*{Answer of VI}
+We interpret the question as $ x = \lim_{n \to \infty} x_n $, where $x_1 = \frac{1}{p}$, and $x_{n+1}=\frac{1}{p+x_n}$.
+
+As $p>1$, it's easy to prove that $0<x_i<1, \forall i \in \mathbb{N}$.
+
+Let $f:(0,1) \rightarrow (0,1)$ and $f(x)=\frac{1}{p+x}$.
+
+As $|f'(x)|=|\frac{1}{(x+p)^2}| \leq 1$, $f(x)$ is a contraction.
+
+By theorem 1.39, the iteration converges for any choice $x_1 \in (0,1)$. Because $x_1$ satisfies the condition, the sequence of values converges.
+
+\section*{VII.}
+What happens in problem II if $a_0 < 0 < b_0$? Derive an inequality of the number of steps similar to that in II. In this case, is the relative error still an appropriate measure?
+
+\subsection*{Answer of VII}
+Similar to II, we have $n \geq \frac{log(b_0-a_0)-log\epsilon -log|\alpha|}{log2} -1$. This mean that when n satisfy the inequality, the relative error is no greater than $\epsilon$.
+
+As $\alpha$ can be arbitrarily small in this question, $-log|\alpha|$ can also be arbitrarily huge. Extremely, when $\alpha=0$, $log\alpha$ is no longer meaningful. So the relative error is not appropriate. We can use absolute error to estimate the error.
+
+\section*{VIII.}
+Consider solving $f(x) = 0 (f \in C^{k+1})$ by Newton's method with the starting point $x_0$ close to a root of multiplicity k. Note that $\alpha$  is a zero of multiplicity $k$ of the function $f$ iff
+$$f^{(k)} \neq 0; \forall i<k, f^{(i)}(\alpha)=0$$
+\begin{itemize}
+    \item How can a multiple zero be detected by examining the behavior of the points $(x_n, f(x_n))$?
+    \item Prove that if $r$ is a zero of multiplicity k of the function $f$, then quadratic convergence in Newton's iteration will be restored by making this modification:$$x_{n+1}=x_{n}-k\frac{f(x_n)}{f'(x_n)}$$
+\end{itemize}
+
+\subsection*{Answer of VIII-a}
+There are 2 ways.
+
+\subsubsection*{Way1}
+As $\lim_{x \to \alpha} f'(x) = f'(\alpha) = 0$, 
+$\lim_{n \to \infty} (x_{n+1}-x_n) = 0$.
+
+
+$\lim_{n \to \infty} \frac{f(x_{n+1})-f(x_n)}{x_{n+1}-x_n}=\lim_{n \to \infty}f'(x)=f'(\alpha)=0$.
+
+So we can detect a multiple zero by calculate the slope of $(x_{n+1}, f(x_{n+1}))$ and $(x_n, f(x_n))$.
+
+\subsubsection*{Way2}
+
+Follow the prove of the convergence of Newton's method with the starting point $x_0$ close to a root of multiplicity 1, we can notice that the boundedness of $\frac{f''(\xi)}{f'(x)}$ determines its 2-order.
+
+Now $f'(\alpha) = 0$, $\frac{f''(\xi)}{f'(x)}$ is no longer bounded. We can easily prove that the order of convergence is only 1. 
+
+So we can detect a multiple zero by detect the rate of change.
+\subsection*{Answer of VIII-b}
+I can't solve that...
+
+\end{document}
