@@ -1,5 +1,5 @@
-#include "./lib/EquationSolver.hpp"
-#include "./lib/Function.hpp"
+#include "./../lib/EquationSolver.hpp"
+#include "./../lib/Function.hpp"
 #include<cmath>
 #include<iostream>
 
@@ -16,9 +16,9 @@ class F:public Function{
 
 void solve_F(double x0){
     cout << "Solving x-tan(x) near "<< x0 << endl;
-    NewtonMethod F_solver1(F(),x0);
+    NewtonMethod FSolver(F(),x0);
     double x;
-    x=F_solver1.solve();
+    x=FSolver.solve();
     cout<< "A root is " << x << endl;
 }
 

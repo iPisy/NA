@@ -1,5 +1,5 @@
-#include "./lib/EquationSolver.hpp"
-#include "./lib/Function.hpp"
+#include "./../lib/EquationSolver.hpp"
+#include "./../lib/Function.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -36,10 +36,10 @@ public:
 };
 
 void solve_F1() {
-    std::cout << "Solving x^{-1} - \\tan x on [0, \\pi/2]" << std::endl;
+    cout << "Solving x^{-1} - \\tan x on [0, \\pi/2]" << endl;
     BisectionMethod solver_f1(F1(), 0, Pi/2);
     double x = solver_f1.solve();
-    std::cout << "A root is: " << x << std::endl;
+    cout << "A root is: " << x << endl;
 }
 
 void solve_F2(){
