@@ -30,7 +30,158 @@
 
 
 % ============================================
-\section*{I.}
+\section*{A.}
+My header file is written in the directory \texttt{.\textbackslash lib}.
+
+In \texttt{Function.hpp}, I wrote a class called \texttt{Function}. 
+This is an abstract class that defines the characteristics of the function class: 
+its operations include evaluating the function value and the derivative value. 
+These operations can be override. 
+This abstract class can be inherited to generate different function classes.
+
+In \texttt{EquationSolver.hpp}, I wrote a class called \texttt{EquationSolver}. 
+This is an abstract class that defines the characteristics of an equation solver for \( F(x) = 0 \): 
+its elements are functions (references) \( F \), and its operations include finding roots. 
+This operation can be override. 
+This abstract class can be inherited to generate different function solvers. 
+In this header file, this abstract class is inherited to create three function solvers, 
+representing three different methods.
+
+\section*{B.}
+Run B, we have:
+
+
+Solving $x^{-1} - \tan x$ on $[0, \pi/2]$
+
+A root is: 0.860333
+
+Solving $x^{-1}-2^{x}$ on $[0,1]$
+
+A root is: 0.641186
+
+Solving $2^{-x}+e^{x}+2cosx-6$ on $[1,3]$
+
+A root is: 1.82938
+
+Solving $\frac{x^{3}+4x^{2}+3x+5}{2x^{3}-9x^{2}+18x-2}$ on $[0,4]$
+
+The function is not continuous, the root is probably not correct. 
+A root is: 0.117877
+
+
+In function4, F(root) is huge, thus the program throw the hint:
+The function is not continuous, the root is probably not correct. 
+
+\section*{C.}
+Run C, we have:
+
+
+Solving $x-\tan(x)$ near 4.5
+
+A root is 4.49341
+
+Solving $x-\tan(x)$ near 7.7
+
+A root is 7.72525
+
+
+We have found root close to the initial value successfully.
+
+\section*{D.}
+Run D, we have:
+
+
+Solving $\sin(x/2)-1$ with $x_0=0, x_1=1.5708$
+
+A root is 3.14093
+
+Solving $e^{x}-\tan(x)$ with $x_0=1, x_1=1.4$
+
+A root is 1.30633
+
+Solving $x^{3}-12x^{2}+3x+1$ with $x_0=0, x_1=-0.5$
+
+A root is -0.188685
+
+
+Take another set of initial values.
+
+Solving $\sin(x/2)-1$ with $x_0=0.261799, x_1=0.241661$
+A root is 3.14074
+
+We could find that two roots of F1 are different. There are 2 close roots.
+
+Solving $e^{x}-\tan(x)$ with $x_0=1.1, x_1=1.3$
+
+A root is 1.30633
+Solving $x^{3}-12x^{2}+3x+1$ with $x_0=-0.1, x_1=-0.3$
+
+A root is -0.188685
+
+The roots of F2 or F3 are same with different initial value (I've tried a lot.). 
+Thus F2 or F3 may not have roots close to roots solved above.
+
+\section*{E.}
+Run E, we have:
+
+
+Solving Function with $a=0, b=1$
+
+A root is 0.164062
+
+Solving Function with $x_0=0$
+
+A root is 0.166166
+
+Solving Function with $x_0=0, x_1=1$
+
+A root is 0.166166
+
+
+And we can find that the root is more close to 0.166166 than 0.164062. 
+With the same precision 0.01ft, Bisection Method converges slower than Newton Method and Secant Method.
+This is in line with the theory.
+
+\section*{F.}
+Run F, we have:
+
+\subsection*{(a)}
+
+F.(a)
+Solving Function with $x_0=33$
+
+A root is 32.9722
+
+We have found root close to the initial value 33 successfully.
+
+\subsection*{(b)}
+F.(b)
+
+Solving Function with $x_0=33$
+
+A root is 33.1689
+
+The root varies with the change in parameter $D$.
+
+\subsection*{(c)}
+F.(c)
+
+Solving Function with $x_0=33, x_1=100000$
+
+A root is 392.972
+
+Solving Function with $x_0=33, x_1=200000$
+
+A root is 447873
+
+Solving Function with $x_0=33, x_1=300000$
+
+A root is 10947
+
+
+As two initial value are so far away, secant can't fitting tangent line now. 
+After first iteration, the iteration point went so far away the initial point. 
+So we have solved the root far away 33.
 
 
 \end{document}

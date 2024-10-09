@@ -38,5 +38,6 @@
 #generated files from cpp
 **/*.o
 **/*.exe
+**/output
 #lib
 /lib
