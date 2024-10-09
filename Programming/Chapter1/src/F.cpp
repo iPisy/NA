@@ -40,8 +40,18 @@ void solveFWithSecantMethod(double x0,double x1,double D,double l,double beta_1,
 }
 
 int main(){
+    cout<< "F.(a)" << endl;
     solveFWithNewtonMethod(33,55,89,11.5,49);
+    cout<<endl;
+
+    cout<< "F.(b)" << endl;
     solveFWithNewtonMethod(33,30,89,11.5,49);
+    cout<<endl;
+    
+    cout<< "F.(c)" << endl;
     solveFWithSecantMethod(33,100000,55,89,11.5,49);
+    solveFWithSecantMethod(33,200000,55,89,11.5,49);
+    solveFWithSecantMethod(33,300000,55,89,11.5,49);
+    cout<<endl;
     return 0;
 }

@@ -50,8 +50,13 @@ int main(){
     solve_F1(0,Pi/2);
     solve_F2(1,1.4);
     solve_F3(0,-0.5);
+    cout<<endl;
 
+    cout<<"Take another set of initial values."<<endl;
     solve_F1(Pi/12,Pi/13);
-    cout<< "We could find that two roots of F1 are different. There are 2 close roots."<<endl;
+    cout<< "We could find that two roots of F1 are different. There are 2 close roots."<<endl<<endl;
+    solve_F2(1.1,1.3);
+    solve_F3(-0.1,-0.3);
+    cout<< "F2 and F3 may not have roots close to roots solved above."<<endl;
     return 0;
 }
