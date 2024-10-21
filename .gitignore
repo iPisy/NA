@@ -39,5 +39,5 @@
 **/*.o
 **/*.exe
 **/output
-#lib
-/lib
+#ref
+/ref
