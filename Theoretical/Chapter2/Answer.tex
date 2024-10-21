@@ -1,0 +1,244 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis theoretical homework \# 2}
+
+\author{WangHao 3220103613
+  \thanks{Electronic address: \texttt{3220103613@zju.edu.cn}}}
+\affil{(Information and Computing Sciences, Class 2201), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+
+
+
+% ============================================
+\section*{I.}
+For $f \in C^2[x_0,x_1]$ and $x \in (x_0,x_1)$, 
+linear interpolation of $f$ at $x_0$ and $x_1$ yields
+
+$$
+f(x) - p_1(f;x) = \frac{f''(\xi(x))}{2} (x - x_0)(x-x_1).
+$$
+
+Consider the case $f(x) = \frac{1}{x}, x_0 = 1, x_1 = 2$.
+
+
+\begin{itemize}
+    \item Determine $\xi(x)$ explicitly.
+    \item Extend the domain of $\xi$ continuously from $(x_0,x_1)$ to $[x_0,x_1].$ 
+    Find $\max \xi(x)$, $\min \xi(x)$, and $\max f''(\xi(x))$.
+\end{itemize}
+
+\subsection*{Answer of I-a}
+
+Use the Newton formula.
+
+$$
+\begin{array}{c|cc}
+x_i & f[x_i] & f[x_i, x_{i+1}] \\
+\hline
+1 & 1 & -\frac{1}{2} \\
+2 & \frac{1}{2} \\
+\end{array}
+$$
+
+Then substitute them into the Newton formula, we have
+\begin{align*}
+  p_1(x)&=f[x_0]+f[x_0,x_1](x-x_0)\\
+  &=\frac{3}{2}-\frac{1}{2}x
+\end{align*}
+
+Taking the second derivative with respect to f, we have $$f''(x)=2x^{-3}$$
+
+Substitute them into
+$$
+f(x) - p_1(f;x) = \frac{f''(\xi(x))}{2} (x - x_0)(x-x_1).
+$$
+We have $\xi=\sqrt[3]{2x}$, where $x \in (1,2)$.
+
+\subsection*{Answer of I-b}
+As $\xi=\sqrt[3]{2x}$ is continuous, we can extend it's domain to $[1,2]$.\\
+Then $\max\xi=\sqrt[3]{4}$, $\min\xi=\sqrt[3]{2}$.\\
+And $f''(\xi)=\frac{1}{x}$, thus $\max f''(\xi)=1$.
+
+% ============================================
+\section*{II.}
+Let $\mathbb{P}_m^+$ be the set of all polynomials of degree $\leq m$
+that are non-negative on the real line,
+$$
+\mathbb{P}_m^+ = \{p : p \in \mathbb{P}_m, \forall x \in \mathbb{R}, p(x) \geq 0\}.
+$$
+Find $p \in \mathbb{P}_{2n}^+$ such that $p(x_i) = f_i$ for $i = 0,1\ldots,n$
+where $f_i \geq 0$ and $x_i$ are distinct points on $\mathbb{R}$.
+\subsection*{Answer of II}
+
+The Lagrange formula:
+$$p_n(x)=\sum_{i=0}^n f_i \ell_i(x)$$
+Let $b_i(x)=\ell_i(x)^2$, for $i= 0,1,\ldots,n$\\
+As $f_i \geq 0$, for $i= 0,1,\ldots,n$\\
+We can replace $\ell_i(x)$ with $b_i(x)$, 
+and the Lagrange formula still holds.
+
+So we find
+\begin{align*}
+  p(x)&=\sum_{i=0}^n f_i b_i(x)\\
+  &=\sum_{i=0}^n f_i [\prod_{j=0,j\neq i}^{n} \frac{x-x_j}{x_i-x_j}]^2
+\end{align*}
+\\
+which satisfies $p(x) \in \mathbb{P}_{2n}^+$.
+
+% ============================================
+\section*{III.}
+Consider $f(x) = e^x$.
+\begin{itemize}
+  \item Prove by induction that
+  $$\forall t \in \mathbb{R},\quad f[t,t+1,\ldots,t+n]=\frac{(e-1)^n}{n!}e^t$$
+  \item From Corollary 2.22 we know
+  $$ \exists \xi \in (0,n) \quad s.t. \quad f[0,1,\ldots,n]=\frac{1}{n!}f^{(n)}(\xi).$$
+  Determine $\xi$ from the above two equations. Is $\xi$
+  located to the left or to the right of the midpoint $n/2$?
+\end{itemize}
+
+\subsection*{Answer of III-a}
+
+Induction:
+
+\subsubsection*{Base case}
+For $n=0$,\\
+$LHS=f[t]=f(t)=e^t$,\\
+$RHS=e^t$.\\
+The equation holds.
+
+\subsubsection*{Inductive hypothesis}
+Assume the equation holds for $ n=k $.
+
+\subsubsection*{Inductive step}
+For $n=k+1$,
+\begin{align*}
+  f[t,t+1,\ldots,t+k+1]
+  &=\frac{f_k^{[t+1]}-f_k^{[t]}}{t+k+1-t}\\
+  &=\frac{\frac{(e-1)^k}{k!}(e^{t+1}-e^t)}{k+1}\\
+  &=\frac{(e-1)^{k+1}}{(k+1)!}e^t
+\end{align*}
+
+Thus, $\forall t, \forall n < \infty$, the equation holds.
+
+\subsection*{Answer of III-b}
+In $$f[t,t+1,\ldots,t+n]=\frac{(e-1)^n}{n!}e^t$$
+Let $t=0,n=n$,
+substitute it into $$f[0,1,\ldots,n]=\frac{1}{n!}f^{(n)}(\xi), \text{ where } \xi \in (0,n)$$
+We can solve that $$\xi=n\ln(e-1)$$
+As $\ln(e-1)=0.54\ldots$ , $\xi$ is located to the right of $n/2$.
+
+% ============================================
+\section*{IV.}
+Consider $f(0) = 5$, $f(1) = 3$, $f(3) = 5$, $f(4) = 12$.
+\begin{itemize}
+  \item Use the Newton formula to obtain $p_3(f; x)$;
+  \item The data suggest that $f$ has a minimum in
+  $x \in (1,3)$. Find an approximate value for the location $x_{min}$ of the minimum.
+\end{itemize}
+
+\subsection*{Answer of IV-a}
+Construct the difference quotient table.
+$$
+\begin{array}{c|cccc}
+x_i & f[x_i] & f[x_i, x_{i+1}] & f[x_i, x_{i+1},x_{i+2}] & f[x_i, x_{i+1},x_{i+2},x_{i+3}]\\
+\hline
+0 & 5 & -2 & 1 &\frac{1}{4}\\
+1 & 3 & 1 &2 \\
+3 & 5 & 7\\
+4 & 12 \\
+\end{array}
+$$
+Substitute the difference quotient into Newton formula, \\
+we obtain $p_3(f;x)=\frac{1}{4}x^3-\frac{9}{4}x+5$.
+
+\subsection*{Answer of IV-b}
+$p_3'(f;x)=\frac{3}{4}x^2-\frac{9}{4},\quad p_3''(f;x)=\frac{3}{2}x$\\
+Solve $p_3'(f;x)=0$, we have $x=\pm \sqrt[]{3}$, as $p_3''(f;\sqrt[]{3})>0$,\\
+we find the approximate $x_{min}=\sqrt[]{3}$ 
+
+% ============================================
+\section*{V.}
+Consider $f(x) = x^7$.
+\begin{itemize}
+  \item Compute $f[0,1,1,1,2,2]$.
+  \item We know that this divided difference is expressible 
+  in terms of the 5th derivative of $f$ evaluated
+  at some $\xi \in (0,2)$. Determine $\xi$.
+\end{itemize}
+
+\subsection*{Answer of V-a}
+Construct the difference quotient table.
+$$
+\begin{array}{c|cccccc}
+x_i & f[x_i] & f[x_i, x_{i+1}] & f[x_i, x_{i+1},x_{i+2}] & f[x_i, x_{i+1},x_{i+2},x_{i+3}] & f[x_i, x_{i+1},x_{i+2},x_{i+3},x_{i+4}] & f[x_i, x_{i+1},x_{i+2},x_{i+3},x_{i+4},x_{i+5}]\\
+\hline
+0 & 0 & 1 & 6 & 15 & 42 & 30 \\
+1 & 1 & 7 & 21 & 99 & 102 \\
+1 & 1 & 7 & 120 & 201\\
+1 & 1 & 127 & 321\\
+2 & 128 & 448 \\
+2 & 128 \\
+\end{array}
+$$
+
+Thus $f[0,1,1,1,2,2]=30$
+
+\subsection*{Answer of V-b}
+The equation is $$f[0,1,1,1,2,2]=\frac{f^{(5)}(\xi)}{5!}, \text{ where } \xi \in (0,2)$$
+Substitute $f^{(5)}(x)=2520x^2$ into it, we can solve that
+$$\xi=\sqrt[]{\frac{10}{7}}$$
+
+% ============================================
+\section*{VI.}
+$f$ is a function on $[0,3]$ for which one knows that
+$$f(0) = 1,f(1) = 2,f'(1) = -1,f(3) = f'(3) = 0.$$
+\begin{itemize}
+  \item Estimate $f(2)$ using Hermite interpolation.
+  \item Estimate the maximum possible error of the above
+  answer if one knows, in addition, that $f \in \mathcal{C}^5[0,3]$
+  and $|f^{(5)}(x)| \leq M$ on $[0,3]$. Express the answer
+  in terms of $M$.
+\end{itemize}
+
+\subsection*{Answer of VI-a}
+Construct the answer table with the Neville-Aitken algorithm.
+$$
+\begin{array}{cc|ccccc}
+x_i & x-x_i & p_0^{[i]} & p_1^{[i]} & p_2^{[i]} & p_3^{[i]} & p_4^{[i]} \\
+\hline
+0 & 2 & 1 & 3 & -5 & -\frac{5}{3} & -\frac{7}{18} \\
+1 & 1 & 2 & -1 & 0 & \frac{1}{4} \\
+1 & 1 & 2 & 1 & \frac{1}{2}\\
+3 & -1 & 0 & 0\\
+3 & -1 & 0 \\
+\end{array}
+$$
+
+So we 
+
+\subsection*{Answer of VI-b}
+
+% ============================================
+\section*{III.}
+
+\subsection*{Answer of III-a}
+
+\end{document}
