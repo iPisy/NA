@@ -1,4 +1,4 @@
-#include"Polynomial.hpp"
+#include"../Polynomial.hpp"
 
 int main(){
 Polynomial P1({2, 3, 3,4,5});

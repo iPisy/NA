@@ -1,5 +1,5 @@
-#include"Interpolator.hpp"
-#include"Function.hpp"
+#include"../Interpolator.hpp"
+#include"../Function.hpp"
 
 class F:public Function{
 public:
