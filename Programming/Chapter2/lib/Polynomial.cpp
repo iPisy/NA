@@ -78,4 +78,5 @@ void Polynomial::print(){
         }
     }
     if(!printFlag) cout<<"0";
+    cout<<endl;
 }
