@@ -67,11 +67,11 @@ void Polynomial::print(){
                 }
             }
             if(firstSignFlag) firstSignFlag=0;
-            if(it==coefficient.begin() || fabs(*it)!=1) cout<< fabs(*it);
+            cout<< fabs(*it);
             int expo=it-coefficient.begin();
             if(expo==0);
             else{
-                cout<<"x";
+                cout<<"*x";
                 if(expo==1);
                 else cout<<"^"<<expo;
             }
