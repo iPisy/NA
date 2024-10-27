@@ -2,9 +2,10 @@
 
 oList=output/Function.o output/Interpolator.o output/Polynomial.o
 
-run: output/B output/C
+run: output/B output/C output/D
 	./output/B
 	./output/C
+	./output/D
 
 report: src/report.tex
 	pdflatex -output-directory=output src/report.tex
@@ -18,11 +19,17 @@ output/B: output/B.o $(oList) | output
 output/C: output/C.o $(oList) | output
 	g++ -o output/C output/C.o $(oList)
 
+output/D: output/D.o $(oList) | output
+	g++ -g -o output/D output/D.o $(oList)
+
 output/B.o: src/B.cpp | output
 	g++ -c src/B.cpp -o output/B.o
 
 output/C.o: src/C.cpp | output
 	g++ -c src/C.cpp -o output/C.o
+
+output/D.o: src/D.cpp | output
+	g++ -c src/D.cpp -o output/D.o
 
 output/Function.o: lib/Function.cpp | output
 	g++ -c lib/Function.cpp -o output/Function.o
@@ -30,7 +37,7 @@ output/Function.o: lib/Function.cpp | output
 output/Interpolator.o: lib/Interpolator.cpp | output
 	g++ -c lib/Interpolator.cpp -o output/Interpolator.o
 
-output/Polynomial.o: lib/Polynomial.cpp | output
+output/Polynomial.o: lib/Polynomial.cpp lib/Function.cpp | output
 	g++ -c lib/Polynomial.cpp -o output/Polynomial.o
 
 output:

@@ -3,6 +3,7 @@
 #include<vector>
 #include<cmath>
 #include<algorithm>
+#include"Function.hpp"
 using namespace std;
 
 #define EPSILON (1e-14)
@@ -12,7 +13,7 @@ inline bool isZero(double x){
     else return 0;
 }
 
-class Polynomial{
+class Polynomial:public Function{
 public:
     //ctors
     Polynomial(){}
@@ -23,6 +24,8 @@ public:
     const vector<double>& getCoefficient() const{
         return coefficient;
     }
+
+    double operator()(double x) const override;
 
     Polynomial operator+(const Polynomial& rhs);
 

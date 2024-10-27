@@ -1,10 +1,19 @@
 #include"Polynomial.hpp"
 
 void Polynomial::clearLeadingZero(){
+    if(!coefficient.empty())
     for(auto it=coefficient.end()-1;it>=coefficient.begin();it--){
         if(isZero(*it)) coefficient.pop_back();
         else break;
     }
+}
+
+double Polynomial::operator()(double x) const{
+    double ret=0;
+    for(auto it=coefficient.end()-1;it>=coefficient.begin();it--){
+        ret=ret*x+*it;
+    }
+    return ret;
 }
 
 Polynomial Polynomial::operator+(const Polynomial& rhs){        
