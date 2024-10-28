@@ -41,5 +41,8 @@
 **/output
 #ref
 /ref
+
+#other
 Theoretical/Chapter2/test.tex
 Programming/Chapter2/test
+Programming/Chapter2/lib/test/test

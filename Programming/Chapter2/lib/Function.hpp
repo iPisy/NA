@@ -7,5 +7,8 @@ public:
 
     //Definition of the derivative function.
     //If we use difference quotient, it might be not precise. So we need override it temporarily.
-    virtual double derivative(double x) const;
+    //those order>=2 is not defined. If it is not override but called, program will throw an exception and exit.
+    virtual double derivative(double x,int order) const;
 };
+
+double throwException();

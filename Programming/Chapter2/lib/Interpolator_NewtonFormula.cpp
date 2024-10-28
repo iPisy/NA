@@ -1,8 +1,7 @@
-#include"Interpolator.hpp"
+#include"Interpolator_NewtonFormula.hpp"
 #include"Polynomial.hpp"
 
-//can solve Hermite interpolation problem, in which for all m_i<=1.
-Polynomial Interpolator::interpolate() const{
+Polynomial Interpolator_N::interpolate() const{
     int l=interpolatingPoints.size();
     vector<vector<double>> differenceQuotientTable(l,vector<double>(l));
     //init
@@ -12,11 +11,7 @@ Polynomial Interpolator::interpolate() const{
     //dp
     for(int j=1;j<l;j++){
         for(int i=0;i<l-j;i++){
-            if(interpolatingPoints[i+j]==interpolatingPoints[i]) differenceQuotientTable[i][j]=
-            f.derivative(interpolatingPoints[i]);
-            else differenceQuotientTable[i][j]=
-                (differenceQuotientTable[i+1][j-1]-differenceQuotientTable[i][j-1])/
-                (interpolatingPoints[i+j]-interpolatingPoints[i]);
+            differenceQuotientTable[i][j]=calculateDifferenceQuotient(differenceQuotientTable,i,j);
         }
     }
     Polynomial p;
@@ -26,4 +21,8 @@ Polynomial Interpolator::interpolate() const{
         pai*=Polynomial({-interpolatingPoints[i],1});
     }
     return p;
+}
+
+double Interpolator_N::calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const{
+    return (table[i+1][j-1]-table[i][j-1])/(interpolatingPoints[i+j]-interpolatingPoints[i]);
 }

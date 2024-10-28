@@ -28,8 +28,9 @@ Polynomial Polynomial::getDerivativePoly() const{
     return deri;
 }
 
-double Polynomial::derivative(double x) const{
-    return getDerivativePoly()(x);
+double Polynomial::derivative(double x,int order) const{
+    if(order==1) return getDerivativePoly()(x);
+    else return throwException();
 }
 
 Polynomial Polynomial::operator+(const Polynomial& rhs) const{        

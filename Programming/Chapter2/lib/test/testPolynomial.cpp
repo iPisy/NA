@@ -8,3 +8,8 @@ int main(){
     cout<<A.getLocalMax({-2,5})<<endl;
     cout<<A.getLocalMin({-1,1})<<endl;
 }
+
+/*
+Compile:
+g++ testPolynomial.cpp ../Interpolator_NewtonFormula.cpp ../Function.cpp ../Polynomial.cpp ../EquationSolver.cpp -o test
+*/

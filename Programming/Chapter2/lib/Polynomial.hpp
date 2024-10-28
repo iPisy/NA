@@ -30,7 +30,7 @@ public:
 
     Polynomial getDerivativePoly() const;
 
-    double derivative(double x) const override;
+    double derivative(double x,int order) const override;
 
     Polynomial operator+(const Polynomial& rhs) const;
 

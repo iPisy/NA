@@ -1,4 +1,4 @@
-#include"../lib/Interpolator.hpp"
+#include"../lib/Interpolator_NewtonFormula.hpp"
 #include"../lib/Function.hpp"
 #include<iostream>
 
@@ -32,8 +32,8 @@ int main(){
     vector<double> interpolatingPoints({0,6,10,13,17,20,28});
     Sp1 sp1;
     Sp2 sp2;
-    Interpolator Sp1_interpolator(sp1,interpolatingPoints);
-    Interpolator Sp2_interpolator(sp2,interpolatingPoints);
+    Interpolator_N Sp1_interpolator(sp1,interpolatingPoints);
+    Interpolator_N Sp2_interpolator(sp2,interpolatingPoints);
 
     cout<<"Answer of (a):"<<endl;
     cout<<"Average weight polynomial for Sp1: "<<endl;

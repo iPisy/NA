@@ -1,4 +1,4 @@
-#include"../lib/Interpolator.hpp"
+#include"../lib/Interpolator_NewtonFormula.hpp"
 #include"../lib/Function.hpp"
 #include<vector>
 
@@ -20,10 +20,10 @@ int main(){
     }
 
     F f;
-    Interpolator interpolator{f};
+    Interpolator_N Interpolator_N{f};
     for(int i=0;i<4;i++){
-        interpolator.setInterpolatingPoints(interpolatingPoints[i]);
-        interpolator.interpolate().print();
+        Interpolator_N.setInterpolatingPoints(interpolatingPoints[i]);
+        Interpolator_N.interpolate().print();
     }
     return 0;
 }

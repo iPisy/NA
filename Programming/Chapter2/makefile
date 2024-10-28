@@ -1,14 +1,28 @@
 .PHONY: clean report run
 
-oList=output/Function.o output/Interpolator.o output/Polynomial.o output/EquationSolver.o
+oList=output/Function.o output/Interpolator_NewtonFormula.o output/Polynomial.o output/EquationSolver.o output/Interpolator_HermiteProblem_NewtonFormula.o
 
-run: output/B output/C output/D
+run: output/B output/C output/D output/E
+	@echo "\033[0;34m----------------------------------------\033[0m"
 	./output/B
+	@echo "\033[0;34m----------------------------------------\033[0m"
 	./output/C
+	@echo "\033[0;34m----------------------------------------\033[0m"
 	./output/D
+	@echo "\033[0;34m----------------------------------------\033[0m"
+	./output/E
+	@echo "\033[0;34m----------------------------------------\033[0m"
+	@cd output && rm -f *.o
 
-report: src/report.tex
-	pdflatex -output-directory=output src/report.tex
+report: output/report.pdf
+
+output/report.pdf: src/report.tex src/references.bib | output
+	cd src && xelatex report.tex
+	cd src && bibtex report
+	cd src && xelatex report.tex
+	cd src && xelatex report.tex
+	mv src/report.pdf output/report.pdf
+	cd src && rm -f *.aux *.bbl *.bcf *.blg *.log *.out *.run.xml *.toc *.synctex.gz report-blx.bib
 
 clean:
 	rm -rf output
@@ -22,6 +36,9 @@ output/C: output/C.o $(oList) | output
 output/D: output/D.o $(oList) | output
 	g++ -g -o output/D output/D.o $(oList)
 
+output/E: output/E.o $(oList) | output
+	g++ -g -o output/E output/E.o $(oList)
+
 output/B.o: src/B.cpp | output
 	g++ -c src/B.cpp -o output/B.o
 
@@ -31,17 +48,23 @@ output/C.o: src/C.cpp | output
 output/D.o: src/D.cpp | output
 	g++ -c src/D.cpp -o output/D.o
 
+output/E.o: src/E.cpp | output
+	g++ -c src/E.cpp -o output/E.o	
+
 output/Function.o: lib/Function.cpp | output
 	g++ -c lib/Function.cpp -o output/Function.o
 
-output/Interpolator.o: lib/Interpolator.cpp | output
-	g++ -c lib/Interpolator.cpp -o output/Interpolator.o
+output/Interpolator_NewtonFormula.o: lib/Interpolator_NewtonFormula.cpp | output
+	g++ -c lib/Interpolator_NewtonFormula.cpp -o output/Interpolator_NewtonFormula.o
 
 output/Polynomial.o: lib/Polynomial.cpp lib/Function.cpp lib/EquationSolver.cpp | output
 	g++ -c lib/Polynomial.cpp -o output/Polynomial.o
 
 output/EquationSolver.o: lib/EquationSolver.cpp lib/Function.cpp | output
 	g++ -c lib/EquationSolver.cpp -o output/EquationSolver.o
+
+output/Interpolator_HermiteProblem_NewtonFormula.o: lib/Interpolator_HermiteProblem_NewtonFormula.cpp | output
+	g++ -c lib/Interpolator_HermiteProblem_NewtonFormula.cpp -o output/Interpolator_HermiteProblem_NewtonFormula.o
 
 output:
 	mkdir -p output

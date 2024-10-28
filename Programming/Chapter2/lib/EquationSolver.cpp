@@ -26,7 +26,7 @@ double NewtonMethod::solve(){
     for(;iterCount<=maxIter;iterCount++){
         double v=F(x);
         if(fabs(v)<eps) break;
-        x=x-v/F.derivative(x);
+        x=x-v/F.derivative(x,1);
     }
     return x;
 }

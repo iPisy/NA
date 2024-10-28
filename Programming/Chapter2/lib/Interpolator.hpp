@@ -4,6 +4,8 @@
 #include<vector>
 using namespace std;
 
+/*Base class of interpolators. 
+It is a virtual class. The function "interpolate" needs to be overridden.*/
 class Interpolator{
 public:
     Interpolator(const Function& f):f(f){}
@@ -14,8 +16,8 @@ public:
     const vector<double>& getInterpolatingPoints() const{
         return interpolatingPoints;
     }
-    Polynomial interpolate() const;
-private:
+    virtual Polynomial interpolate() const=0;
+protected:
     const Function& f;
     vector<double> interpolatingPoints;
 };
