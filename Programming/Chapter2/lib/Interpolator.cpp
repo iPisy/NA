@@ -2,7 +2,7 @@
 #include"Polynomial.hpp"
 
 //can solve Hermite interpolation problem, in which for all m_i<=1.
-Polynomial Interpolator::interpolate(){
+Polynomial Interpolator::interpolate() const{
     int l=interpolatingPoints.size();
     vector<vector<double>> differenceQuotientTable(l,vector<double>(l));
     //init

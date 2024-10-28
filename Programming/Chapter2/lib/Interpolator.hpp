@@ -11,7 +11,10 @@ public:
     void setInterpolatingPoints(const vector<double>& vec){
         interpolatingPoints=vec;
     }
-    Polynomial interpolate();
+    const vector<double>& getInterpolatingPoints() const{
+        return interpolatingPoints;
+    }
+    Polynomial interpolate() const;
 private:
     const Function& f;
     vector<double> interpolatingPoints;

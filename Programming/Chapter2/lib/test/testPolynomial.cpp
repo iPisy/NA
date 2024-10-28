@@ -1,10 +1,10 @@
 #include"../Polynomial.hpp"
+#include<iostream>
+
+using namespace std;
 
 int main(){
-Polynomial P1({2, 3, 3,4,5});
-Polynomial P2({-1, -2, -3, -4, -5});
-    Polynomial c;
-    c+=P1;
-    c+=P2;
-    c.print();
+    Polynomial A({1,-2,1}),a({-1,1});
+    cout<<A.getLocalMax({-2,5})<<endl;
+    cout<<A.getLocalMin({-1,1})<<endl;
 }

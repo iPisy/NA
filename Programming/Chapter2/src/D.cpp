@@ -27,7 +27,13 @@ class F:public Function{
 int main(){
     F f;
     Interpolator interpolator(f,{0,0,3,3,5,5,8,8,13,13});
-    Polynomial poly=interpolator.interpolate();
+    Polynomial p_n_x=interpolator.interpolate();
     cout<<"Answer of (a):"<<endl;
-    cout<<"position: "<<poly(10)<<endl<<"speed: "<<poly.derivative(10)<<endl;
+    cout<<"position: "<<p_n_x(10)<<endl<<"speed: "<<p_n_x.derivative(10)<<endl;
+
+    cout<<"Answer of (b):"<<endl;
+    double maxSpeed=p_n_x.getDerivativePoly().getLocalMax(interpolator.getInterpolatingPoints());
+    cout<<"The max car speed is: "<<maxSpeed<<endl;
+    if(maxSpeed>81) cout<<"The car had ever exceeded the speed limit."<<endl;
+    else cout<<"The car didn't exceed the speed limit."<<endl;
 }

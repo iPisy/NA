@@ -1,6 +1,6 @@
 .PHONY: clean report run
 
-oList=output/Function.o output/Interpolator.o output/Polynomial.o
+oList=output/Function.o output/Interpolator.o output/Polynomial.o output/EquationSolver.o
 
 run: output/B output/C output/D
 	./output/B
@@ -37,8 +37,11 @@ output/Function.o: lib/Function.cpp | output
 output/Interpolator.o: lib/Interpolator.cpp | output
 	g++ -c lib/Interpolator.cpp -o output/Interpolator.o
 
-output/Polynomial.o: lib/Polynomial.cpp lib/Function.cpp | output
+output/Polynomial.o: lib/Polynomial.cpp lib/Function.cpp lib/EquationSolver.cpp | output
 	g++ -c lib/Polynomial.cpp -o output/Polynomial.o
+
+output/EquationSolver.o: lib/EquationSolver.cpp lib/Function.cpp | output
+	g++ -c lib/EquationSolver.cpp -o output/EquationSolver.o
 
 output:
 	mkdir -p output
