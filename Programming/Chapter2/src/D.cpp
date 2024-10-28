@@ -40,6 +40,6 @@ int main(){
     cout<<"Answer of (b):"<<endl;
     double maxSpeed=p_n_x.getDerivativePoly().getLocalMax(interpolator.getInterpolatingPoints());
     cout<<"The max car speed is: "<<maxSpeed<<endl;
-    if(maxSpeed>81) cout<<"The car had ever exceeded the speed limit."<<endl;
-    else cout<<"The car didn't exceed the speed limit."<<endl;
+    if(maxSpeed>81) cout<<"Thus the car had ever exceeded the speed limit."<<endl;
+    else cout<<"Thus the car didn't exceed the speed limit."<<endl;
 }

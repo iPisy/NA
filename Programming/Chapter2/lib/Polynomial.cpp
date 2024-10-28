@@ -148,7 +148,7 @@ void Polynomial::print() const{
             int expo=it-coefficient.begin();
             if(expo==0);
             else{
-                cout<<"*x";
+                cout<<"x";
                 if(expo==1);
                 else cout<<"^"<<expo;
             }

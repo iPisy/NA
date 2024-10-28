@@ -16,6 +16,8 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 
+\usepackage{microtype}
+
 \begin{document}
 % =================================================
 \title{Report For Ch2 Programming Hw}
@@ -35,11 +37,24 @@
 
 
 % ============================================
-\section*{A.}
+\section*{A: Design of Newton formula interpolation, Hermite problem interpolation and Bezier curve}
 
 
 
 \section*{B.}
+
+We use \texttt{class Interpolator\_N} to interpolate with Newton formula. 
+We set the exact function of interpolator. 
+Then we set the interpolating points and do interpolation. Repeated it 4 times, we get 4 interpolation polynomial.
+
+\begin{flalign*}
+  & p_1(x) = 1 - 0.0384615x^2 \\
+  & p_3(x) = 1 - 0.171088x^2 + 0.00530504x^4 \\
+  & p_5(x) = 1 - 0.351364x^2 + 0.0335319x^4 - 0.000840633x^6 \\
+  & p_7(x) = 1 - 0.528121x^2 + 0.0981875x^4 - 0.00658016x^6 + 0.000137445x^8 
+\end{flalign*}
+
+Thus we can plot the polynomials against the exact function. It is presented below.
 
 \begin{center}
   \begin{tikzpicture}
@@ -76,7 +91,20 @@
   \end{tikzpicture}
 \end{center}
 
+It can be easily observed that 
+as the number of interpolating points increases, 
+the interpolation polynomial does not consistently converge to the original function at the ends of the interval, 
+which is known as Runge phenomenon.
+
 \section*{C.}
+
+Like Problem b, 
+We use \texttt{class Interpolator\_N} to interpolate with Newton formula. 
+We set the exact function of interpolator. 
+Then we set the interpolating points and do interpolation. Repeated it 4 times, we get 4 interpolation polynomial, 
+which is presented in the output of the program.
+
+Thus we can plot the polynomials against the exact function. It is presented below.
 
 \begin{center}
   \begin{tikzpicture}
@@ -113,11 +141,45 @@
   \end{tikzpicture}
   \end{center}
 
+We choose the interpolating points as the zeros of the Chebyshev polynomial.
+It can be observed that 
+as the number of interpolating points increases, 
+the interpolation polynomial have the tendency of consistently converging to the original function.
+This is true: selecting the interpolation points as the zeros of the Chebyshev polynomial can compress the remainder.
+
 \section*{D.}
 
 
+We use \texttt{class Interpolator\_Hermite\_N} to interpolate this Hermite problem with Newton formula.
+We set the exact function and the interpolating points of the interpolator. 
+After interpolation, we get interpolation polynomial p\_n\_x. 
+
+$$p_n(x)=75x + 7.16191x^2 - 10.0953x^3 + 5.50812x^4 - 1.5383x^5 + 0.243041x^6 - 0.0218757x^7 + 0.00104059x^8 - 0.00000202236x^9$$
+
+p\_n\_x is the object of \texttt{class Polynomial}, so we can use the member function of this class 
+to get the answer:
+\begin{itemize}
+  \item position = 742.503 ft (t=10)
+  \item speed: 48.3817 ft/s (t=10)
+  \item max speed: 114.438 ft/s
+\end{itemize}
+
+Thus the car had ever exceeded the speed limit.
+
 \section*{E.}
 
+We use \texttt{class Interpolator\_N} to interpolate with Newton formula. 
+We create 2 interpolators, initializing it with 2 samples and do interpolation. 
+Then we get 2 interpolation polynomials, representing average weight curve for each sample.
+
+Average weight polynomial for Sp1: 
+$$p_6(x)=6.67 - 43.0127x + 16.2855x^2 - 2.11512x^3 + 0.128281x^4 - 0.00371557x^5 + 0.0000041477x^6$$
+Average weight polynomial for Sp2: 
+$$p_6(x)=66.67 - 5.85018x + 2.98227x^2 - 0.424283x^3 + 0.0265858x^4 - 0.000777473x^5 + 0.00000086768x^6$$
+
+For E(b), the interpolation can only apply to the points within the section. 
+If the point is out of the section, $f^{n+1}(x)$ may have no definition or can be arbitrarily huge. 
+Thus the remainder can be arbitrarily huge, the interpolation is now meaningless.
 
 \section*{F.}
 

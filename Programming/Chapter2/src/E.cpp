@@ -44,9 +44,14 @@ int main(){
     
     cout<<"Answer of (b):"<<endl;
     cout<<"Define that a certain sample of larvae will die at day x "
-    <<"iff the value of average weight polynomial at day x <=0"<<endl;
+    <<"iff average_weight_polynomial(x) <= 0"<<endl;
+
+    cout<<endl;
     cout<<"The average weight of Sp1 at day 43 is: "<<Sp1_interpolator.interpolate()(43)<<endl;
     cout<<"The average weight of Sp2 at day 43 is: "<<Sp2_interpolator.interpolate()(43)<<endl;
+    cout<<endl;
+
     cout<<"However, the interpolation can only apply to the points within the section. "
-    <<"So we need further analysis, which will be presented in report."<<endl;
+    <<"If the point is out of the section, f^{n+1}_(x) may have no definition or can be arbitrarily huge. "
+    <<"Thus the remainder can be arbitrarily huge, the interpolation is now meaningless."<<endl;
 }
