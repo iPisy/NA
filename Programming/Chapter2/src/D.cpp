@@ -30,6 +30,7 @@ int main(){
     Polynomial p_n_x=interpolator.interpolate();
     cout<<"Answer of (a):"<<endl;
     cout<<"position: "<<p_n_x(10)<<endl<<"speed: "<<p_n_x.derivative(10)<<endl;
+    cout<<endl;
 
     cout<<"Answer of (b):"<<endl;
     double maxSpeed=p_n_x.getDerivativePoly().getLocalMax(interpolator.getInterpolatingPoints());
