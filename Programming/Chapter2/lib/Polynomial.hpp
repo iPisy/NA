@@ -85,7 +85,7 @@ public:
     
     void print() const;
     
-private:
+protected:
     vector<double> coefficient;
 
     void clearLeadingZero();
