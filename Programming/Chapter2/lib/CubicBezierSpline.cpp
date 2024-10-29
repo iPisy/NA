@@ -38,14 +38,15 @@ void CubicBizierSpline::print_Latex(string filename){
     file << "\\begin{axis}[\n";
     file << "    domain=-10:10,\n";
     file << "    samples=100,\n";
-    file << "    xmin=-10, xmax=10,\n";
+    file << "    xmin=-3, xmax=3,\n";
     file << "    ymin=-10, ymax=10,\n";
     file << "    axis lines=center,\n";
     file << "    xlabel=$x$, ylabel=$y$,\n";
     file << "    title={Parametric Equations}]\n";
     for(auto it=BezierCurveList.begin();it!=BezierCurveList.end();it++){
         for(auto it_=(*it).begin();it_!=(*it).end();it_++){
-            file << "\\addplot[blue, thick, domain=-10:10] (\n";
+            file << "\\addplot[blue, thick, domain=";
+            file<<to_string((**it).get_t_0())<<":"<<to_string((**it).get_t_1())<<"] (\n";
             string foo=(**it_).print_Latex_format();
             file << foo;
             file << ");\n";

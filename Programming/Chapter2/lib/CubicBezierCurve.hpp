@@ -28,6 +28,14 @@ public:
      * @brief Print the curve it generated into .tex file.
     */
     string print_Latex_format();
+
+    double get_t_0(){
+        return t_0;
+    }
+
+    double get_t_1(){
+        return t_1;
+    }
 private:
     const Curve& exactCurve;
     double t_0,t_1;///< 2 control point with its derivation.
