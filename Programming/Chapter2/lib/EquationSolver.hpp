@@ -1,3 +1,7 @@
+/**
+ * @file EquationSolver.hpp
+ * @brief Include declaration of 4 class, all of them are equation solvers.
+*/
 #pragma once
 
 #include"Function.hpp"
@@ -6,6 +10,11 @@
 
 using namespace std;
 
+/**
+ * @brief The base class and an abstract class, defining the characteristics of equation solver. 
+ * 
+ * The function `solve` needs to be implemented by subclasses. 
+*/
 class EquationSolver{
 protected:
     const Function& F;
@@ -15,6 +24,9 @@ public:
     virtual double solve() = 0;
 };
 
+/**
+ * @brief The subclass of `EquationSolver`. It solves the equation by bisection method.
+*/
 class BisectionMethod : public EquationSolver {
 private:
     double a, b;
@@ -33,6 +45,9 @@ public:
     virtual double solve() override;
 };
 
+/**
+ * @brief The subclass of `EquationSolver`. It solves the equation by Newton method.
+*/
 class NewtonMethod : public EquationSolver {
 private:
     double x0;
@@ -50,6 +65,9 @@ public:
     virtual double solve() override;
 };
 
+/**
+ * @brief The subclass of `EquationSolver`. It solves the equation by secant method.
+*/
 class SecantMethod: public EquationSolver{
 private:
     double x0,x1;

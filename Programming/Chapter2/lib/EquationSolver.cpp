@@ -1,3 +1,7 @@
+/**
+ * @file
+ * @brief Implement the function in `EquationSolver.hpp`.
+*/
 #include"EquationSolver.hpp"
 
 double BisectionMethod::solve(){

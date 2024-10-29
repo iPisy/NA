@@ -1,3 +1,7 @@
+/**
+ * @file
+ * @brief Implement the function in `Interpolator_NewtonFormula.hpp`.
+*/
 #include"Interpolator_NewtonFormula.hpp"
 #include"Polynomial.hpp"
 

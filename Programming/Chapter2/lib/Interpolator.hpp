@@ -1,11 +1,18 @@
+/**
+ * @file
+ * @brief Include declaration of class `Interpolator`
+*/
 #pragma once
 #include"Polynomial.hpp"
 #include"Function.hpp"
 #include<vector>
 using namespace std;
 
-/*Base class of interpolators. 
-It is a virtual class. The function "interpolate" needs to be overridden.*/
+/**
+ * @brief The base class and an abstract class, defining interpolators.
+ * 
+ * The function `interpolate` needs to be implemented by subclasses. 
+*/
 class Interpolator{
 public:
     Interpolator(const Function& f):f(f){}

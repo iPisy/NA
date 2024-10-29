@@ -7,7 +7,10 @@ using namespace std;
 
 const double PI=acos(-1.);
 
-class F:public Function{
+/**
+ * @brief The function of Question C.
+*/
+class F_C:public Function{
     double operator()(double x) const override{
         return 1/(1+25*x*x);
     }
@@ -21,7 +24,7 @@ int main(){
             interpolatingPoints[i].push_back(cos((2*j-1)*PI/(2*n)));
         }
     }
-    F f;
+    F_C f;
     Interpolator_N Interpolator_N{f};
     for(int i=0;i<4;i++){
         Interpolator_N.setInterpolatingPoints(interpolatingPoints[i]);

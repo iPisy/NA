@@ -1,3 +1,7 @@
+/**
+ * @file
+ * @brief Implement the function in `Polynomial.hpp`.
+*/
 #include"Polynomial.hpp"
 #include<limits>
 

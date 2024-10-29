@@ -5,7 +5,10 @@
 
 using namespace std;
 
-class F:public Function{
+/**
+ * @brief The function of Question B.
+*/
+class F_B:public Function{
 public:
     double operator()(double x) const override{
         return 1/(1+x*x);
@@ -20,7 +23,7 @@ int main(){
         }
     }
 
-    F f;
+    F_B f;
     Interpolator_N Interpolator_N{f};
     for(int i=0;i<4;i++){
         Interpolator_N.setInterpolatingPoints(interpolatingPoints[i]);

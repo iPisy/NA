@@ -14,7 +14,9 @@ run: output/B output/C output/D output/E
 	@echo "\033[0;34m----------------------------------------\033[0m"
 	@cd output && rm -f *.o
 
-report: output/report.pdf
+report: output/report.pdf output/html/index.html
+	xdg-open output/report.pdf
+	xdg-open output/html/index.html
 
 output/report.pdf: src/report.tex src/references.bib | output
 	cd src && xelatex report.tex
@@ -65,6 +67,9 @@ output/EquationSolver.o: lib/EquationSolver.cpp lib/Function.cpp | output
 
 output/Interpolator_HermiteProblem_NewtonFormula.o: lib/Interpolator_HermiteProblem_NewtonFormula.cpp | output
 	g++ -c lib/Interpolator_HermiteProblem_NewtonFormula.cpp -o output/Interpolator_HermiteProblem_NewtonFormula.o
+
+output/html/index.html | output: Doxyfile
+	doxygen Doxyfile
 
 output:
 	mkdir -p output

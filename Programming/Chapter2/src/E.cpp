@@ -4,7 +4,10 @@
 
 using namespace std;
 
-class Sp1:public Function{
+/**
+ * @brief The function of Question E, sample 1.
+*/
+class F_E_Sp1:public Function{
     double operator()(double x) const override{
         if(x==0) return 6.67;
         if(x==6) return 17.3;
@@ -16,7 +19,10 @@ class Sp1:public Function{
     }
 };
 
-class Sp2:public Function{
+/**
+ * @brief The function of Question E, sample 2.
+*/
+class F_E_Sp2:public Function{
     double operator()(double x) const override{
         if(x==0) return 6.67;
         if(x==6) return 16.1;
@@ -30,8 +36,8 @@ class Sp2:public Function{
 
 int main(){
     vector<double> interpolatingPoints({0,6,10,13,17,20,28});
-    Sp1 sp1;
-    Sp2 sp2;
+    F_E_Sp1 sp1;
+    F_E_Sp2 sp2;
     Interpolator_N Sp1_interpolator(sp1,interpolatingPoints);
     Interpolator_N Sp2_interpolator(sp2,interpolatingPoints);
 

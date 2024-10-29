@@ -1,3 +1,7 @@
+/**
+ * @file
+ * @brief Implement the function in `Interpolator_HermiteProblem_NewtonFormula.hpp`.
+*/
 #include"Interpolator_HermiteProblem_NewtonFormula.hpp"
 
 double factorial(int x){

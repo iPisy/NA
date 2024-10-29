@@ -5,7 +5,10 @@
 
 using namespace std;
 
-class F:public Function{
+/**
+ * @brief The function of Question D.
+*/
+class F_D:public Function{
     double operator()(double x) const override{{
             
         }
@@ -30,7 +33,7 @@ class F:public Function{
 };
 
 int main(){
-    F f;
+    F_D f;
     Interpolator_Hermite_N interpolator(f,{0,0,3,3,5,5,8,8,13,13});
     Polynomial p_n_x=interpolator.interpolate();
     cout<<"Answer of (a):"<<endl;

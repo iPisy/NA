@@ -1,5 +1,15 @@
+/**
+ * @file
+ * @brief Include declaration of class `Function`.
+*/
 #pragma once
 //This class is an abstract class. It defines what function is.
+
+/**
+ * @brief The base class and an abstract class, defining the characteristics of function.
+ *  
+ * Users can derive it by offering the definition of assignment and derivation operation to get a certain function. 
+*/
 class Function{
 public:
     //Definition of the function.
