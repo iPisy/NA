@@ -7,19 +7,19 @@
 
 using namespace std;
 
-CubicBizierSpline::CubicBizierSpline(const vector<Curve&>& exactCurveList,int m):
+CubicBizierSpline::CubicBizierSpline(const vector<Curve*>& exactCurveList,int m):
 exactCurveList(exactCurveList){
     vector<double> controlPoints;
     int n=exactCurveList.size();
     int curveCnt_ExactCurve=m/n;
     for(auto it=exactCurveList.begin();it!=exactCurveList.end();it++){
-        vector<CubicBezierCurve&> foo;
-        double l=(*it).get_l();
-        double r=(*it).get_r();
+        vector<CubicBezierCurve*> foo;
+        double l=(**it).get_l();
+        double r=(**it).get_r();
         double add=(r-l)/curveCnt_ExactCurve;
         for(int i=1;i<=curveCnt_ExactCurve;i++){
-            CubicBezierCurve* bar=new CubicBezierCurve{*it,l,l+add};
-            foo.push_back(*bar);
+            CubicBezierCurve* bar=new CubicBezierCurve{**it,l,l+add};
+            foo.push_back(bar);
             l+=add;
         }
         BezierCurveList.push_back(foo);
@@ -27,8 +27,8 @@ exactCurveList(exactCurveList){
 }
 
 
-void CubicBizierSpline::print_Latex(){
-    ofstream file("Q6.tex");
+void CubicBizierSpline::print_Latex(string filename){
+    ofstream file(filename);
 
     file << "\\documentclass{standalone}\n";
     file << "\\usepackage{pgfplots}\n";
@@ -46,7 +46,7 @@ void CubicBizierSpline::print_Latex(){
     for(auto it=BezierCurveList.begin();it!=BezierCurveList.end();it++){
         for(auto it_=(*it).begin();it_!=(*it).end();it_++){
             file << "\\addplot[blue, thick, domain=-10:10] (\n";
-            string foo=(*it_).print_Latex_format();
+            string foo=(**it_).print_Latex_format();
             file << foo;
             file << ");\n";
         }

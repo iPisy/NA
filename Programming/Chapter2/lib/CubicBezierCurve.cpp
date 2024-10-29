@@ -23,23 +23,23 @@ Curve CubicBezierCurve::generateCurve(){
         q_2.push_back(p_1[i]-p_1_d[i]/3);
     }
 
-    vector<const Function&> init;
+    vector<const Function*> init;
     for(int i=0;i<dimension;i++){
         Polynomial* poly=new Polynomial;
         (*poly)+=(BernsteinPolynomial{3,0}*q_0[i]+BernsteinPolynomial{3,1}*q_1[i]+
         BernsteinPolynomial{3,2}*q_2[i]+BernsteinPolynomial{3,3}*q_3[i]);
-        init.push_back(*poly);
+        init.push_back(poly);
     }
     return Curve(init,t_0,t_1);
 }
 
 string CubicBezierCurve::print_Latex_format(){
     Curve BezierCurve=generateCurve();
-    const vector<const Function&> func=BezierCurve.getCurve_Function();
+    const vector<const Function*> func=BezierCurve.getCurve_Function();
     string ret;
     for(auto it=func.begin();it!=func.end();it++){
         string foo="{";
-        foo+=(static_cast<const Polynomial&>(*it)).print_Latex();
+        foo+=(static_cast<const Polynomial*>(*it))->print_Latex();
         foo+="}";
         if(it!=func.end()-1) foo+=",";
         ret+=foo;

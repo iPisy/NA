@@ -13,11 +13,11 @@ public:
     /**
      * @param m the number of the control points.
     */
-    CubicBizierSpline(const vector<Curve&>& exactCurveList,int m);
+    CubicBizierSpline(const vector<Curve*>& exactCurveList,int m);
 
-    void print_Latex();
+    void print_Latex(string filename);
 
 private:
-    vector<Curve&> exactCurveList;
-    vector<vector<CubicBezierCurve&>> BezierCurveList;
+    vector<Curve*> exactCurveList;
+    vector<vector<CubicBezierCurve*>> BezierCurveList;
 };

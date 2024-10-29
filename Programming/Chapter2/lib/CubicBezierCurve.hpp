@@ -6,6 +6,9 @@
 #pragma once
 #include"Function.hpp"
 #include"Curve.hpp"
+#include<string>
+
+using namespace std;
 
 /**
  * @brief A cubic Bezier curve generator. The exact curve and the control points should be offered.

@@ -1,8 +1,8 @@
 .PHONY: clean report run
 
-oList=output/Function.o output/Interpolator_NewtonFormula.o output/Polynomial.o output/EquationSolver.o output/Interpolator_HermiteProblem_NewtonFormula.o
+oList=output/Function.o output/Interpolator_NewtonFormula.o output/Polynomial.o output/EquationSolver.o output/Interpolator_HermiteProblem_NewtonFormula.o output/Curve.o output/CubicBezierSpline.o output/CubicBezierCurve.o output/BernsteinPolynomial.o
 
-run: output/B output/C output/D output/E
+run: output/B output/C output/D output/E output/F
 	@echo "\033[0;34m----------------------------------------\033[0m"
 	./output/B
 	@echo "\033[0;34m----------------------------------------\033[0m"
@@ -11,6 +11,8 @@ run: output/B output/C output/D output/E
 	./output/D
 	@echo "\033[0;34m----------------------------------------\033[0m"
 	./output/E
+	@echo "\033[0;34m----------------------------------------\033[0m"
+	./output/F
 	@echo "\033[0;34m----------------------------------------\033[0m"
 	@cd output && rm -f *.o
 
@@ -53,6 +55,9 @@ output/D.o: src/D.cpp | output
 output/E.o: src/E.cpp | output
 	g++ -c src/E.cpp -o output/E.o	
 
+output/F.o: src/F.cpp | output
+	g++ -c src/F.cpp -o output/F.o		
+
 output/Function.o: lib/Function.cpp | output
 	g++ -c lib/Function.cpp -o output/Function.o
 
@@ -67,6 +72,18 @@ output/EquationSolver.o: lib/EquationSolver.cpp lib/Function.cpp | output
 
 output/Interpolator_HermiteProblem_NewtonFormula.o: lib/Interpolator_HermiteProblem_NewtonFormula.cpp | output
 	g++ -c lib/Interpolator_HermiteProblem_NewtonFormula.cpp -o output/Interpolator_HermiteProblem_NewtonFormula.o
+
+output/Curve.o: lib/Curve.cpp | output
+	g++ -c lib/Curve.cpp lib/Function.cpp -o output/Curve.o
+
+output/CubicBezierSpline.o: lib/CubicBezierSpline.cpp | output
+	g++ -c lib/CubicBezierSpline.cpp -o output/CubicBezierSpline.o
+
+output/CubicBezierCurve.o: lib/CubicBezierCurve.cpp | output
+	g++ -c lib/CubicBezierCurve.cpp -o output/CubicBezierCurve.o
+
+output/BernsteinPolynomial.o: lib/BernsteinPolynomial.cpp | output
+	g++ -c lib/BernsteinPolynomial.cpp -o output/BernsteinPolynomial.o
 
 output/html/index.html | output: Doxyfile
 	doxygen Doxyfile

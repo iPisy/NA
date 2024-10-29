@@ -8,7 +8,7 @@
 vector<double> Curve::operator()(double t) const{
     vector<double> ret;
     for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
-        ret.push_back((*it)(t));
+        ret.push_back((**it)(t));
     }
     return ret;
 }
@@ -17,7 +17,7 @@ vector<double> Curve::derivative(double t,int order) const{
     if(order==1){
         vector<double> ret;
         for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
-            ret.push_back((*it).derivative(t,1));
+            ret.push_back((**it).derivative(t,1));
         }
         return ret;
     }
@@ -31,7 +31,7 @@ vector<vector<double>> Curve::generatePointList(int count){
         double t=l;
         vector<double> point;
         for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
-            point.push_back((*it)(t));
+            point.push_back((**it)(t));
         }
         ret.push_back(point);
         t+=(l-r)/(count-1);

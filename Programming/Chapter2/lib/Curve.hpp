@@ -20,7 +20,7 @@ public:
     */
     vector<vector<double>> generatePointList(int count);
 
-    Curve(const vector<const Function&> curve_Function,double l,double r):
+    Curve(const vector<const Function*>& curve_Function,double l,double r):
     curve_Function(curve_Function), l(l), r(r){};
 
     int getDimension() const{
@@ -35,11 +35,11 @@ public:
         return r;
     }
 
-    const vector<const Function&>& getCurve_Function() const{
+    const vector<const Function*>& getCurve_Function() const{
         return curve_Function;
     }
-private:
-    vector<const Function&> curve_Function;
+protected:
+    vector<const Function*> curve_Function;
 
     /**
      * @brief The 2 endpoints of the domain of definition, also known as characteristic points.
