@@ -43,6 +43,9 @@ output/D: output/D.o $(oList) | output
 output/E: output/E.o $(oList) | output
 	g++ -g -o output/E output/E.o $(oList)
 
+output/F: output/F.o $(oList) | output
+	g++ -g -o output/F output/F.o $(oList)
+
 output/B.o: src/B.cpp | output
 	g++ -c src/B.cpp -o output/B.o
 
@@ -73,16 +76,16 @@ output/EquationSolver.o: lib/EquationSolver.cpp lib/Function.cpp | output
 output/Interpolator_HermiteProblem_NewtonFormula.o: lib/Interpolator_HermiteProblem_NewtonFormula.cpp | output
 	g++ -c lib/Interpolator_HermiteProblem_NewtonFormula.cpp -o output/Interpolator_HermiteProblem_NewtonFormula.o
 
-output/Curve.o: lib/Curve.cpp | output
-	g++ -c lib/Curve.cpp lib/Function.cpp -o output/Curve.o
+output/Curve.o: lib/Curve.cpp lib/Function.cpp | output
+	g++ -c lib/Curve.cpp -o output/Curve.o 
 
-output/CubicBezierSpline.o: lib/CubicBezierSpline.cpp | output
+output/CubicBezierSpline.o: lib/CubicBezierSpline.cpp lib/CubicBezierCurve.cpp | output
 	g++ -c lib/CubicBezierSpline.cpp -o output/CubicBezierSpline.o
 
-output/CubicBezierCurve.o: lib/CubicBezierCurve.cpp | output
+output/CubicBezierCurve.o: lib/CubicBezierCurve.cpp lib/Curve.cpp lib/Function.cpp lib/BernsteinPolynomial.cpp lib/Polynomial.cpp | output
 	g++ -c lib/CubicBezierCurve.cpp -o output/CubicBezierCurve.o
 
-output/BernsteinPolynomial.o: lib/BernsteinPolynomial.cpp | output
+output/BernsteinPolynomial.o: lib/BernsteinPolynomial.cpp lib/Polynomial.cpp | output
 	g++ -c lib/BernsteinPolynomial.cpp -o output/BernsteinPolynomial.o
 
 output/html/index.html | output: Doxyfile
