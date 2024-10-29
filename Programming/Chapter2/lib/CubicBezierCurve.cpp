@@ -32,3 +32,17 @@ Curve CubicBezierCurve::generateCurve(){
     }
     return Curve(init,t_0,t_1);
 }
+
+string CubicBezierCurve::print_Latex_format(){
+    Curve BezierCurve=generateCurve();
+    const vector<const Function&> func=BezierCurve.getCurve_Function();
+    string ret;
+    for(auto it=func.begin();it!=func.end();it++){
+        string foo="{";
+        foo+=(static_cast<const Polynomial&>(*it)).print_Latex();
+        foo+="}";
+        if(it!=func.end()-1) foo+=",";
+        ret+=foo;
+    }
+    return ret;
+}

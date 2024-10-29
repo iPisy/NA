@@ -26,7 +26,25 @@ public:
     int getDimension() const{
         return curve_Function.size();
     }
+
+    double get_l() const{
+        return l;
+    }
+
+    double get_r() const{
+        return r;
+    }
+
+    const vector<const Function&>& getCurve_Function() const{
+        return curve_Function;
+    }
 private:
     vector<const Function&> curve_Function;
-    double l,r;///< The 2 endpoint of the domain of definition. We assume the curve is closed temporarily.
+
+    /**
+     * @brief The 2 endpoints of the domain of definition, also known as characteristic points.
+     * 
+     * We assume the curve is closed temporarily.
+    */
+    double l,r;
 };

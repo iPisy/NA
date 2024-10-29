@@ -24,7 +24,7 @@ public:
     /**
      * @brief Print the curve it generated into .tex file.
     */
-    void print_Latex_format();
+    string print_Latex_format();
 private:
     const Curve& exactCurve;
     double t_0,t_1;///< 2 control point with its derivation.

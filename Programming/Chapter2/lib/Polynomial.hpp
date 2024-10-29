@@ -84,6 +84,8 @@ public:
     double getLocalMin(const vector<double>& section) const;
     
     void print() const;
+
+    string print_Latex() const;
     
 protected:
     vector<double> coefficient;

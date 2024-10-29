@@ -162,6 +162,40 @@ void Polynomial::print() const{
     cout<<endl;
 }
 
+string Polynomial::print_Latex() const{
+    bool firstSignFlag=1;
+    bool printFlag=0;
+    string ret;
+    for(auto it=coefficient.begin();it!=coefficient.end();it++){
+        if(isZero(*it)) continue;
+        else{
+            printFlag=1;
+            if(!firstSignFlag) ret+=" ";
+            if(*it<0) ret+="- ";
+            else{
+                if(firstSignFlag);
+                else{
+                    ret+="+ ";
+                }
+            }
+            if(firstSignFlag) firstSignFlag=0;
+            ret+=to_string(fabs(*it));
+            int expo=it-coefficient.begin();
+            if(expo==0);
+            else{
+                ret+="*x";
+                if(expo==1);
+                else{
+                    ret+="^";
+                    ret+=to_string(expo);
+                }
+            }
+        }
+    }
+    if(!printFlag) ret+="0";
+    return ret;
+}
+
 double Polynomial::getLocalMax(const vector<double>& section) const{
     return getLocalExtremeValue(section,extremeType::MAX);
 }
