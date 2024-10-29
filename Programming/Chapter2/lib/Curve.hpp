@@ -22,6 +22,10 @@ public:
 
     Curve(const vector<const Function&> curve_Function,double l,double r):
     curve_Function(curve_Function), l(l), r(r){};
+
+    int getDimension(){
+        return curve_Function.size();
+    }
 private:
     vector<const Function&> curve_Function;
     double l,r;///< The 2 endpoint of the domain of definition. We assume the curve is closed temporarily.
