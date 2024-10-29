@@ -23,7 +23,7 @@ public:
     Curve(const vector<const Function&> curve_Function,double l,double r):
     curve_Function(curve_Function), l(l), r(r){};
 
-    int getDimension(){
+    int getDimension() const{
         return curve_Function.size();
     }
 private:
