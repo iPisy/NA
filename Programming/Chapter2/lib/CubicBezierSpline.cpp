@@ -46,7 +46,7 @@ void CubicBizierSpline::print_Latex(string filename){
     for(auto it=BezierCurveList.begin();it!=BezierCurveList.end();it++){
         for(auto it_=(*it).begin();it_!=(*it).end();it_++){
             file << "\\addplot[blue, thick, domain=";
-            file<<to_string((**it).get_t_0())<<":"<<to_string((**it).get_t_1())<<"] (\n";
+            file<<to_string((**it_).get_t_0())<<":"<<to_string((**it_).get_t_1())<<"] (\n";
             string foo=(**it_).print_Latex_format();
             file << foo;
             file << ");\n";
