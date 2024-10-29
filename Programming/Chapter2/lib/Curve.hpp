@@ -11,7 +11,7 @@ using namespace std;
 
 class Curve{
 public:
-    virtual vector<double> operator()(double t) const=0;
+    virtual vector<double> operator()(double t) const;
     virtual vector<double> derivative(double t,int order) const;
     /**
      * @brief Generate uniform points within the domain of definition.

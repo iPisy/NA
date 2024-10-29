@@ -5,6 +5,14 @@
 
 #include"Curve.hpp"
 
+vector<double> Curve::operator()(double t) const{
+    vector<double> ret;
+    for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
+        ret.push_back((*it)(t));
+    }
+    return ret;
+}
+
 vector<double> Curve::derivative(double t,int order) const{
     if(order==1){
         vector<double> ret;
