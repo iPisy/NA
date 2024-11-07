@@ -18,11 +18,11 @@ double combinatorialNumber(int m,int n){
     return ret;
 }
 
-BernsteinPolynomial::BernsteinPolynomial(int n,int k):Polynomial({combinatorialNumber(n,k)}){
+BernsteinPolynomial::BernsteinPolynomial(int n,int k):Polynomial(vector<double>{combinatorialNumber(n,k)}){
     for(int i=1;i<=k;i++){
-        (*this)*=Polynomial({0,1});
+        (*this)*=Polynomial(vector<double>{0,1});
     }
     for(int i=1;i<=n-k;i++){
-        (*this)*=Polynomial({1,-1});
+        (*this)*=Polynomial(vector<double>{1,-1});
     }
 }

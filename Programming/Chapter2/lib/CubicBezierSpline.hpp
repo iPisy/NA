@@ -1,23 +1,15 @@
 /**
  * @file
- * @brief Include the declaration of class `CubicBrzierSpline`
-*/
+ * @brief declaration of @ref CubicBezierSpline.
+ */
+
 #pragma once
-#include"CubicBezierCurve.hpp"
-#include<fstream>
+#include"BezierSpline.hpp"
 
-using namespace std;
-
-class CubicBizierSpline{
+class CubicBezierSpline:public BezierSpline{
 public:
-    /**
-     * @param m the number of the control points.
-    */
-    CubicBizierSpline(const vector<Curve*>& exactCurveList,int m);
+    CubicBezierSpline():BezierSpline(3,2){}
+    CubicBezierSpline(const CurvePointList& curvePointList):BezierSpline(3,curvePointList,2){}
 
-    void print_Latex(string filename);
-
-private:
-    vector<Curve*> exactCurveList;
-    vector<vector<CubicBezierCurve*>> BezierCurveList;
+    void generateSpline() override;
 };

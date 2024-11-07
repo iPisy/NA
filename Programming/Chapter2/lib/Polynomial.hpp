@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include declaration of class `Polynomial`.
+ * @brief Include declaration of class `Polynomial` and some functions concerning vector<Polynomial>.
 */
 #pragma once
 #include<iostream>
@@ -9,9 +9,8 @@
 #include<algorithm>
 #include"Function.hpp"
 #include"EquationSolver.hpp"
+#include"DS&Constants.hpp"
 using namespace std;
-
-#define EPSILON (1e-14)
 
 inline bool isZero(double x){
     if(abs(x)<EPSILON) return 1;
@@ -23,22 +22,25 @@ inline bool isZero(double x){
 */
 class Polynomial:public Function{
 public:
+
     //ctors
-    Polynomial(){}
-    Polynomial(const vector<double>& init):coefficient(init){}
+    Polynomial(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
+    Function(l,r,leftClosed,rightClosed){}
+    Polynomial(const vector<double>& init,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
+    coefficient(init),Function(l,r,leftClosed,rightClosed){}
 
     const vector<double>& getCoefficient() const{
         return coefficient;
     }
 
-    double operator()(double x) const override;
-
     /**
-     * @brief It returns the derivative function of the Polynomial.
+     * @brief It returns the derivative function of Polynomial(this). Public method.
+     * 
+     * @param order the order of the derivative function.
     */
-    Polynomial getDerivativePoly() const;
+    Polynomial getDerivative(int order) const;
 
-    double derivative(double x,int order) const override;
+    double derivativeValue(double x,int order) const override;
 
     Polynomial operator+(const Polynomial& rhs) const;
 
@@ -68,37 +70,55 @@ public:
     vector<double> getExtremePoints() const;
 
     /**
-     * @brief Public interface. To get the maximum in a section, 
-     * which is offered by the both end of vector.
+     * @brief To get the maximum. Public method.
      * 
-     * It calls the private function `getLocalExtremeValue`.
+     * It calls the private function @ref getLocalExtremeValue.
     */
-    double getLocalMax(const vector<double>& section) const;
+    double getLocalMax() const;
 
     /**
-     * @brief Public interface. To get the minimum in a section, 
-     * which is offered by the both end of vector.
+     * @brief To get the minimum. Public method.
      * 
-     * It calls the private function `getLocalExtremeValue`.
+     * It calls the private function @ref getLocalExtremeValue.
     */
-    double getLocalMin(const vector<double>& section) const;
+    double getLocalMin() const;
     
     void print() const;
 
-    string print_Latex() const;
+    /**
+     * @brief Generate string that illustrate the polynomial and can be drawn with LaTex.
+    */
+    string getLatexFormatString() const;
     
 protected:
     vector<double> coefficient;
-
-    void clearLeadingZero();
 
     enum class extremeType{
         MAX,MIN
     };
 
     /**
-     * @brief Private implementation of public interface `getLocalMax` and `getLocalMin`.
+     * @brief Private method of public method @ref getLocalMax and @ref getLocalMin.
     */
-    double getLocalExtremeValue(const vector<double>& section,extremeType type) const;
+    double getLocalExtremeValue(extremeType type) const;
 
+private:
+    double getValue(double x) const override;
+
+    /**
+     * @brief It returns derivative function of the Polynomial `in`. Internal method.
+     * 
+     * @param in primitive function.
+     * @param order the order of the derivative function.
+    */
+    Polynomial getDerivative(const Polynomial& in,int order) const;
+
+    /**
+     * @brief clear those coefficient=0 in high-order term after a certain operation.
+    */
+    void clearLeadingZero();
 };
+
+vector<Polynomial> operator*(vector<Polynomial> polys,const Polynomial& rhs);
+
+vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polys);

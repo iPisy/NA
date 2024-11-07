@@ -14,8 +14,8 @@ using namespace std;
 */
 class Interpolator_N:public Interpolator{
 public:
-    Interpolator_N(const Function& f):Interpolator(f){}
-    Interpolator_N(const Function& f,const vector<double>& vec):Interpolator(f,vec){}
+    Interpolator_N():Interpolator(){}
+    Interpolator_N(const FunctionPointList& init):Interpolator(init){}
     /**
      * @brief It generate interpolation polynomial and return it.
      * 
@@ -27,7 +27,15 @@ public:
     Polynomial interpolate() const override;
 protected:
     /**
+     * @brief get value to initialize the difference quotient table. It can be overriden and imply on Hermite problem.
+    */
+    virtual double getInitializeValue(const vector<vector<double>>& table,int i) const{
+        return interpolatingPoints[i].value[0];
+    }
+
+    /**
      * @brief Calculate the element of difference quotient table. It can be overriden and imply on Hermite problem.
     */
     virtual double calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const;
+ 
 };

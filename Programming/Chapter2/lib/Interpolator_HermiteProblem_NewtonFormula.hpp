@@ -9,7 +9,12 @@
 */
 class Interpolator_Hermite_N:public Interpolator_N{
 public:
-    Interpolator_Hermite_N(const Function& f,vector<double> vec):Interpolator_N(f,vec){}
+    Interpolator_Hermite_N(const FunctionPointList& init):Interpolator_N(init){}
 protected:
+    double getInitializeValue(const vector<vector<double>>& table,int i) const override{
+        if(i>=1)
+            if(interpolatingPoints[i].x==interpolatingPoints[i-1].x) return table[i-1][0];
+        return Interpolator_N::getInitializeValue(table,i);
+    }
     double calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const override;
 };

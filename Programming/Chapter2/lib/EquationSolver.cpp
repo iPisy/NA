@@ -9,8 +9,8 @@ double BisectionMethod::solve(){
     double absoluteError=b-a;
     double valueOfA=F(a);
     int iterCount=0;
-    double centre;
-    double valueOfcentre;
+    double centre=(a+b)/2;
+    double valueOfcentre=F(centre);
     for(;iterCount<=maxIter;iterCount++){
         absoluteError/=2;
         centre=a+absoluteError;
@@ -30,7 +30,7 @@ double NewtonMethod::solve(){
     for(;iterCount<=maxIter;iterCount++){
         double v=F(x);
         if(fabs(v)<eps) break;
-        x=x-v/F.derivative(x,1);
+        x=x-v/F.derivativeValue(x,1);
     }
     return x;
 }

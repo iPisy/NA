@@ -1,40 +1,58 @@
 /**
  * @file
- * @brief Implement the function in `Curve.hpp`.
+ * @brief Implement the function in @ref Curve.hpp.
 */
 
 #include"Curve.hpp"
+#include<iostream>
+#include<cstdlib>
+#include<algorithm>
+
+using namespace std;
 
 vector<double> Curve::operator()(double t) const{
     vector<double> ret;
-    for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
-        ret.push_back((**it)(t));
+    for(auto& it:curve_Function){
+        ret.push_back((*it)(t));
     }
     return ret;
 }
 
-vector<double> Curve::derivative(double t,int order) const{
-    if(order==1){
-        vector<double> ret;
-        for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
-            ret.push_back((**it).derivative(t,1));
-        }
-        return ret;
+vector<double> Curve::tangentVector(double t,int order) const{
+    vector<double> ret;
+    for(auto& it:curve_Function){
+        ret.push_back((*it).derivativeValue(t,order));
     }
-    return {throwException()};
+    return ret;
 }
 
-vector<vector<double>> Curve::generatePointList(int count){
-    if(count<=1) return {{throwException()}};
-    vector<vector<double>> ret;
-    for(double i=1;i<=count;i++){
-        double t=l;
-        vector<double> point;
-        for(auto it=curve_Function.begin();it!=curve_Function.end();it++){
-            point.push_back((**it)(t));
+CurvePointList Curve::generatePointList(int number,int derivative_order,bool direction) const{
+    if(number<=1) throw InvalidInputException{}; 
+    IndependentVariableList list;
+    int start=get_l(),end=get_r();
+    double delta=(end-start)/(number-1);
+    if(direction){
+        swap(start,end);
+        delta=-delta;
+    }
+    for(int i=1;i<=number;i++){
+        list.push_back(start);
+        start+=delta;
+    }
+    list.back()=end;
+    return generatePointList(list,derivative_order,direction);
+}
+
+CurvePointList Curve::generatePointList(const IndependentVariableList& in,int derivative_order) const{
+    CurvePointList ret;
+    for(auto& it:in){
+        CurvePoint foo;
+        foo.t=it;
+        foo.value.push_back((*this)(it));
+        for(int i=1;i<=derivative_order;i++){
+            foo.value.push_back(this->tangentVector(it,i));
         }
-        ret.push_back(point);
-        t+=(l-r)/(count-1);
+        ret.push_back(foo);
     }
     return ret;
 }

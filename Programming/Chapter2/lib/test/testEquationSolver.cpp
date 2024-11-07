@@ -8,8 +8,7 @@ using namespace std;
 const double Pi = acos(-1.);
 
 class F1 : public Function {
-public:
-    double operator() (double x) const {
+    double getValue(double x) const override{
         return 1/x-tan(x);
     }
 };

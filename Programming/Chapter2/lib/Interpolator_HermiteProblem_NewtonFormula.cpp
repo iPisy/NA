@@ -14,7 +14,7 @@ double factorial(int x){
 
 double Interpolator_Hermite_N::calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const{
     //special case.(Hermite)
-    if(interpolatingPoints[i+j]==interpolatingPoints[i]) return f.derivative(interpolatingPoints[i],j)/factorial(j);
+    if(interpolatingPoints[i+j].x==interpolatingPoints[i].x) return interpolatingPoints[i].value[j]/factorial(j);
     //normal case.
     return Interpolator_N::calculateDifferenceQuotient(table,i,j);
 }

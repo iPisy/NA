@@ -1,9 +1,13 @@
 /**
  * @file
- * @brief Implement the function in `Polynomial.hpp`.
+ * @brief Implement the function in class @ref Polynomial and some functions concerning vector<Polynomial>.
 */
 #include"Polynomial.hpp"
 #include<limits>
+#include<iomanip>
+#include<sstream>
+#include<algorithm>
+#include"Exceptions.hpp"
 
 using namespace std;
 
@@ -14,7 +18,8 @@ void Polynomial::clearLeadingZero(){
     }
 }
 
-double Polynomial::operator()(double x) const{
+double Polynomial::getValue(double x) const{
+    if(!InDefinitionDomain(x)) throw Out_DomainException{};
     double ret=0;
     for(auto it=coefficient.rbegin();it!=coefficient.rend();it++){
         ret=ret*x+*it;
@@ -22,19 +27,25 @@ double Polynomial::operator()(double x) const{
     return ret;
 }
 
-Polynomial Polynomial::getDerivativePoly() const{    
-    vector<double> deriCoefficient;
-    for(auto it=coefficient.begin();it!=coefficient.end();it++){
-        if(it==coefficient.begin()) continue;
-        deriCoefficient.push_back((it-coefficient.begin())* *it);
-    }
-    Polynomial deri(deriCoefficient);
-    return deri;
+Polynomial Polynomial::getDerivative(int order) const{
+    return getDerivative(*this,order);
 }
 
-double Polynomial::derivative(double x,int order) const{
-    if(order==1) return getDerivativePoly()(x);
-    else return throwException();
+Polynomial Polynomial::getDerivative(const Polynomial& in,int order) const{
+    if(order==0) return in;
+    vector<double> deriCoefficient,coefficient(in.getCoefficient());
+    int l=coefficient.size();
+    for(int i=1;i<l;i++){
+        deriCoefficient.push_back(i*coefficient[i]);
+    }
+    Polynomial deri(deriCoefficient,in.get_l(),in.get_r(),in.get_leftClosed(),in.get_rightClosed());
+    return getDerivative(deri,order-1);
+}
+
+double Polynomial::derivativeValue(double x,int order) const{
+    Polynomial foo=getDerivative(order);
+    if(!foo.InDefinitionDomain(x)) throw Out_DomainException{};
+    return foo(x);
 }
 
 Polynomial Polynomial::operator+(const Polynomial& rhs) const{        
@@ -48,23 +59,25 @@ Polynomial Polynomial::operator+(const Polynomial& rhs) const{
             retPolynomial.push_back(rhs.getCoefficient()[i]);
         }
     }
-    Polynomial ret(retPolynomial);
+    Polynomial ret(retPolynomial,min(this->get_l(),rhs.get_l()),min(this->get_r(),rhs.get_r()),this->get_leftClosed() && rhs.get_leftClosed(),this->get_rightClosed() && rhs.get_rightClosed());
     ret.clearLeadingZero();
     return ret;
 }
 
 void Polynomial::operator+=(const Polynomial& rhs){
-    coefficient=(*this+rhs).getCoefficient();
+    Polynomial ans;
+    ans=*this+rhs;
+    *this=ans;
 }
 
 Polynomial Polynomial::operator-(const Polynomial& rhs) const{
-    Polynomial ans=*this+(rhs)*(-1);
-    ans.clearLeadingZero();
-    return ans;
+    return *this+(rhs)*(-1);
 }
 
 void Polynomial::operator-=(const Polynomial& rhs){
-    coefficient=(*this-rhs).getCoefficient();
+    Polynomial ans;
+    ans=*this-rhs;
+    *this=ans;
 }
 
 Polynomial Polynomial::operator*(const Polynomial& rhs) const{
@@ -74,21 +87,25 @@ Polynomial Polynomial::operator*(const Polynomial& rhs) const{
             retPolynomial[i+j]+=coefficient[i]*rhs.getCoefficient()[j];
         }
     }
-    Polynomial ret(retPolynomial);
+    Polynomial ret(retPolynomial,min(this->get_l(),rhs.get_l()),min(this->get_r(),rhs.get_r()),this->get_leftClosed() && rhs.get_leftClosed(),this->get_rightClosed() && rhs.get_rightClosed());
     ret.clearLeadingZero();
     return ret;
 }
 
 void Polynomial::operator*=(const Polynomial& rhs){
-    coefficient=(*this*rhs).getCoefficient();   
+    Polynomial ans;
+    ans=*this*rhs;
+    *this=ans;
 }
 
 Polynomial Polynomial::operator*(double rhs) const{
-    return *this*Polynomial({rhs});
+    return *this*Polynomial(vector<double>{rhs});
 }
 
 void Polynomial::operator*=(double rhs){
-    coefficient=(*this*rhs).getCoefficient();
+    Polynomial ans;
+    ans=*this*rhs;
+    *this=ans;
 }
 
 Polynomial Polynomial::operator/(const Polynomial& rhs) const{
@@ -104,65 +121,43 @@ Polynomial Polynomial::operator/(const Polynomial& rhs) const{
         foo.back()=1;
         lhs-=rhs*Polynomial(foo)*singleCoefficient;
     }
-    Polynomial ans(ansCoefficient);
+    Polynomial ans(ansCoefficient,min(this->get_l(),rhs.get_l()),min(this->get_r(),rhs.get_r()),this->get_leftClosed() && rhs.get_leftClosed(),this->get_rightClosed() && rhs.get_rightClosed());
     return ans;
 }
 
 Polynomial Polynomial::operator/(double rhs) const{
-    return *this/Polynomial({rhs});
+    return *this/Polynomial(vector<double>{rhs});
 }
 
 void Polynomial::operator/=(const Polynomial& rhs){
-    coefficient=(*this/rhs).getCoefficient();
+    Polynomial ans;
+    ans=*this/rhs;
+    *this=ans;
 }
 
 void Polynomial::operator/=(double rhs){
-    coefficient=(*this/Polynomial({rhs})).getCoefficient();
+    Polynomial ans;
+    ans=*this/rhs;
+    *this=ans;
 }
 
 vector<double> Polynomial::getExtremePoints() const{
-    Polynomial deri=getDerivativePoly();
+    Polynomial deri=getDerivative(1);
     vector<double> ans;
-    while(deri.getCoefficient().size()>=2){   
+    while(deri.getCoefficient().size()>=2){
         NewtonMethod ExtremePointsSolver(deri,0);        
         double root=ExtremePointsSolver.solve();
-        deri/=Polynomial({-root,1});
-        ans.push_back(root);
+        deri/=Polynomial(vector<double>{-root,1});
+        if(InDefinitionDomain(root)) ans.push_back(root);
     }
     return ans;
 }
 
 void Polynomial::print() const{
-    bool firstSignFlag=1;
-    bool printFlag=0;
-    for(auto it=coefficient.begin();it!=coefficient.end();it++){
-        if(isZero(*it)) continue;
-        else{
-            printFlag=1;
-            if(!firstSignFlag) cout<<" ";
-            if(*it<0) cout<<"- ";
-            else{
-                if(firstSignFlag);
-                else{
-                    cout<<"+ ";
-                }
-            }
-            if(firstSignFlag) firstSignFlag=0;
-            cout<< fabs(*it);
-            int expo=it-coefficient.begin();
-            if(expo==0);
-            else{
-                cout<<"x";
-                if(expo==1);
-                else cout<<"^"<<expo;
-            }
-        }
-    }
-    if(!printFlag) cout<<"0";
-    cout<<endl;
+    cout<<getLatexFormatString()<<endl;
 }
 
-string Polynomial::print_Latex() const{
+string Polynomial::getLatexFormatString() const{
     bool firstSignFlag=1;
     bool printFlag=0;
     string ret;
@@ -179,7 +174,9 @@ string Polynomial::print_Latex() const{
                 }
             }
             if(firstSignFlag) firstSignFlag=0;
-            ret+=to_string(fabs(*it));
+            ostringstream oss;
+            oss << std::fixed << std::setprecision(15) << fabs(*it);
+            ret+=oss.str();
             int expo=it-coefficient.begin();
             if(expo==0);
             else{
@@ -196,26 +193,23 @@ string Polynomial::print_Latex() const{
     return ret;
 }
 
-double Polynomial::getLocalMax(const vector<double>& section) const{
-    return getLocalExtremeValue(section,extremeType::MAX);
+double Polynomial::getLocalMax() const{
+    return getLocalExtremeValue(extremeType::MAX);
 }
 
-double Polynomial::getLocalMin(const vector<double>& section) const{
-    return getLocalExtremeValue(section,extremeType::MIN);
+double Polynomial::getLocalMin() const{
+    return getLocalExtremeValue(extremeType::MIN);
 }
 
-double Polynomial::getLocalExtremeValue(const vector<double>& section,extremeType type) const{
-    double left=section.front(),right=section.back();
+double Polynomial::getLocalExtremeValue(extremeType type) const{
     vector<double> extremePoints=getExtremePoints();
-    extremePoints.push_back(left);
-    extremePoints.push_back(right);
-    // for(auto it=extremePoints.begin();it!=extremePoints.end();it++) cout<<*it<<endl;
+    extremePoints.push_back(this->get_l());
+    extremePoints.push_back(this->get_r());
     double extremeValue=numeric_limits<double>::min();
     if(type==extremeType::MIN) extremeValue=numeric_limits<double>::max();
     while(!extremePoints.empty()){
         double foo=extremePoints.back();
         extremePoints.pop_back();
-        if(foo<left || foo>right) continue;
         foo=(*this)(foo);
         if(type==extremeType::MAX){
             if(foo>extremeValue) extremeValue=foo;
@@ -225,4 +219,15 @@ double Polynomial::getLocalExtremeValue(const vector<double>& section,extremeTyp
         }
     }
     return extremeValue;
+}
+
+vector<Polynomial> operator*(vector<Polynomial> polys,const Polynomial& rhs){
+    for(auto& it:polys){
+        it*=rhs;
+    }
+    return polys;
+}
+
+vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polys){
+    return polys*lhs;
 }

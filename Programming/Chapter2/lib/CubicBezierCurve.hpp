@@ -5,38 +5,20 @@
 
 #pragma once
 #include"Function.hpp"
-#include"Curve.hpp"
+#include"PolynomialCurve.hpp"
+#include"BezierCurve.hpp"
 #include<string>
 
 using namespace std;
 
 /**
- * @brief A cubic Bezier curve generator. The exact curve and the control points should be offered.
+ * @brief A cubic Bezier curve generator.
+ * 
+ * cubic Bezier curve can use 2 point with it's derivative instead of 4 control points.
 */
-class CubicBezierCurve{
+class CubicBezierCurve:public BezierCurve{
 public:
-
-    CubicBezierCurve(const Curve& exactCurve,double t_0,double t_1):
-    exactCurve(exactCurve), t_0(t_0), t_1(t_1){}
-
-    /**
-     * @brief Generate a cubic Bezier curve using the condition.
-    */
-    Curve generateCurve();
-
-    /**
-     * @brief Print the curve it generated into .tex file.
-    */
-    string print_Latex_format();
-
-    double get_t_0(){
-        return t_0;
-    }
-
-    double get_t_1(){
-        return t_1;
-    }
+    CubicBezierCurve(const ControlPoints& list):BezierCurve(initialize(list)){}
 private:
-    const Curve& exactCurve;
-    double t_0,t_1;///< 2 control point with its derivation.
+    ControlPoints initialize(const ControlPoints& list) const;
 };

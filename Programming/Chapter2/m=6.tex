@@ -1,0 +1,28 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=-10:10,
+    samples=100,
+    xmin=-3, xmax=3,
+    ymin=-3, ymax=3,
+    axis lines=center,
+    xlabel=$x$, ylabel=$y$,
+    title={Parametric Equations}]
+\addplot[blue, thick, domain=-1.732051:-0.577350] (
+{- 1.732051 + 1.000000*x + 0.464102*x^2 - 0.309401*x^3},{nan + nan*x + nan*x^2 + nan*x^3});
+\addplot[blue, thick, domain=-0.577350:0.577350] (
+{- 0.577350 + 1.000000*x + 0.464102*x^2 - 0.309401*x^3},{- 0.582105 - 0.674394*x + 0.674394*x^2});
+\addplot[blue, thick, domain=0.577350:1.732051] (
+{0.577350 + 1.000000*x + 0.464102*x^2 - 0.309401*x^3},{nan + nan*x + nan*x^2 + nan*x^3});
+\addplot[blue, thick, domain=-1.732051:-0.577350] (
+{- 1.732051 + 1.000000*x + 0.464102*x^2 - 0.309401*x^3},{nan + nan*x + nan*x^2 + nan*x^3});
+\addplot[blue, thick, domain=-0.577350:0.577350] (
+{- 0.577350 + 1.000000*x + 0.464102*x^2 - 0.309401*x^3},{1.595219 - 0.202989*x + 0.202989*x^2});
+\addplot[blue, thick, domain=0.577350:1.732051] (
+{0.577350 + 1.000000*x + 0.464102*x^2 - 0.309401*x^3},{nan + nan*x + nan*x^2 + nan*x^3});
+\end{axis}
+\end{tikzpicture}
+\end{document}

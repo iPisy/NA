@@ -34,7 +34,7 @@ private:
     int maxIter;
 
 protected:
-    virtual void checkPrecondition(){
+    virtual void checkPrecondition() override{
         if(F(a)*F(b)>0) cout<< "Sign of f(a) and f(b) is same, the root is probably not correct. " << endl;
     }
 public:
@@ -54,7 +54,7 @@ private:
     double eps;
     int maxIter;
 protected:
-    virtual void checkPrecondition(){
+    virtual void checkPrecondition() override{
         ;
     }
 public:
@@ -74,7 +74,7 @@ private:
     double eps,delta;
     int maxIter;
 protected:
-    virtual void checkPrecondition(){
+    virtual void checkPrecondition() override{
         ;
     }
 public:

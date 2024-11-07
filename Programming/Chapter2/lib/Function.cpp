@@ -4,21 +4,53 @@
 */
 #include"Function.hpp"
 #include<iostream>
-#include<cstdlib> 
+#include<cstdlib>
+#include"Exceptions.hpp"
 
 using namespace std;
 
-double Function::derivative(double x,int order) const{
-    //difference quotient
-    //for function whose derivation is hard to get.
-    const double delta=1e-6;
-    if(order==1) return ((*this)(x+delta/2)-(*this)(x-delta/2))/delta;
+const double delta=1e-6;
 
-    return throwException();
+double Function::operator()(double x) const{
+    if(InDefinitionDomain(x)) return getValue(x);
+    throw Out_DomainException{};
 }
 
-double throwException(){
-    cerr<< "Error! Higher derivative is not defined!" <<endl;
-    exit(-1);
-    return 0;
+double Function::derivativeValue(double x,int order) const{
+    
+    if(order==1) return ((*this)(x+delta/2)-(*this)(x-delta/2))/delta;
+
+    throw NotDefinedException{};
+}
+
+double Function::derivativeValue(double x,int order,Direction direction) const{
+    if(direction==Direction::left) return derivativeValue(x+delta/2,order);
+    else return derivativeValue(x-delta/2,order);
+}
+
+FunctionPointList Function::generatePointList(int number,int derivative_order) const{
+    if(number<=1) throw InvalidInputException{};
+    IndependentVariableList foo;
+    double start=get_l(),end=get_r();
+    double delta=(end-start)/(number-1);
+    for(int i=1;i<=number;i++){
+        foo.push_back(start);
+        start+=delta;
+    }
+    foo.back()=end;
+    return generatePointList(foo,derivative_order);
+}
+
+FunctionPointList Function::generatePointList(const IndependentVariableList& in,int derivative_order) const{
+    FunctionPointList ret;
+    for(auto& it:in){
+        FunctionPoint foo;
+        foo.x=it;
+        foo.value.push_back((*this)(it));
+        for(int i=1;i<=derivative_order;i++){
+            foo.value.push_back(this->derivativeValue(it,i));
+        }
+        ret.push_back(foo);
+    }
+    return ret;
 }

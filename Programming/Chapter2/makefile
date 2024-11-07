@@ -38,13 +38,13 @@ output/C: output/C.o $(oList) | output
 	g++ -o output/C output/C.o $(oList)
 
 output/D: output/D.o $(oList) | output
-	g++ -g -o output/D output/D.o $(oList)
+	g++ -o output/D output/D.o $(oList)
 
 output/E: output/E.o $(oList) | output
-	g++ -g -o output/E output/E.o $(oList)
+	g++ -o output/E output/E.o $(oList)
 
 output/F: output/F.o $(oList) | output
-	g++ -g -o output/F output/F.o $(oList)
+	g++ -o output/F output/F.o $(oList)
 
 output/B.o: src/B.cpp | output
 	g++ -c src/B.cpp -o output/B.o
