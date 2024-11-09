@@ -15,10 +15,11 @@ using namespace std;
  * @brief A cubic Bezier curve generator.
  * 
  * cubic Bezier curve can use 2 point with it's derivative instead of 4 control points.
+ * If you indeed need to initialize with four control points, use @ref BezierCurve.
 */
 class CubicBezierCurve:public BezierCurve{
 public:
-    CubicBezierCurve(const ControlPoints& list):BezierCurve(initialize(list)){}
+    CubicBezierCurve(const ControlPointsList& list):BezierCurve(initialize(list)){}
 private:
-    ControlPoints initialize(const ControlPoints& list) const;
+    ControlPointsList initialize(const ControlPointsList& list) const;
 };

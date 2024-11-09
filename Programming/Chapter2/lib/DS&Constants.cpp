@@ -4,12 +4,14 @@
  */
 #include"DS&Constants.hpp"
 
-ControlPoints toControlPoints(const CurvePointList& in){
-    ControlPoints ret;
+ControlPoint toControlPoint(const CurvePoint& in){
+    return in.value;
+}
+
+ControlPointsList toControlPointsList(const CurvePointList& in){
+    ControlPointsList ret;
     for(auto& it:in){
-        ret.curveValueList.push_back(it.value);
+        ret.push_back(toControlPoint(it));
     }
-    ret.l=in[0].t;
-    ret.r=in.back().t;
     return ret;
 }

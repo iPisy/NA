@@ -16,21 +16,18 @@ using namespace std;
 */
 class BezierSpline{
 public:
-    BezierSpline(int order):BezierSpline(order,order+1){}
 
-    BezierSpline(int order,int size):order(order),size(size){
-        if(order<=0) throw InvalidInputException{};
+    BezierSpline(int controlPoints_Num):controlPoints_Num(controlPoints_Num){
+        if(controlPoints_Num<=1) throw InvalidInputException{};
     }
 
-    BezierSpline(int order,const CurvePointList& curvePointList):BezierSpline(order,curvePointList,order+1){}
-
-    BezierSpline(int order,const CurvePointList& curvePointList,int size):
-    order(order),size(size),controlPointsList(devideCurvePointList(curvePointList)){
-        if(order<=0) throw InvalidInputException{};
+    BezierSpline(const CurvePointList& curvePointList,int controlPoints_Num):
+    controlPoints_Num(controlPoints_Num),controlPointsList_List(devideCurvePointList(curvePointList)){
+        if(controlPoints_Num<=1) throw InvalidInputException{};
     }
 
-    void setControlPoint(const CurvePointList& curvePointList){
-        controlPointsList=devideCurvePointList(curvePointList);
+    void setControlPointsList_List(const CurvePointList& curvePointList){
+        controlPointsList_List=devideCurvePointList(curvePointList);
     }
 
     /**
@@ -50,14 +47,10 @@ public:
     void print_Latex(string filename);
 
 protected:
-    /**
-     * @brief the order of the BezierCurve, i.e. (the number of control points - 1 ) in every BezierCurve.
-    */
-    int order;
 
-    ControlPointsList controlPointsList;
+    ControlPointsList_List controlPointsList_List;
 
-    int size;///< the number of control points in every BezierCurve.
+    int controlPoints_Num;///< the number of control points in every BezierCurve.
 
     /**
      * @brief Bezier Spline, consisting of Bezier Curves. `m` in name just refers to `member`.
@@ -71,5 +64,5 @@ private:
      * @param in the CurvePointList to divide.
      * @throws InvalidInputException If the input @a CurvePointList can't be divided evenly.
     */
-    ControlPointsList devideCurvePointList(const CurvePointList& in);
+    ControlPointsList_List devideCurvePointList(const CurvePointList& in) const;
 };

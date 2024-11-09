@@ -14,11 +14,11 @@
 class BezierCurve:public PolynomialCurve{
 public:
 
-    BezierCurve(const ControlPoints& controlPoints):
-    controlPoints(controlPoints),PolynomialCurve(controlPoints.l,controlPoints.r){}
+    BezierCurve(const ControlPointsList& controlPointsList):
+    controlPointsList(controlPointsList),PolynomialCurve(0,1){}
 
     BezierCurve(const CurvePointList& curvePointList):
-    BezierCurve(toControlPoints(curvePointList)){}
+    BezierCurve(toControlPointsList(curvePointList)){}
 
     /**
      * @brief Generate Bezier curve using the condition.
@@ -31,5 +31,5 @@ public:
     string getLatexFormatString();
 
 protected:
-    ControlPoints controlPoints;
+    ControlPointsList controlPointsList;
 };

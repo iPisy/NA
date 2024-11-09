@@ -30,7 +30,9 @@ CurvePointList Curve::generatePointList(int number,int derivative_order,bool dir
     if(number<=1) throw InvalidInputException{}; 
     IndependentVariableList list;
     double start=get_l(),end=get_r();
-    double delta=(end-start)/(number-1);
+    double delta=(end-start)/number;
+    start+=delta/2;//avoid extreme huge derivative.
+    end-=delta/2;//avoid extreme huge derivative.
     for(int i=1;i<=number;i++){
         list.push_back(start);
         start+=delta;

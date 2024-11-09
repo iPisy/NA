@@ -82,17 +82,20 @@ typedef struct CurvePoint{
 typedef vector<CurvePoint> CurvePointList;
 
 /**
- * @brief control points for @ref BezierCurve.
+ * @brief a control point for @ref BezierCurve.
 */
-typedef struct{
-    CurveValueList curveValueList;///< control points.
-    double l///< t_min
-    ,r;///< t_max
-}ControlPoints;
+typedef CurveValue ControlPoint;
 
 /**
- * @brief control points for @ref BezierSpline.
+ * @brief list of control points for @ref BezierCurve.
 */
-typedef vector<ControlPoints> ControlPointsList;
+typedef vector<ControlPoint> ControlPointsList;
 
-ControlPoints toControlPoints(const CurvePointList& in);
+/**
+ * @brief for spline to storage @ref ControlPointsList for it's sub-curves.
+ */
+typedef vector<ControlPointsList> ControlPointsList_List;
+
+ControlPoint toControlPoint(const CurvePoint& in);
+
+ControlPointsList toControlPointsList(const CurvePointList& in);
