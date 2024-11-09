@@ -25,9 +25,13 @@ public:
     l(l),r(r),leftClosed(leftClosed),rightClosed(rightClosed){}
 
     Curve(const vector<const Function*>& curve_Function,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
-    curve_Function(curve_Function), l(l), r(r),leftClosed(leftClosed),rightClosed(rightClosed){};
+    curve_Function(curve_Function), l(l), r(r),leftClosed(leftClosed),rightClosed(rightClosed){
+        for(auto& it:curve_Function){
+            const_cast<Function*>(it)->set_l(l);
+            const_cast<Function*>(it)->set_r(r);
+        }
+    };
 
-    
     /**
      * @brief Get the value vector of Curve at point t.
     */
@@ -42,7 +46,7 @@ public:
      * @details We use central difference quotient there, it might be not precise. So we need override it if necessary.
      * And for those order>=2, if it is not overridden but called, program will throw an exception and exit.
     */
-    vector<double> tangentVector(double t,int order) const;
+    vector<double> tangentVector(double t,int order,Direction direction=Direction::DEFAULT) const;
 
     int getDimension() const{
         return curve_Function.size();
@@ -66,10 +70,6 @@ public:
         return rightClosed;
     }
 
-    const vector<const Function*>& getCurve_Function() const{
-        return curve_Function;
-    }
-
     /**
      * @brief generate a list of uniformly distributed points within the definition domain of the curve.
      * 
@@ -87,7 +87,7 @@ public:
      * @param in independent variable list.
      * @param derivative_order the highest derivative order of the point.
     */
-    CurvePointList generatePointList(const IndependentVariableList& in,int derivative_order) const;
+    CurvePointList generatePointList(const IndependentVariableList& in,int derivative_order,bool direction=0) const;
     
 protected:
 

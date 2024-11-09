@@ -33,6 +33,10 @@ public:
         return coefficient;
     }
 
+    void clearCoefficient(){
+        coefficient.clear();
+    }
+
     /**
      * @brief It returns the derivative function of Polynomial(this). Public method.
      * 
@@ -40,7 +44,7 @@ public:
     */
     Polynomial getDerivative(int order) const;
 
-    double derivativeValue(double x,int order) const override;
+    double derivativeValue(double x,int order,Direction direction=Direction::DEFAULT) const override;
 
     Polynomial operator+(const Polynomial& rhs) const;
 
@@ -66,6 +70,16 @@ public:
     void operator/=(const Polynomial& rhs);
 
     void operator/=(double rhs);
+
+    /**
+     * @brief apply affine transformation @b x=ax'+b on *this.
+     */
+    void affineTransformation(double a,double b);
+
+    /**
+     * @brief apply affine transformation on *this, making the definition domain [0,1].
+     */
+    void regularization();
 
     vector<double> getExtremePoints() const;
 

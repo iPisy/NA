@@ -25,27 +25,17 @@ public:
     double operator()(double x) const;
 
     /**
-     * @brief Get the value of order `order` derivative function at point x.
+     * @brief Get the value of order `order` derivative in a certain direction at point x.
      * 
      * @details We use central difference quotient there, it might be not precise. So we need override it if necessary.
      * And those order>=2 is not defined, then if it is not overridden but called, program will throw an exception and exit.
      * @param x the point.
      * @param order the order of the derivative.
-    */
-    virtual double derivativeValue(double x,int order) const;
-
-    enum class Direction{
-        left,
-        right
-    };
-
-    /**
-     * @brief Get the value of left(right)-half derivative at point x.
-     * 
-     * @details It actually give the derivative at x+(-)delta/2 to avoid the nan return value at characteristic points. 
+     * @param direction the direction of derivative. @b DEFAULT means without direction. Otherwise we actually give 
+     * the derivative at x+(-)delta/2 to avoid the nan return value at characteristic points. 
      * With default definition of derivative, it returns right(left) difference quotient.
     */
-    virtual double derivativeValue(double x,int order,Direction direction) const;
+    virtual double derivativeValue(double x,int order,Direction direction=Direction::DEFAULT) const;
 
     Function(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
     l(l),r(r),leftClosed(leftClosed),rightClosed(rightClosed){}

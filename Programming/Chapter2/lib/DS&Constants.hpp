@@ -10,6 +10,15 @@ using namespace std;
 #define EPSILON (1e-15)
 
 /**
+ * @brief using in one-sided derivative.
+ */
+enum class Direction{
+    left,
+    right,
+    DEFAULT
+};
+
+/**
  * @brief a list of distinct independent variable values.
 */
 typedef vector<double> IndependentVariableList;
@@ -86,12 +95,4 @@ typedef struct{
 */
 typedef vector<ControlPoints> ControlPointsList;
 
-ControlPoints toControlPoints(const CurvePointList& in){
-    ControlPoints ret;
-    for(auto& it:in){
-        ret.curveValueList.push_back(it.value);
-    }
-    ret.l=in[0].t;
-    ret.r=in.back().t;
-    return ret;
-}
+ControlPoints toControlPoints(const CurvePointList& in);

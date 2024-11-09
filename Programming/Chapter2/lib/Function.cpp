@@ -16,16 +16,15 @@ double Function::operator()(double x) const{
     throw Out_DomainException{};
 }
 
-double Function::derivativeValue(double x,int order) const{
+double Function::derivativeValue(double x,int order,Direction direction) const{
     
-    if(order==1) return ((*this)(x+delta/2)-(*this)(x-delta/2))/delta;
+    if(order==1){
+        if(direction==Direction::DEFAULT) return ((*this)(x+delta/2)-(*this)(x-delta/2))/delta;
+        if(direction==Direction::left) return derivativeValue(x-delta/2,order);
+        else return derivativeValue(x+delta/2,order);
+    }
 
     throw NotDefinedException{};
-}
-
-double Function::derivativeValue(double x,int order,Direction direction) const{
-    if(direction==Direction::left) return derivativeValue(x+delta/2,order);
-    else return derivativeValue(x-delta/2,order);
 }
 
 FunctionPointList Function::generatePointList(int number,int derivative_order) const{

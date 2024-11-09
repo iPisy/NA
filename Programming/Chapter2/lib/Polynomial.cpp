@@ -42,7 +42,7 @@ Polynomial Polynomial::getDerivative(const Polynomial& in,int order) const{
     return getDerivative(deri,order-1);
 }
 
-double Polynomial::derivativeValue(double x,int order) const{
+double Polynomial::derivativeValue(double x,int order,Direction direction) const{
     Polynomial foo=getDerivative(order);
     if(!foo.InDefinitionDomain(x)) throw Out_DomainException{};
     return foo(x);
@@ -139,6 +139,21 @@ void Polynomial::operator/=(double rhs){
     Polynomial ans;
     ans=*this/rhs;
     *this=ans;
+}
+
+void Polynomial::affineTransformation(double a,double b){
+    Polynomial ans=*this;
+    ans.clearCoefficient();
+    Polynomial foo(vector<double>{1});
+    for(int i=0;i<coefficient.size();i++){
+        ans+=foo*coefficient[i];
+        foo*=Polynomial(vector<double>{b,a});
+    }
+    *this=ans;
+}
+
+void Polynomial::regularization(){
+    affineTransformation(r-l,l);
 }
 
 vector<double> Polynomial::getExtremePoints() const{

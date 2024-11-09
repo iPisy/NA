@@ -20,8 +20,8 @@ ControlPointsList BezierSpline::devideCurvePointList(const CurvePointList& in){
         int index=(i-1)*(size-1);
         ControlPoints foo;
         foo.l=in[index].t;
-        foo.r=in[index+size].t;
-        for(int j=0;j<=size;j++){
+        foo.r=in[index+size-1].t;
+        for(int j=0;j<size;j++){
             foo.curveValueList.push_back(in[index+j].value);
         }
         ret.push_back(foo);

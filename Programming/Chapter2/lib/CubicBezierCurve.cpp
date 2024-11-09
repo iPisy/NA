@@ -32,11 +32,11 @@ ControlPoints CubicBezierCurve::initialize(const ControlPoints& list) const{
 
         bar.clear();
         for(int i=0;i<curve_Dimension;i++){
-            bar.push_back(list.curveValueList[1][0][i]+list.curveValueList[1][1][i]/3);
+            bar.push_back(list.curveValueList[1][0][i]-list.curveValueList[1][1][i]/3);
         }
         foo[2].push_back(bar);
         
-        for(int i=0;i<3;i++){
+        for(int i=0;i<4;i++){
             ret.curveValueList.push_back(foo[i]);
         }
         return ret;
