@@ -1,4 +1,5 @@
 /**
+ * @file
  * @brief Declaration of class @ref PolynomialCurve.
 */
 #pragma once
@@ -9,7 +10,7 @@
 using namespace std;
 
 /**
- * @brief It's a sort of @ref Curve, whose function in direction of every basis vector is @ref Polynomial.
+ * @brief A sort of @ref Curve, whose function in direction of every basis vector is @ref Polynomial.
  * 
  * @details As @ref Polynomial is a sort of @ref Function, polymorphism automatically update the 
  * implementation of member function in @ref Curve.

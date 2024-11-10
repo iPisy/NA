@@ -10,9 +10,9 @@
 using namespace std;
 
 /**
- * @brief a BezierSpline generator, given the control points list.
+ * @brief Bezier spline generator, given list of points on curve.
  * 
- * the number and order of BezierCurve can be arbitrarily assigned by assigning member variables.
+ * the number and order of BezierCurve are all arbitrary.
 */
 class BezierSpline{
 public:

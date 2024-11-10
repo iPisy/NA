@@ -6,7 +6,7 @@
 #include"Polynomial.hpp"
 
 /**
- * @brief generate a Bernstein polynomial with given parameter n and k.
+ * @brief A sort of @ref Polynomial. Can generate a Bernstein polynomial with given parameter n and k through construction.
 */
 class BernsteinPolynomial:public Polynomial{
 public:

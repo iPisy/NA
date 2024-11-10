@@ -12,7 +12,7 @@
 using namespace std;
 
 /**
- * @brief A cubic Bezier curve generator.
+ * @brief Cubic Bezier curve generator, using given control points. It will save the generated Curve in it.
  * 
  * cubic Bezier curve can use 2 point with it's derivative instead of 4 control points.
  * If you indeed need to initialize with four control points, use @ref BezierCurve.

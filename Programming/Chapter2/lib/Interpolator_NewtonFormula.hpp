@@ -10,7 +10,7 @@
 using namespace std;
 
 /**
- * @brief The subclass of `Interpolator`. It can solve non-Hermite interpolation problem with Newton formula.
+ * @brief A sort of @ref Interpolator. It can solve non-Hermite interpolation problem with Newton formula.
 */
 class Interpolator_N:public Interpolator{
 public:

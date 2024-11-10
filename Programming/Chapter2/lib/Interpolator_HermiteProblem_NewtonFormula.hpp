@@ -5,7 +5,7 @@
 #include"Interpolator_NewtonFormula.hpp"
 
 /**
- * @brief The subclass of `Interpolator_N`. It is improved and can solve Hermite interpolation problem with Newton formula.
+ * @brief A sort of @ref Interpolator_N. It is improved and can solve Hermite interpolation problem with Newton formula.
 */
 class Interpolator_Hermite_N:public Interpolator_N{
 public:

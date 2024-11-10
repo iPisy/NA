@@ -7,9 +7,7 @@
 #include"DS&Constants.hpp"
 
 /**
- * @brief Generate the BezierCurve with control points.
- * 
- * It will save the generated Curve in it.
+ * @brief Bezier curve generator, using given control points. It will save the generated Curve in it.
 */
 class BezierCurve:public PolynomialCurve{
 public:

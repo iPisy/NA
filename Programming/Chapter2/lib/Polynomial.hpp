@@ -18,7 +18,7 @@ inline bool isZero(double x){
 }
 
 /**
- * @brief The subclass of `Function`, defining the polynomials and offer lots of operations.
+ * @brief A sort of @ref Function, defining the polynomials and offers lots of operations of it.
 */
 class Polynomial:public Function{
 public:

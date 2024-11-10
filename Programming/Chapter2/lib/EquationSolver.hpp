@@ -25,7 +25,7 @@ public:
 };
 
 /**
- * @brief The subclass of `EquationSolver`. It solves the equation by bisection method.
+ * @brief A sort of @ref EquationSolver. It solves the equation by bisection method.
 */
 class BisectionMethod : public EquationSolver {
 private:
@@ -46,7 +46,7 @@ public:
 };
 
 /**
- * @brief The subclass of `EquationSolver`. It solves the equation by Newton method.
+ * @brief A sort of @ref EquationSolver. It solves the equation by Newton method.
 */
 class NewtonMethod : public EquationSolver {
 private:
@@ -66,7 +66,7 @@ public:
 };
 
 /**
- * @brief The subclass of `EquationSolver`. It solves the equation by secant method.
+ * @brief A sort of @ref EquationSolver. It solves the equation by secant method.
 */
 class SecantMethod: public EquationSolver{
 private:
