@@ -8,7 +8,7 @@ using namespace std;
 mt19937 generator(static_cast<unsigned int>(std::time(nullptr)));
 
 NameLibrary::NameLibrary(const vector<string>& nameList):nameVector(nameList){
-    shuffle(nameVector.begin(),nameVector.end(),generator);
+    if(nameList.size()>=2) shuffle(nameVector.begin()+1,nameVector.end(),generator);
 }
 
 string NameLibrary::getRandomName(){

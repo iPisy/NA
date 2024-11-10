@@ -19,18 +19,11 @@ void BezierCurve::generateCurve(){
 }
 
 string BezierCurve::getLatexFormatString(){
-    string ret="\\addplot[blue,samples=100, domain=";
-    ret+=to_string(get_l())+":"+to_string(get_r())+"]";
-
-    ret+="(";
+    string ret="(";
     for(auto& it:curve_Function){
-        string foo="{";
-        foo+=ToPolynomial(it)->getLatexFormatString();
-        foo+="}";
-        foo+=",";
-        ret+=foo;
+        ret+=ToPolynomial(it)->getLatexFormatString()+",";
     }
     ret.pop_back();//pop needless ','.
-    ret+=");\n";
+    ret+=")";
     return ret;
 }

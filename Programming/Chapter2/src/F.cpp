@@ -51,7 +51,7 @@ int main(){
 
         string filename;
         filename="m="+to_string(foo[i])+".tex";
-        spline.print_Latex(filename);
+        spline.print_Latex(filename,vector<string>{"({x},{2/3*(sqrt(abs(x))+sqrt(3-x*x)})","({x},{2/3*(sqrt(abs(x))-sqrt(3-x*x)})"},vector<const Curve*>{&upper,&lower});
     }
     cout<< "Generated!"<<endl;
 }

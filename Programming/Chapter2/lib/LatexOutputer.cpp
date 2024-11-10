@@ -8,11 +8,10 @@
 
 LatexOutputer::LatexOutputer(string filename,bool moreColor):
 file(filename),
-color("black"),
 colorLibrary(moreColor?
-vector<string>{"red", "green", "blue", "cyan", "magenta", "yellow", "orange", "purple", "brown", "lime", "olive", "pink", "teal", "violet", "gray", "darkgray", "lightgray"}
+vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange", "purple", "brown", "lime", "olive", "pink", "teal", "violet", "gray", "darkgray", "lightgray"}
 :
-vector<string>{"red", "green", "blue", "cyan", "magenta", "yellow", "orange"}
+vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange"}
 )
 {
     file << "\\documentclass{standalone}\n"
@@ -42,16 +41,13 @@ void LatexOutputer::newImage(string imageName,double l,double r){
 
 
 void LatexOutputer::addLine(string line,double l,double r,string legendentry,string character){
-    static bool firstCall=1;
     bool newLine=0;
     if(legendentry!="") newLine=1;
-    if(firstCall && !newLine) throw InvalidInputException{};
-    if(newLine && !firstCall){
+    if(newLine){
         color=colorLibrary.getRandomName();
         if(color=="UsedUp") throw ColorUsedUpException{};
     }
-    firstCall=0;
-    linePreamble(character,l,r);
+    linePreamble(character,l,r,newLine);
     file<<line<<";\n";
     if(newLine){
         file<<"\\addlegendentry{"<<legendentry<<"}\n";
@@ -61,16 +57,18 @@ void LatexOutputer::addLine(string line,string legendentry,string character,doub
     addLine(line,l,r,legendentry,character);
 }
 
-void LatexOutputer::linePreamble(string character,double l,double r){
+void LatexOutputer::linePreamble(string character,double l,double r,bool newLine){
     file<<"\\addplot["<<color;
     if(character!="") file<<","<<character;
     if(l!=numeric_limits<double>::lowest() && r!=numeric_limits<double>::max()) file<<",domain="<<l<<":"<<r;
+    if(!newLine) file<<",forget plot";
     file<<"]";
 }
 
 void LatexOutputer::endImage(){
     file << "\\end{axis}\n"
     << "\\end{tikzpicture}\n";
+    colorLibrary.reSet();
 }
 
 void LatexOutputer::endFile(){

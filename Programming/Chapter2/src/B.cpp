@@ -28,7 +28,7 @@ int main(){
     
     Interpolator_N interpolator_N;
     LatexOutputer outputer("B.tex");
-    outputer.quickStart("image of Question B",-5,5);
+    outputer.quickStart("Image of Question B",-5,5);
     outputer.addLine("{1/(1+x*x)}","exact function","dashed");
     for(int i=0;i<4;i++){
         interpolator_N.setInterpolationPoints(list[i]);

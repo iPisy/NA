@@ -7,6 +7,7 @@
 #include"DS&Constants.hpp"
 #include<iostream>
 #include<string>
+#include"LatexOutputer.hpp"
 
 using namespace std;
 
@@ -34,26 +35,26 @@ void BezierSpline::generateSpline(){
     }
 }
 
-void BezierSpline::print_Latex(string filename){
-    ofstream file(filename);
+void BezierSpline::print_Latex(string filename,const vector<string>& exactCurves,const vector<const Curve*>& curves){
+    LatexOutputer outputer(filename);
 
-    file << "\\documentclass{standalone}\n";
-    file << "\\usepackage{pgfplots}\n";
-    file << "\\pgfplotsset{compat=1.16}\n";
-    file << "\\begin{document}\n";
-    file << "\\begin{tikzpicture}\n";
-    file << "\\begin{axis}[\n";
-    file << "    axis lines=center,\n";
-    file << "    xlabel=$x$, ylabel=$y$,\n";
-    file << "    title={Bezier Spline approximation},\n";
-    file << "    enlargelimits]\n";
-    for(auto& it:m_BezierSpline){
-        //TYPE of it==BezierCurve*
-        file<<it->getLatexFormatString();
+    int exactcurve_num=exactCurves.size();
+    int curve_num=m_BezierSpline.size();
+
+    outputer.quickStart("Bezier Spline approximation, m="+to_string(curve_num)+".");
+
+    for(int i=0;i<exactcurve_num;i++){
+        string legendentry="";
+        if(i==0) legendentry="exact curve";
+        outputer.addLine(exactCurves[i],legendentry,"dashed",curves[i]->get_l(),curves[i]->get_r());
     }
-    file << "\\end{axis}\n";
-    file << "\\end{tikzpicture}\n";
-    file << "\\end{document}\n";
 
-    file.close();
+    
+    for(int i=0;i<curve_num;i++){
+        string legendentry="";
+        if(i==0) legendentry="Bezier spline";
+        outputer.addLine(m_BezierSpline[i]->getLatexFormatString(),m_BezierSpline[i]->get_l(),m_BezierSpline[i]->get_r(),legendentry);
+    }
+    
+    outputer.quickEnd();
 }

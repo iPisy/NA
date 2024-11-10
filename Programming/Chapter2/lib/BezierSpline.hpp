@@ -44,7 +44,7 @@ public:
      * LaTeX only supports the plotting of parametric equations with dimensions == 2 or 3. 
      * The case for dimension == 3 is yet to be implemented.
     */
-    void print_Latex(string filename);
+    void print_Latex(string filename,const vector<string>& exactCurves,const vector<const Curve*>& curves);
 
 protected:
 

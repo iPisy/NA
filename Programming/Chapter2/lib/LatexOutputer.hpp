@@ -70,7 +70,7 @@ private:
     /**
      * @brief Output preamble of a line.
      */
-    void linePreamble(string character,double l,double r);
+    void linePreamble(string character,double l,double r,bool newLine);
 
     ofstream file;///< the file to put in.
 
