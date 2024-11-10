@@ -97,6 +97,9 @@ public:
     */
     double getLocalMin() const;
     
+    /**
+     * @brief Print polynomial in terminal.
+     */
     void print() const;
 
     /**
@@ -131,6 +134,11 @@ private:
      * @brief clear those coefficient=0 in high-order term after a certain operation.
     */
     void clearLeadingZero();
+
+    /**
+     * @brief Private method of public method @ref print and @ref getLatexFormatString.
+    */
+    string ToString() const;
 };
 
 vector<Polynomial> operator*(vector<Polynomial> polys,const Polynomial& rhs);

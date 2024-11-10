@@ -3,10 +3,10 @@ all: run report
 run: output
 	cd output && cmake ..
 	cd output && make
-	./output/B
-	./output/C
-	./output/D
-	./output/E || true
+	cd output && ./B
+	cd output && ./C
+	cd output && ./D
+	cd output && ./E || true
 	@echo
 	cd output && ./F
 

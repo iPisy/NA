@@ -6,6 +6,7 @@
 #pragma once
 #include<fstream>
 #include<string>
+#include<limits>
 #include"NameLibrary.hpp"
 
 using namespace std;
@@ -21,32 +22,29 @@ public:
 
     /**
      * @brief ctor. It will add preamble to the generated file.
+     * 
+     * @param moreColor ==0: max 8 colors. ==1: max 18 colors, but may be hard to recognize.
      */
-    LatexOutputer(string filename):
-    file(filename),
-    colorLibrary(vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow",
-    "orange", "purple", "brown", "lime", "olive", "pink", "teal", "violet", "gray", "darkgray", "lightgray"})
-    {
-        file << "\\documentclass{standalone}\n"
-        << "\\usepackage{pgfplots}\n"
-        << "\\pgfplotsset{compat=1.16}\n"
-        << "\\begin{document}\n";
-    }
+    LatexOutputer(string filename,bool moreColor=0);
 
     /**
      * @brief Add a new image to .tex file.
      */
-    void newImage(string imageName);
+    void newImage(string imageName,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max());
 
     /**
      * @brief Add a line into the image of .tex file.
      * 
-     * @param line the line to plot, in calculatable Latex format. If there are more than 1 line, use ',' to separate.
-     * @param legendentry the legendentry to add, in format "$...$". If not offered, it will not add legendentry. 
+     * @param line the line to plot, in calculatable Latex format, like {sin(x)} or ({sin(x)},{cos(x)}).
+     * @param l left endpoint of definition domain.
+     * @param r right endpoint of definition domain.
+     * @param legendentry the legendentry to add, in Latex math format "$...$" or just text. 
+     * If not offered, it will not add legendentry. 
      * A new legendentry implies a new line, thus the color of the line should change accordingly.
      * @param character the character of the line, choosing from "thick", "dashed", etc.
      */
-    void addLine(string line,string character="",string legendentry="");
+    void addLine(string line,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),string legendentry="",string character="");
+    void addLine(string line,string legendentry,string character="",double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max());
 
     /**
      * @brief call when the image is completed. Add appendix of Image.
@@ -61,7 +59,7 @@ public:
     /**
      * @brief Used when only need to plot single image. Before start.
      */
-    void quickStart(string imageName);
+    void quickStart(string imageName,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max());
 
     /**
      * @brief Used when only need to plot single image. After ploting.
@@ -72,7 +70,7 @@ private:
     /**
      * @brief Output preamble of a line.
      */
-    void linePreamble(string character);
+    void linePreamble(string character,double l,double r);
 
     ofstream file;///< the file to put in.
 

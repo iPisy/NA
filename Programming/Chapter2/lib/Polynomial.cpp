@@ -169,10 +169,14 @@ vector<double> Polynomial::getExtremePoints() const{
 }
 
 void Polynomial::print() const{
-    cout<<getLatexFormatString()<<endl;
+    cout<<ToString()<<endl;
 }
 
 string Polynomial::getLatexFormatString() const{
+    return "{"+ToString()+"}";
+}
+
+string Polynomial::ToString() const{
     bool firstSignFlag=1;
     bool printFlag=0;
     string ret;
