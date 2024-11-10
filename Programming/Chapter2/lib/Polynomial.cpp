@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in class @ref Polynomial and some functions concerning vector<Polynomial>.
+ * @brief Implement functions of class @ref Polynomial and some functions concerning vector<Polynomial>.
 */
 #include"Polynomial.hpp"
 #include<limits>

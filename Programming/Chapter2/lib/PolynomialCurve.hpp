@@ -1,5 +1,5 @@
 /**
- * @brief Include the declaration of class @ref PolynomialCurve.
+ * @brief Declaration of class @ref PolynomialCurve.
 */
 #pragma once
 #include"Polynomial.hpp"

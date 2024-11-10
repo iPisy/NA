@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in @ref BezierSpline.hpp.
+ * @brief Implement functions of class @ref BezierSpline.
 */
 
 #include"BezierSpline.hpp"

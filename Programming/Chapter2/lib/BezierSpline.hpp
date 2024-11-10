@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include the declaration of class @ref BrzierSpline.
+ * @brief Declaration of class @ref BrzierSpline.
 */
 #pragma once
 #include"CubicBezierCurve.hpp"

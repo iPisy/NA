@@ -1,6 +1,6 @@
 /**
  * @file 
- * @brief declaration of class @ref LatexOutputer.
+ * @brief Declaration of class @ref LatexOutputer.
  */
 
 #pragma once

@@ -1,6 +1,6 @@
 /**
  * @file EquationSolver.hpp
- * @brief Include declaration of 4 class, all of them are equation solvers.
+ * @brief Declaration of 4 class, all of which are equation solvers.
 */
 #pragma once
 

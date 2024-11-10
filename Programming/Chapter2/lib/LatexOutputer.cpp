@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief implement functions in @ref LatexOutputer.
+ * @brief Implement functions of class @ref LatexOutputer.
  */
 
 #include"LatexOutputer.hpp"

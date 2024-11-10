@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in `EquationSolver.hpp`.
+ * @brief Implement functions of class @ref BisectionMethod, class @ref NewtonMethod, class @ref SecantMethod.
 */
 #include"EquationSolver.hpp"
 

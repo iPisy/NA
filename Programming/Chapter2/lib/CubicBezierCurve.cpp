@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in `CubicBezierCurve.hpp`.
+ * @brief Implement functions of class @ref CubicBezierCurve.
 */
 
 #include"CubicBezierCurve.hpp"

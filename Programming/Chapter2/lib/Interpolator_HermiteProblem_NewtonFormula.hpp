@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include declaration of class `Interpolator_Hermite_N`
+ * @brief Declaration of class @ref Interpolator_Hermite_N.
 */
 #include"Interpolator_NewtonFormula.hpp"
 

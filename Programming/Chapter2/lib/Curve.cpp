@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in @ref Curve.hpp.
+ * @brief Implement functions of class @ref Curve.
 */
 
 #include"Curve.hpp"

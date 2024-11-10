@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief declaration of @ref CubicBezierSpline.
+ * @brief Declaration of class @ref CubicBezierSpline.
  */
 
 #pragma once

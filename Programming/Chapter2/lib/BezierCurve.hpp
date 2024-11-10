@@ -1,13 +1,13 @@
 /**
  * @file
- * @brief declaration of class @ref BezierCurve
+ * @brief Declaration of class @ref BezierCurve.
 */
 #pragma once
 #include"PolynomialCurve.hpp"
 #include"DS&Constants.hpp"
 
 /**
- * @brief generate the BezierCurve with control point with control points.
+ * @brief Generate the BezierCurve with control points.
  * 
  * It will save the generated Curve in it.
 */
@@ -21,12 +21,12 @@ public:
     BezierCurve(toControlPointsList(curvePointList)){}
 
     /**
-     * @brief Generate Bezier curve using the condition.
+     * @brief Generate Bezier curve using the given condition.
     */
     void generateCurve();
 
     /**
-     * @brief Generate string that illustrate the curve and can be drawn with LaTex.
+     * @brief Generate string of curve that can be drawn with LaTex. Format: ({func},{func},{func})
     */
     string getLatexFormatString();
 

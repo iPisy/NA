@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in `Interpolator_NewtonFormula.hpp`.
+ * @brief Implement functions of class @ref Interpolator_N.
 */
 #include"Interpolator_NewtonFormula.hpp"
 #include"Polynomial.hpp"

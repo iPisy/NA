@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in `Interpolator_HermiteProblem_NewtonFormula.hpp`.
+ * @brief Implement functions of class @ref Interpolator_Hermite_N.
 */
 #include"Interpolator_HermiteProblem_NewtonFormula.hpp"
 

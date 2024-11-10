@@ -1,6 +1,6 @@
 /**
  * @file
- * 
+ * @brief Implement functions of class @ref CubicBezierSpline.
  */
 #include"CubicBezierSpline.hpp"
 

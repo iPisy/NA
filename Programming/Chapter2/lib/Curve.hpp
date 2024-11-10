@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include declaration of class @ref Curve.
+ * @brief Declaration of class @ref Curve.
 */
 
 #pragma once

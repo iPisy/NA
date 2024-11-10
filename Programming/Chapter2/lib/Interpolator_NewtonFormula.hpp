@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include declaration of class `Interpolator_N`
+ * @brief Declaration of class @ref Interpolator_N.
 */
 #pragma once
 #include"Polynomial.hpp"

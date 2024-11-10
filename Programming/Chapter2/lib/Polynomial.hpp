@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include declaration of class `Polynomial` and some functions concerning vector<Polynomial>.
+ * @brief Declaration of class @ref Polynomial and some functions concerning vector<Polynomial>.
 */
 #pragma once
 #include<iostream>

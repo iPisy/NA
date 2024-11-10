@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in `Function.hpp`.
+ * @brief Implement functions of class @ref Function.
 */
 #include"Function.hpp"
 #include<iostream>

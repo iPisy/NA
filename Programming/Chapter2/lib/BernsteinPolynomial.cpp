@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Implement the function in `BernsteinPolynomial.hpp`.
+ * @brief Implement functions of class @ref BernsteinPolynomial.
 */
 
 #include"BernsteinPolynomial.hpp"

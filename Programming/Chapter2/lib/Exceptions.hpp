@@ -1,3 +1,6 @@
+/**
+ * @brief Some exceptions.
+ */
 #pragma once
 
 /// @cond

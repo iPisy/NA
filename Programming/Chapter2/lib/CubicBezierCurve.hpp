@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include the declaration of class `CubicBrzierCurve`
+ * @brief Declaration of class @ref CubicBezierCurve.
 */
 
 #pragma once

@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief implementation of member functions in @ref BezierCurve
+ * @brief Implement functions of class @ref BezierCurve.
 */
 #include"BezierCurve.hpp"
 #include"BernsteinPolynomial.hpp"

@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief implement function in @ref DS&Constants.hpp
+ * @brief Implement function in @ref DS&Constants.hpp
  */
 #include"DS&Constants.hpp"
 

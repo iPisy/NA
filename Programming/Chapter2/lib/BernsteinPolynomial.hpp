@@ -1,12 +1,12 @@
 /**
  * @file
- * @brief Include declaration of class `BernsteinPolynomial`
+ * @brief Declaration of class @ref BernsteinPolynomial.
 */
 
 #include"Polynomial.hpp"
 
 /**
- * @brief generate Bernstein polynomial with given parameter n and k.
+ * @brief generate a Bernstein polynomial with given parameter n and k.
 */
 class BernsteinPolynomial:public Polynomial{
 public:

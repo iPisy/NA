@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Include declaration of class `Function`.
+ * @brief Declaration of class @ref Function.
 */
 #pragma once
 #include<limits>
