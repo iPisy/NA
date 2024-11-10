@@ -5,11 +5,11 @@
 using namespace std;
 
 int main(){
-    FunctionPointList Sp1_interpolatingPoints{{0,{6.67}},{6,{17.3}},{10,{42.7}},{13,{37.3}},{17,{30.1}},{20,{29.3}},{28,{28.7}}},
-    Sp2_interpolatingPoints{{0,{6.67}},{6,{16.1}},{10,{18.9}},{13,{15.0}},{17,{10.6}},{20,{9.44}},{28,{8.89}}};
+    FunctionPointList Sp1_interpolationPoints{{0,{6.67}},{6,{17.3}},{10,{42.7}},{13,{37.3}},{17,{30.1}},{20,{29.3}},{28,{28.7}}},
+    Sp2_interpolationPoints{{0,{6.67}},{6,{16.1}},{10,{18.9}},{13,{15.0}},{17,{10.6}},{20,{9.44}},{28,{8.89}}};
 
-    Interpolator_N Sp1_interpolator(Sp1_interpolatingPoints);
-    Interpolator_N Sp2_interpolator(Sp2_interpolatingPoints);
+    Interpolator_N Sp1_interpolator(Sp1_interpolationPoints);
+    Interpolator_N Sp2_interpolator(Sp2_interpolationPoints);
 
     cout<<"Answer of (a):"<<endl;
     cout<<"Average weight polynomial for Sp1: "<<endl;
@@ -26,13 +26,16 @@ int main(){
     <<"If the point is out of the section, f^{n+1}_(x) may have no definition or can be arbitrarily huge. "
     <<"Thus the remainder can be arbitrarily huge, the interpolation is now meaningless."<<endl;
 
-    cout<<endl<<"\033[31m"<<"In the program, the interpolation polynomial has it's definition domain within 2 endpoints of "<<
-    "the interpolating points. Get the value out of the domain will cause throwing exceptions."<<"\033[0m"<<endl;
+    cout<<endl
+    <<"In the program, the interpolation polynomial has it's definition domain within 2 endpoints of the interpolation points. "
+    <<"\033[31m"
+    <<"Get the value out of the domain will cause throwing exceptions below."
+    <<"\033[0m"
+    <<endl;
 
     cout<<endl;
     cout<<"The average weight of Sp1 at day 43 is: "<<Sp1_interpolator.interpolate()(43)<<endl;
     cout<<"The average weight of Sp2 at day 43 is: "<<Sp2_interpolator.interpolate()(43)<<endl;
     cout<<endl;
 
-    
 }

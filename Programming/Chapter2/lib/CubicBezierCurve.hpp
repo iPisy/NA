@@ -19,7 +19,8 @@ using namespace std;
 */
 class CubicBezierCurve:public BezierCurve{
 public:
-    CubicBezierCurve(const ControlPointsList& list):BezierCurve(initialize(list)){}
+    CubicBezierCurve(const ControlPointsList& list,int spline_Curve_Num):
+    BezierCurve(initialize(list,spline_Curve_Num)){}
 private:
-    ControlPointsList initialize(const ControlPointsList& list) const;
+    ControlPointsList initialize(const ControlPointsList& list,int spline_Curve_Num) const;
 };

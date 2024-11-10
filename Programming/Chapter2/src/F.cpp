@@ -31,12 +31,11 @@ class F_F_3:public Function{
 /// @endcond
 
 int main(){
-    F_F_1 F1;
-    F_F_2 F2;
-    F_F_3 F3;
-    vector<const Function*> init1({&F1,&F2}),init2({&F1,&F3});
-    Curve upper(init1,-sqrt(3),sqrt(3));
-    Curve lower(init2,-sqrt(3),sqrt(3));
+    F_F_1 C_u_F1,C_l_F1;
+    F_F_2 C_u_F2;
+    F_F_3 C_l_F2;
+    Curve upper(vector<const Function*>{&C_u_F1,&C_u_F2},-sqrt(3),sqrt(3));
+    Curve lower(vector<const Function*>{&C_l_F1,&C_l_F2},-sqrt(3),sqrt(3));
 
     int foo[3]={10,40,160},bar[3]={5,20,80};
     CurvePointList init[4];//init[3] for temporary storage.

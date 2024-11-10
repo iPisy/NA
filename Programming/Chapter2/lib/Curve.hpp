@@ -17,7 +17,7 @@ using namespace std;
  * 
  * When initializing the curve, you need offer the sub-functions. 
  * The domains of the sub-functions of the curve do not need to be provided one by one. 
- * Just provide the domain of the curve, and all the curve operation will check it.
+ * Just provide the domain of the curve, and it will convey it to its sub-functions.
 */
 class Curve{
 public:
@@ -43,7 +43,7 @@ public:
      * @param t the point.
      * @param order the order of the tangent vector.
      * 
-     * @details We use central difference quotient there, it might be not precise. So we need override it if necessary.
+     * @details I use central difference quotient there, it might be not precise. So we need override it if necessary.
      * And for those order>=2, if it is not overridden but called, program will throw an exception and exit.
     */
     vector<double> tangentVector(double t,int order,Direction direction=Direction::DEFAULT) const;

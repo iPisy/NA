@@ -5,4 +5,5 @@ class Out_DomainException{};
 class NotDefinedException{};
 class UnderflowException{};
 class InvalidInputException{};
+class ColorUsedUpException{};
 /// @endcond

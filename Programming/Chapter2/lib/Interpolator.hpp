@@ -16,14 +16,14 @@ using namespace std;
 class Interpolator{
 public:
     Interpolator(){}
-    Interpolator(const FunctionPointList& init):interpolatingPoints(init){}
-    void setInterpolatingPoints(const FunctionPointList& vec){
-        interpolatingPoints=vec;
+    Interpolator(const FunctionPointList& init):interpolationPoints(init){}
+    void setInterpolationPoints(const FunctionPointList& vec){
+        interpolationPoints=vec;
     }
-    const FunctionPointList& getInterpolatingPoints() const{
-        return interpolatingPoints;
+    const FunctionPointList& getInterpolationPoints() const{
+        return interpolationPoints;
     }
     virtual Polynomial interpolate() const=0;
 protected:
-    FunctionPointList interpolatingPoints;
+    FunctionPointList interpolationPoints;
 };

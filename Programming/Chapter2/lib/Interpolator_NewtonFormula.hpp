@@ -19,7 +19,7 @@ public:
     /**
      * @brief It generate interpolation polynomial and return it.
      * 
-     * It bases on the given function and interpolating points, and uses Newton formula to generate.
+     * It bases on the given function and interpolation points, and uses Newton formula to generate.
      * It create a difference quotient table, the operation of calculate it's element is implemented by 
      * calling virtual function `calculateDifferenceQuotient`, it can be overriden and thus can 
      * imply on Hermite problem.
@@ -30,7 +30,7 @@ protected:
      * @brief get value to initialize the difference quotient table. It can be overriden and imply on Hermite problem.
     */
     virtual double getInitializeValue(const vector<vector<double>>& table,int i) const{
-        return interpolatingPoints[i].value[0];
+        return interpolationPoints[i].value[0];
     }
 
     /**

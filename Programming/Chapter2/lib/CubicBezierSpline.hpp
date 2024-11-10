@@ -14,7 +14,14 @@
 class CubicBezierSpline:public BezierSpline{
 public:
     CubicBezierSpline():BezierSpline(2){}
-    CubicBezierSpline(const CurvePointList& curvePointList):BezierSpline(curvePointList,2){}
+    CubicBezierSpline(const CurvePointList& curvePointList):BezierSpline(curvePointList,2),curve_Num(controlPointsList_List.size()){}
+    
+    void setControlPointsList_List(const CurvePointList& curvePointList) override{
+        BezierSpline::setControlPointsList_List(curvePointList);
+        curve_Num=controlPointsList_List.size();
+    }
 
     void generateSpline() override;
+private:
+    int curve_Num;
 };

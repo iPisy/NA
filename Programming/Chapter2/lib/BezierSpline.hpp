@@ -26,7 +26,7 @@ public:
         if(controlPoints_Num<=1) throw InvalidInputException{};
     }
 
-    void setControlPointsList_List(const CurvePointList& curvePointList){
+    virtual void setControlPointsList_List(const CurvePointList& curvePointList){
         controlPointsList_List=devideCurvePointList(curvePointList);
     }
 
