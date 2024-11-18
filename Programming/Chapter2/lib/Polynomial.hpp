@@ -18,7 +18,7 @@ inline bool isZero(double x){
 }
 
 /**
- * @brief A sort of @ref Function, defining the polynomials and offers lots of operations of it.
+ * @brief A sort of @ref Function, defining polynomials and offers lots of operations of it.
 */
 class Polynomial:public Function{
 public:
@@ -26,8 +26,15 @@ public:
     //ctors
     Polynomial(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
     Function(l,r,leftClosed,rightClosed){}
+
     Polynomial(const vector<double>& init,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
     coefficient(init),Function(l,r,leftClosed,rightClosed){}
+
+    Polynomial(DefinitionDomain definitionDomain):
+    Polynomial(definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
+
+    Polynomial(const vector<double>& init,DefinitionDomain definitionDomain):
+    Polynomial(init,definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
 
     const vector<double>& getCoefficient() const{
         return coefficient;
@@ -44,19 +51,23 @@ public:
     */
     Polynomial getDerivative(int order) const;
 
-    double derivativeValue(double x,int order,Direction direction=Direction::DEFAULT) const override;
-
     Polynomial operator+(const Polynomial& rhs) const;
+
+    friend Polynomial operator+(double lhs,const Polynomial& rhs);
 
     void operator+=(const Polynomial& rhs);
 
     Polynomial operator-(const Polynomial& rhs) const;
+
+    friend Polynomial operator-(double lhs,const Polynomial& rhs);
 
     void operator-=(const Polynomial& rhs);
 
     Polynomial operator*(const Polynomial& rhs) const;
 
     Polynomial operator*(double rhs) const;
+
+    friend Polynomial operator*(double lhs,const Polynomial& rhs);
 
     void operator*=(const Polynomial& rhs);
 
@@ -120,8 +131,11 @@ protected:
     double getLocalExtremeValue(extremeType type) const;
 
 private:
+
     double getValue(double x) const override;
 
+    double getDerivativeValue(double x,int order) const override;
+    
     /**
      * @brief It returns derivative function of the Polynomial `in`. Internal method.
      * 
@@ -141,6 +155,24 @@ private:
     string ToString() const;
 };
 
-vector<Polynomial> operator*(vector<Polynomial> polys,const Polynomial& rhs);
+vector<Polynomial> operator+(const vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
 
-vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polys);
+void operator+=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
+
+vector<Polynomial> operator-(const vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
+
+vector<Polynomial> operator-=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
+
+vector<Polynomial> operator*(const vector<Polynomial>& polyArray,const Polynomial& rhs);
+
+vector<Polynomial> operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs);
+
+vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polyArray);
+
+vector<Polynomial> operator*(const vector<double>& doubleArray,const Polynomial& rhs);
+
+vector<Polynomial> operator*(const Polynomial& lhs,const vector<double>& doubleArray);
+
+vector<Polynomial> operator*(double lhs,const vector<Polynomial>& polyArray);
+
+vector<Polynomial> operator*(const vector<Polynomial>& polyArray,double rhs);

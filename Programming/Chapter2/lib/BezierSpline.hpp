@@ -26,6 +26,8 @@ public:
         if(controlPoints_Num<=1) throw InvalidInputException{};
     }
 
+    static CurvePointList connectInitList(const vector<CurvePointList>& initList);
+
     virtual void setControlPointsList_List(const CurvePointList& curvePointList){
         controlPointsList_List=devideCurvePointList(curvePointList);
     }

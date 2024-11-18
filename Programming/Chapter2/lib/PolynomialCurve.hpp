@@ -23,6 +23,12 @@ public:
     PolynomialCurve(const vector<const Polynomial*>& curve_Function,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
     Curve(vector<const Function*>(curve_Function.begin(),curve_Function.end()),l,r,leftClosed,rightClosed){}
 
+    PolynomialCurve(DefinitionDomain definitionDomain):
+    PolynomialCurve(definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
+
+    PolynomialCurve(const vector<const Polynomial*>& curve_Function,DefinitionDomain definitionDomain):
+    PolynomialCurve(curve_Function,definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
+
 protected:
     /**
      * @brief change the curve's pointer to polynomial's pointer. 

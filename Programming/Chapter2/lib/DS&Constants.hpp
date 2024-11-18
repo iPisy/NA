@@ -4,19 +4,41 @@
 */
 #pragma once
 #include<vector>
+#include<limits>
 
 using namespace std;
 
 #define EPSILON (1e-15)
 
 /**
- * @brief using in one-sided derivative.
+ * @brief definition domain of a function, curve, etc.
  */
-enum class Direction{
-    left,
-    right,
-    DEFAULT
-};
+typedef struct DefinitionDomain{
+    double l///< left endpoint;
+    ,r;///< right endpoint;
+    bool lClosed///< ==1 if left side of the interval is closed.
+    ,rClosed;///< ==1 if right side of the interval is closed.
+
+    DefinitionDomain(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1)
+    :l(l),r(r),lClosed(lClosed),rClosed(rClosed){}
+
+    /**
+     * @brief check if `x` is in the definition domain. 
+    */
+    bool InDefinitionDomain(double x) const{
+        return x>=l && x<=r;
+    }
+
+    double get_l() const{
+        if(lClosed) return l;
+        return l+EPSILON;
+    }
+
+    double get_r() const{
+        if(rClosed) return r;
+        return r-EPSILON;
+    }
+}DefinitionDomain;
 
 /**
  * @brief a list of distinct independent variable values.

@@ -21,14 +21,13 @@ using namespace std;
 */
 class Curve{
 public:
-    Curve(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
-    l(l),r(r),leftClosed(leftClosed),rightClosed(rightClosed){}
+    Curve(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1):
+    definitionDomain(l,r,lClosed,rClosed){}
 
-    Curve(const vector<const Function*>& curve_Function,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
-    curve_Function(curve_Function), l(l), r(r),leftClosed(leftClosed),rightClosed(rightClosed){
+    Curve(const vector<const Function*>& curve_Function,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1):
+    curve_Function(curve_Function),definitionDomain(l,r,lClosed,rClosed){
         for(auto& it:curve_Function){
-            const_cast<Function*>(it)->set_l(l);
-            const_cast<Function*>(it)->set_r(r);
+            const_cast<Function*>(it)->set_definitionDomain({l,r,lClosed,rClosed});
         }
     };
 
@@ -46,28 +45,26 @@ public:
      * @details I use central difference quotient there, it might be not precise. So we need override it if necessary.
      * And for those order>=2, if it is not overridden but called, program will throw an exception and exit.
     */
-    vector<double> tangentVector(double t,int order,Direction direction=Direction::DEFAULT) const;
+    vector<double> tangentVector(double t,int order) const;
 
     int getDimension() const{
         return curve_Function.size();
     }
 
     double get_l() const{
-        if(leftClosed) return l;
-        return l+EPSILON;
+        return definitionDomain.get_l();
     }
 
     double get_r() const{
-        if(rightClosed) return r;
-        return r-EPSILON;
+        return definitionDomain.get_r();
     }
 
     bool get_leftClosed() const{
-        return leftClosed;
+        return definitionDomain.lClosed;
     }
 
     bool get_rightClose() const{
-        return rightClosed;
+        return definitionDomain.rClosed;
     }
 
     /**
@@ -93,10 +90,6 @@ protected:
 
     vector<const Function*> curve_Function;///< @ref Curve consists of a few @ref Function "Function"s.
 
-    double l,///< left endpoint.
-    r;///< right endpoint.
-
-    bool leftClosed,///< is 1 if the domain is closed at the left endpoint, otherwise 0.
-    rightClosed;///< similar to @ref leftClosed
+    DefinitionDomain definitionDomain;
 
 };

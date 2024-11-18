@@ -31,14 +31,14 @@ public:
      * And those order>=2 is not defined, then if it is not overridden but called, program will throw an exception and exit.
      * @param x the point.
      * @param order the order of the derivative.
-     * @param direction the direction of derivative. @b DEFAULT means without direction. Otherwise we actually give 
-     * the derivative at x+(-)delta/2 to avoid the nan return value at characteristic points. 
-     * With default definition of derivative, it returns right(left) difference quotient.
     */
-    virtual double derivativeValue(double x,int order,Direction direction=Direction::DEFAULT) const;
+    double derivativeValue(double x,int order) const;
 
-    Function(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
-    l(l),r(r),leftClosed(leftClosed),rightClosed(rightClosed){}
+    Function(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1):
+    definitionDomain(l,r,lClosed,rClosed){}
+
+    Function(DefinitionDomain definitionDomain):
+    Function(definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
 
     /**
      * @brief generate a list of uniformly distributed points within the definition domain of the function.
@@ -56,44 +56,46 @@ public:
     */
     FunctionPointList generatePointList(const IndependentVariableList& in,int derivative_order) const;
 
-    void set_l(double l){this->l=l;}
+    void set_l(double l){this->definitionDomain.l=l;}
 
-    void set_r(double r){this->r=r;}
+    void set_r(double r){this->definitionDomain.r=r;}
+
+    void set_lClosed(bool lClosed){this->definitionDomain.lClosed=lClosed;}
+
+    void set_rClosed(bool rClosed){this->definitionDomain.rClosed=rClosed;}
+
+    void set_definitionDomain(DefinitionDomain definitionDomain){this->definitionDomain=definitionDomain;}
 
     double get_l() const{
-        if(leftClosed) return l;
-        return l+EPSILON;
+        return definitionDomain.get_l();
     }
 
     double get_r() const{
-        if(rightClosed) return r;
-        return r-EPSILON;
+        return definitionDomain.get_r();
     }
 
     bool get_leftClosed() const{
-        return leftClosed;
+        return definitionDomain.lClosed;
     }
 
     bool get_rightClosed() const{
-        return rightClosed;
+        return definitionDomain.rClosed;
+    }
+
+    DefinitionDomain get_definitionDomain() const{
+        return definitionDomain;
     }
 
 protected:
-
+    DefinitionDomain definitionDomain;
+private:
     /**
      * @brief Internal method of @ref operator(). Need to be overridden.
     */
     virtual double getValue(double x) const=0;
 
-    double l,r;///< The 2 endpoints of the domain of definition.
-
-    bool leftClosed,rightClosed;///< is 1 if the domain is closed at the endpoint, otherwise 0.
-
     /**
-     * @brief check if the point is in the definition domain. 
+     * @brief Internal method of @ref derivativeValue. Need to be overridden.
     */
-    bool InDefinitionDomain(double x) const{
-        return x>=l && x<=r;
-    }
-
+    virtual double getDerivativeValue(double x,int order) const;
 };

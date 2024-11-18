@@ -12,19 +12,13 @@ using namespace std;
 const double delta=1e-6;
 
 double Function::operator()(double x) const{
-    if(InDefinitionDomain(x)) return getValue(x);
-    throw Out_DomainException{};
+    if(definitionDomain.InDefinitionDomain(x)) return getValue(x);
+    throw Out_DefinitionDomainException{};
 }
 
-double Function::derivativeValue(double x,int order,Direction direction) const{
-    
-    if(order==1){
-        if(direction==Direction::DEFAULT) return ((*this)(x+delta/2)-(*this)(x-delta/2))/delta;
-        if(direction==Direction::left) return derivativeValue(x-delta/2,order);
-        else return derivativeValue(x+delta/2,order);
-    }
-
-    throw NotDefinedException{};
+double Function::derivativeValue(double x,int order) const{
+    if(definitionDomain.InDefinitionDomain(x)) return getDerivativeValue(x,order);
+    else throw Out_DefinitionDomainException{};
 }
 
 FunctionPointList Function::generatePointList(int number,int derivative_order) const{
@@ -52,4 +46,16 @@ FunctionPointList Function::generatePointList(const IndependentVariableList& in,
         ret.push_back(foo);
     }
     return ret;
+}
+
+/**
+ * @brief a default definition of order=1, using difference quotient.
+ */
+double Function::getDerivativeValue(double x,int order) const{
+    if(order==1){
+        if(x==definitionDomain.r) return derivativeValue(x-delta/2,order);
+        else if(x==definitionDomain.l) return derivativeValue(x+delta/2,order);
+        else return ((*this)(x+delta/2)-(*this)(x-delta/2))/delta;
+    }
+    throw NotDefinedException{};
 }

@@ -38,15 +38,13 @@ int main(){
     Curve lower(vector<const Function*>{&C_l_F1,&C_l_F2},-sqrt(3),sqrt(3));
 
     int foo[3]={10,40,160},bar[3]={5,20,80};
-    CurvePointList init[4];//init[3] for temporary storage.
+    
     for(int i=0;i<3;i++){
         CubicBezierSpline spline;
-        init[i]=upper.generatePointList(bar[i],1,0);
-        init[3]=lower.generatePointList(bar[i],1,1);
-        init[i].insert(init[i].end(),init[3].begin(),init[3].end());
-        init[i].push_back(init[i][0]);
 
-        spline.setControlPointsList_List(init[i]);
+        spline.setControlPointsList_List(BezierSpline::connectInitList(
+            vector<CurvePointList>{upper.generatePointList(bar[i],1,0),lower.generatePointList(bar[i],1,1)}));
+
         spline.generateSpline();
 
         string filename;

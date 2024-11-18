@@ -5,9 +5,10 @@
 #pragma once
 
 /// @cond
-class Out_DomainException{};
+class Out_DefinitionDomainException{};
 class NotDefinedException{};
 class UnderflowException{};
 class InvalidInputException{};
 class ColorUsedUpException{};
+class VectorSizeMismatchException{};
 /// @endcond

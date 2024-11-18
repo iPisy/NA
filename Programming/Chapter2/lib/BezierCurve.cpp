@@ -9,12 +9,12 @@
 void BezierCurve::generateCurve(){
     int curve_Dimension=controlPointsList[0][0].size();
     int controlPoint_num=controlPointsList.size();
-    for(int i=0;i<curve_Dimension;i++){
-        Polynomial* foo=new Polynomial(l,r);
-        for(int j=0;j<controlPoint_num;j++){
-            *foo+=BernsteinPolynomial(controlPoint_num-1,j)*controlPointsList[j][0][i];
-        }
-        curve_Function.push_back(foo);
+    vector<Polynomial> foo(curve_Dimension,Polynomial(definitionDomain));
+    for(int i=0;i<controlPoint_num;i++){
+        foo+=controlPointsList[i][0]*BernsteinPolynomial(controlPoint_num-1,i);
+    }
+    for(auto& it:foo){
+        curve_Function.push_back(new Polynomial(it));
     }
 }
 
