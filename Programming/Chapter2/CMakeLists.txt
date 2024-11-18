@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(my_project)
+project(NA_Chapter2_Programming_Hw)
 
 FILE(GLOB LIB_SOURCES "lib/*.cpp")
 add_library(_ STATIC ${LIB_SOURCES})
