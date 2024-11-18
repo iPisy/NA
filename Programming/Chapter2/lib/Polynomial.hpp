@@ -161,11 +161,11 @@ void operator+=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
 
 vector<Polynomial> operator-(const vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
 
-vector<Polynomial> operator-=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
+void operator-=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
 
 vector<Polynomial> operator*(const vector<Polynomial>& polyArray,const Polynomial& rhs);
 
-vector<Polynomial> operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs);
+void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs);
 
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polyArray);
 

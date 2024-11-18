@@ -256,7 +256,7 @@ vector<Polynomial> operator-(const vector<Polynomial>& lhs,const vector<Polynomi
     return lhs+(-1)*rhs;
 }
 
-vector<Polynomial> operator-=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs){
+void operator-=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs){
     lhs=lhs-rhs;
 }
 
@@ -268,7 +268,7 @@ vector<Polynomial> operator*(const vector<Polynomial>& polyArray,const Polynomia
     return ret;
 }
 
-vector<Polynomial> operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs){
+void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs){
     polyArray=polyArray*rhs;
 }
 
