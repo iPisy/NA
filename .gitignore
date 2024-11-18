@@ -50,3 +50,8 @@ Programming/Chapter2/src/report-blx.bib
 Programming/test.cpp
 Programming/test
 Programming/Chapter2/src/test.cpp
+
+#After rearrange
+**/report
+**/build
+**/bin

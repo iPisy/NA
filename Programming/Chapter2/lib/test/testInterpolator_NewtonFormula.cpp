@@ -1,6 +1,8 @@
 #include"../Interpolator_NewtonFormula.hpp"
 #include"../Function.hpp"
 
+int main(){}
+
 // class F:public Function{
 // public:
 //     double getValue(double x) const override{
@@ -16,8 +18,3 @@
 //     Interpolator_N x(F(),{0,1,3,4});
 //     x.interpolate().print();
 // }
-
-/*
-Compile:
-g++ testInterpolator_NewtonFormula.cpp ../Interpolator_NewtonFormula.cpp ../Function.cpp ../Polynomial.cpp ../EquationSolver.cpp -o test
-*/
