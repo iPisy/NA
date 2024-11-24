@@ -23,6 +23,11 @@ typedef struct DefinitionDomain{
     :l(l),r(r),lClosed(lClosed),rClosed(rClosed){}
 
     /**
+     * @brief merge 2 definition domains.
+     */
+    static DefinitionDomain merge(const DefinitionDomain& lhs,const DefinitionDomain& rhs);
+
+    /**
      * @brief check if `x` is in the definition domain. 
     */
     bool InDefinitionDomain(double x) const{

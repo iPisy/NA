@@ -18,7 +18,7 @@ Polynomial Interpolator_N::interpolate() const{
             differenceQuotientTable[i][j]=calculateDifferenceQuotient(differenceQuotientTable,i,j);
         }
     }
-    Polynomial p(interpolationPoints[0].x,interpolationPoints.back().x);
+    Polynomial p(DefinitionDomain{interpolationPoints[0].x,interpolationPoints.back().x});
     Polynomial pai(vector<double>{1});
     for(int i=0;i<l;i++){
         p+=pai*differenceQuotientTable[0][i];

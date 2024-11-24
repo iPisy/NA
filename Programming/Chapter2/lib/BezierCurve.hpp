@@ -13,7 +13,7 @@ class BezierCurve:public PolynomialCurve{
 public:
 
     BezierCurve(const ControlPointsList& controlPointsList):
-    controlPointsList(controlPointsList),PolynomialCurve(0,1){}
+    controlPointsList(controlPointsList),PolynomialCurve(DefinitionDomain{0,1}){}
 
     BezierCurve(const CurvePointList& curvePointList):
     BezierCurve(toControlPointsList(curvePointList)){}

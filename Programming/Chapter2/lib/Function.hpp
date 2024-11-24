@@ -34,11 +34,8 @@ public:
     */
     double derivativeValue(double x,int order) const;
 
-    Function(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1):
-    definitionDomain(l,r,lClosed,rClosed){}
-
-    Function(DefinitionDomain definitionDomain):
-    Function(definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
+    Function(const DefinitionDomain& definitionDomain={}):
+    definitionDomain(definitionDomain){}
 
     /**
      * @brief generate a list of uniformly distributed points within the definition domain of the function.

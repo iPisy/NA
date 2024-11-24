@@ -34,8 +34,8 @@ int main(){
     F_F_1 C_u_F1,C_l_F1;
     F_F_2 C_u_F2;
     F_F_3 C_l_F2;
-    Curve upper(vector<const Function*>{&C_u_F1,&C_u_F2},-sqrt(3),sqrt(3));
-    Curve lower(vector<const Function*>{&C_l_F1,&C_l_F2},-sqrt(3),sqrt(3));
+    Curve upper(vector<const Function*>{&C_u_F1,&C_u_F2},DefinitionDomain{-sqrt(3),sqrt(3)});
+    Curve lower(vector<const Function*>{&C_l_F1,&C_l_F2},DefinitionDomain{-sqrt(3),sqrt(3)});
 
     int foo[3]={10,40,160},bar[3]={5,20,80};
     

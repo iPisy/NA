@@ -23,18 +23,13 @@ inline bool isZero(double x){
 class Polynomial:public Function{
 public:
 
-    //ctors
-    Polynomial(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
-    Function(l,r,leftClosed,rightClosed){}
+    Polynomial(const DefinitionDomain& definitionDomain={}):
+    Function(definitionDomain){}
 
-    Polynomial(const vector<double>& init,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool leftClosed=1,bool rightClosed=1):
-    coefficient(init),Function(l,r,leftClosed,rightClosed){}
+    Polynomial(const vector<double>& init,DefinitionDomain definitionDomain={}):
+    coefficient(init),Function(definitionDomain){}
 
-    Polynomial(DefinitionDomain definitionDomain):
-    Polynomial(definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
-
-    Polynomial(const vector<double>& init,DefinitionDomain definitionDomain):
-    Polynomial(init,definitionDomain.l,definitionDomain.r,definitionDomain.lClosed,definitionDomain.rClosed){}
+    Polynomial(double x):coefficient(vector<double>{x}){}
 
     const vector<double>& getCoefficient() const{
         return coefficient;
@@ -51,37 +46,13 @@ public:
     */
     Polynomial getDerivative(int order) const;
 
-    Polynomial operator+(const Polynomial& rhs) const;
-
-    friend Polynomial operator+(double lhs,const Polynomial& rhs);
-
     void operator+=(const Polynomial& rhs);
-
-    Polynomial operator-(const Polynomial& rhs) const;
-
-    friend Polynomial operator-(double lhs,const Polynomial& rhs);
 
     void operator-=(const Polynomial& rhs);
 
-    Polynomial operator*(const Polynomial& rhs) const;
-
-    Polynomial operator*(double rhs) const;
-
-    friend Polynomial operator*(double lhs,const Polynomial& rhs);
-
     void operator*=(const Polynomial& rhs);
 
-    void operator*=(double rhs);
-
-    //If it's not divisible, result will have some errors.
-    Polynomial operator/(const Polynomial& rhs) const;
-
-    Polynomial operator/(double rhs) const;
-
     void operator/=(const Polynomial& rhs);
-
-    void operator/=(double rhs);
-
     /**
      * @brief apply affine transformation @b x=ax'+b on *this.
      */
@@ -153,26 +124,34 @@ private:
      * @brief Private method of public method @ref print and @ref getLatexFormatString.
     */
     string ToString() const;
+
+    /*
+    ===================================================================================
+    */
+
+    //friends
+        //Arithmetical operators
+    friend Polynomial operator+(const Polynomial& lhs,const Polynomial& rhs);
+    friend Polynomial operator-(const Polynomial& lhs,const Polynomial& rhs);
+    friend Polynomial operator*(const Polynomial& lhs,const Polynomial& rhs);
+    friend Polynomial operator/(const Polynomial& lhs,const Polynomial& rhs);
 };
 
+//Arithmetical operators
+Polynomial operator+(const Polynomial& lhs,const Polynomial& rhs);
+Polynomial operator-(const Polynomial& lhs,const Polynomial& rhs);
+Polynomial operator*(const Polynomial& lhs,const Polynomial& rhs);
+    //If it's not divisible, result will have some errors.
+Polynomial operator/(const Polynomial& lhs,const Polynomial& rhs);
+
+//operators of vector<Polynomial>
 vector<Polynomial> operator+(const vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
-
 void operator+=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
-
 vector<Polynomial> operator-(const vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
-
 void operator-=(vector<Polynomial>& lhs,const vector<Polynomial>& rhs);
-
 vector<Polynomial> operator*(const vector<Polynomial>& polyArray,const Polynomial& rhs);
-
-void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs);
-
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polyArray);
-
+void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs);
+    //still needed, as compiler can't choose the correct implicit conversion.
 vector<Polynomial> operator*(const vector<double>& doubleArray,const Polynomial& rhs);
-
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<double>& doubleArray);
-
-vector<Polynomial> operator*(double lhs,const vector<Polynomial>& polyArray);
-
-vector<Polynomial> operator*(const vector<Polynomial>& polyArray,double rhs);

@@ -11,11 +11,13 @@ buildInDebug: dirs
 run: build src/run.sh
 	cp src/run.sh bin/
 	chmod +x bin/run.sh
+	clear
 	cd bin && ./run.sh
 
 runTest: build src/run.sh
 	cp src/run.sh bin/test
 	chmod +x bin/test/run.sh
+	clear
 	cd bin/test && ./run.sh
 
 simpleTest:

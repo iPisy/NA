@@ -17,7 +17,7 @@ class F:public Function{
 /// @endcond
 
 int main(){
-    F f(-5,5);
+    F f(DefinitionDomain{-5,5});
 
     FunctionPointList list[4];
     int foo[4]={2,4,6,8};

@@ -38,7 +38,7 @@ Polynomial Polynomial::getDerivative(int order) const{
  */
 Polynomial Polynomial::getDerivative(const Polynomial& in,int order) const{
     if(order==0) return in;
-    Polynomial deri(in.get_l(),in.get_r(),in.get_leftClosed(),in.get_rightClosed());
+    Polynomial deri(in.get_definitionDomain());
     int l=coefficient.size();
     for(int i=1;i<l;i++){
         deri.coefficient.push_back(i*in.coefficient[i]);
@@ -50,81 +50,19 @@ double Polynomial::getDerivativeValue(double x,int order) const{
     return getDerivative(order)(x);
 }
 
-Polynomial Polynomial::operator+(const Polynomial& rhs) const{
-    Polynomial ret(coefficient,min(this->get_l(),rhs.get_l()),min(this->get_r(),rhs.get_r()),this->get_leftClosed() && rhs.get_leftClosed(),this->get_rightClosed() && rhs.get_rightClosed());
-    int i;
-    for(i=0;i<coefficient.size() && i<rhs.coefficient.size();i++){
-        ret.coefficient[i]+=rhs.coefficient[i];
-    }
-    if(i<rhs.coefficient.size()){
-        for(;i<rhs.coefficient.size();i++){
-            ret.coefficient.push_back(rhs.coefficient[i]);
-        }
-    }
-    ret.clearLeadingZero();
-    return ret;
-}
-
 void Polynomial::operator+=(const Polynomial& rhs){
     *this=*this+rhs;
-}
-
-Polynomial Polynomial::operator-(const Polynomial& rhs) const{
-    return *this+(rhs)*(-1);
 }
 
 void Polynomial::operator-=(const Polynomial& rhs){
     *this=*this-rhs;
 }
 
-Polynomial Polynomial::operator*(const Polynomial& rhs) const{
-    Polynomial ret(min(this->get_l(),rhs.get_l()),min(this->get_r(),rhs.get_r()),this->get_leftClosed() && rhs.get_leftClosed(),this->get_rightClosed() && rhs.get_rightClosed());
-    ret.coefficient.assign(coefficient.size()+rhs.coefficient.size()-1,0);
-    for(int i=0;i<coefficient.size();i++){
-        for(int j=0;j<rhs.coefficient.size();j++){
-            ret.coefficient[i+j]+=coefficient[i]*rhs.coefficient[j];
-        }
-    }
-    ret.clearLeadingZero();
-    return ret;
-}
-
 void Polynomial::operator*=(const Polynomial& rhs){
     *this=*this*rhs;
 }
 
-Polynomial Polynomial::operator*(double rhs) const{
-    return *this*Polynomial(vector<double>{rhs});
-}
-
-void Polynomial::operator*=(double rhs){
-    *this=*this*rhs;
-}
-
-Polynomial Polynomial::operator/(const Polynomial& rhs) const{
-    Polynomial lhs=*this;
-    int rhsOrder=rhs.coefficient.size()-1;
-    double rhsHighestOrderCoefficient=rhs.coefficient[rhsOrder];
-    Polynomial ans(min(this->get_l(),rhs.get_l()),min(this->get_r(),rhs.get_r()),this->get_leftClosed() && rhs.get_leftClosed(),this->get_rightClosed() && rhs.get_rightClosed());
-    for(int lhsOrder=coefficient.size()-1;lhsOrder>=rhsOrder;lhsOrder--){
-        double singleCoefficient=lhs.coefficient[lhsOrder]/rhsHighestOrderCoefficient;
-        ans.coefficient.insert(ans.coefficient.begin(),singleCoefficient);
-        vector<double> foo(lhsOrder-rhsOrder+1,0);
-        foo.back()=1;
-        lhs-=rhs*Polynomial(foo)*singleCoefficient;
-    }
-    return ans;
-}
-
-Polynomial Polynomial::operator/(double rhs) const{
-    return *this/Polynomial(vector<double>{rhs});
-}
-
 void Polynomial::operator/=(const Polynomial& rhs){
-    *this=*this/rhs;
-}
-
-void Polynomial::operator/=(double rhs){
     *this=*this/rhs;
 }
 
@@ -227,16 +165,50 @@ double Polynomial::getLocalExtremeValue(extremeType type) const{
     return extremeValue;
 }
 
-Polynomial operator+(double lhs,const Polynomial& rhs){
-    return rhs+lhs;
+Polynomial operator+(const Polynomial& lhs,const Polynomial& rhs){
+    Polynomial ret(lhs.coefficient,DefinitionDomain::merge(lhs.definitionDomain,rhs.definitionDomain));
+    int i;
+    for(i=0;i<lhs.coefficient.size() && i<rhs.coefficient.size();i++){
+        ret.coefficient[i]+=rhs.coefficient[i];
+    }
+    if(i<rhs.coefficient.size()){
+        for(;i<rhs.coefficient.size();i++){
+            ret.coefficient.push_back(rhs.coefficient[i]);
+        }
+    }
+    ret.clearLeadingZero();
+    return ret;
 }
 
-Polynomial operator-(double lhs,const Polynomial& rhs){
-    return Polynomial(vector<double>{lhs})-rhs;
+Polynomial operator-(const Polynomial& lhs,const Polynomial& rhs){
+    return lhs+(rhs)*(-1);
 }
 
-Polynomial operator*(double lhs,const Polynomial& rhs){
-    return rhs*lhs;
+Polynomial operator*(const Polynomial& lhs,const Polynomial& rhs){
+    Polynomial ret(DefinitionDomain::merge(lhs.definitionDomain,rhs.definitionDomain));
+    ret.coefficient.assign(lhs.coefficient.size()+rhs.coefficient.size()-1,0);
+    for(int i=0;i<lhs.coefficient.size();i++){
+        for(int j=0;j<rhs.coefficient.size();j++){
+            ret.coefficient[i+j]+=lhs.coefficient[i]*rhs.coefficient[j];
+        }
+    }
+    ret.clearLeadingZero();
+    return ret;
+}
+
+Polynomial operator/(const Polynomial& lhs,const Polynomial& rhs){
+    Polynomial foo=lhs;
+    int rhsOrder=rhs.coefficient.size()-1;
+    double rhsHighestOrderCoefficient=rhs.coefficient[rhsOrder];
+    Polynomial ans(DefinitionDomain::merge(lhs.definitionDomain,rhs.definitionDomain));
+    for(int fooOrder=foo.coefficient.size()-1;fooOrder>=rhsOrder;fooOrder--){
+        double singleCoefficient=foo.coefficient[fooOrder]/rhsHighestOrderCoefficient;
+        ans.coefficient.insert(ans.coefficient.begin(),singleCoefficient);
+        vector<double> bar(fooOrder-rhsOrder+1,0);
+        bar.back()=1;
+        foo-=rhs*Polynomial(bar)*singleCoefficient;
+    }
+    return ans;
 }
 
 vector<Polynomial> operator+(const vector<Polynomial>& lhs,const vector<Polynomial>& rhs){
@@ -268,34 +240,17 @@ vector<Polynomial> operator*(const vector<Polynomial>& polyArray,const Polynomia
     return ret;
 }
 
-void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs){
-    polyArray=polyArray*rhs;
-}
-
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<Polynomial>& polyArray){
     return polyArray*lhs;
 }
 
-vector<Polynomial> operator*(const vector<double>& doubleArray,const Polynomial& rhs){
-    vector<Polynomial> ret;
-    for(auto& it:doubleArray){
-        ret.push_back(it*rhs);
-    }
-    return ret;
+void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs){
+    polyArray=polyArray*rhs;
 }
 
+vector<Polynomial> operator*(const vector<double>& doubleArray,const Polynomial& rhs){
+    return vector<Polynomial>(doubleArray.begin(),doubleArray.end())*rhs;
+}
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<double>& doubleArray){
     return doubleArray*lhs;
-}
-
-vector<Polynomial> operator*(double lhs,const vector<Polynomial>& polyArray){
-    vector<Polynomial> ret;
-    for(auto& it:polyArray){
-        ret.push_back(lhs*it);
-    }
-    return ret;
-}
-
-vector<Polynomial> operator*(const vector<Polynomial>& polyArray,double rhs){
-    return rhs*polyArray;
 }

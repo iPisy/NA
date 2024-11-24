@@ -21,13 +21,13 @@ using namespace std;
 */
 class Curve{
 public:
-    Curve(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1):
-    definitionDomain(l,r,lClosed,rClosed){}
+    Curve(DefinitionDomain definitionDomain={}):
+    definitionDomain(definitionDomain){}
 
-    Curve(const vector<const Function*>& curve_Function,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1):
-    curve_Function(curve_Function),definitionDomain(l,r,lClosed,rClosed){
+    Curve(const vector<const Function*>& curve_Function,DefinitionDomain definitionDomain={}):
+    curve_Function(curve_Function),definitionDomain(definitionDomain){
         for(auto& it:curve_Function){
-            const_cast<Function*>(it)->set_definitionDomain({l,r,lClosed,rClosed});
+            const_cast<Function*>(it)->set_definitionDomain(definitionDomain);
         }
     };
 

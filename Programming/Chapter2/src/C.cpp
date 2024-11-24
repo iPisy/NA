@@ -18,7 +18,7 @@ class F:public Function{
 /// @endcond
 
 int main(){
-    F f(-1,1);
+    F f(DefinitionDomain{-1,1});
 
     IndependentVariableList vlist[4];
     FunctionPointList plist[4];
