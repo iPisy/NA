@@ -46,10 +46,8 @@ int main(){
             vector<CurvePointList>{upper.generatePointList(bar[i],1,0),lower.generatePointList(bar[i],1,1)}));
 
         spline.generateSpline();
-
-        string filename;
-        filename="m="+to_string(foo[i])+".tex";
-        spline.print_Latex(filename,vector<string>{"({x},{2/3*(sqrt(abs(x))+sqrt(3-x*x)})","({x},{2/3*(sqrt(abs(x))-sqrt(3-x*x)})"},vector<const Curve*>{&upper,&lower});
+        
+        spline.print_Latex("m="+to_string(foo[i])+".tex",vector<string>{"({x},{2/3*(sqrt(abs(x))+sqrt(3-x*x)})","({x},{2/3*(sqrt(abs(x))-sqrt(3-x*x)})"},vector<const Curve*>{&upper,&lower});
     }
     cout<< "Generated! Images will be in report after compilation."<<endl;
 }

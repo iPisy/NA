@@ -2,11 +2,10 @@
  * @file
  * @brief Implement functions of class @ref Polynomial and some functions concerning vector<Polynomial>.
 */
-#include"Polynomial.hpp"
-#include<limits>
 #include<iomanip>
 #include<sstream>
-#include<algorithm>
+#include"Polynomial.hpp"
+#include"EquationSolver.hpp"
 #include"Exceptions.hpp"
 
 using namespace std;
@@ -88,20 +87,16 @@ IndependentVariableList Polynomial::getExtremePoints() const{
         NewtonMethod ExtremePointsSolver(deri,0);        
         double root=ExtremePointsSolver.solve();
         deri/=Polynomial(vector<double>{-root,1});
-        if(definitionDomain.InDefinitionDomain(root)) ans.push_back(root);
+        if(definitionDomain.inDefinitionDomain(root)) ans.push_back(root);
     }
     return ans;
 }
 
-void Polynomial::print() const{
-    cout<<ToString()<<endl;
-}
-
 string Polynomial::getLatexFormatString() const{
-    return "{"+ToString()+"}";
+    return "{"+toString()+"}";
 }
 
-string Polynomial::ToString() const{
+string Polynomial::toString() const{
     bool firstSignFlag=1;
     bool printFlag=0;
     string ret;
@@ -253,4 +248,9 @@ vector<Polynomial> operator*(const vector<double>& doubleArray,const Polynomial&
 }
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<double>& doubleArray){
     return doubleArray*lhs;
+}
+
+ostream& operator<<(ostream& out,const Polynomial& p){
+    out<<p.toString();
+    return out;
 }

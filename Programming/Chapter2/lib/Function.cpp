@@ -12,12 +12,12 @@ using namespace std;
 const double delta=1e-6;
 
 double Function::operator()(double x) const{
-    if(definitionDomain.InDefinitionDomain(x)) return getValue(x);
+    if(definitionDomain.inDefinitionDomain(x)) return getValue(x);
     throw Out_DefinitionDomainException{};
 }
 
 double Function::derivativeValue(double x,int order) const{
-    if(definitionDomain.InDefinitionDomain(x)) return getDerivativeValue(x,order);
+    if(definitionDomain.inDefinitionDomain(x)) return getDerivativeValue(x,order);
     else throw Out_DefinitionDomainException{};
 }
 

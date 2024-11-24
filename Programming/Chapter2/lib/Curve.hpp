@@ -51,20 +51,8 @@ public:
         return curve_Function.size();
     }
 
-    double get_l() const{
-        return definitionDomain.get_l();
-    }
-
-    double get_r() const{
-        return definitionDomain.get_r();
-    }
-
-    bool get_leftClosed() const{
-        return definitionDomain.lClosed;
-    }
-
-    bool get_rightClose() const{
-        return definitionDomain.rClosed;
+    DefinitionDomain getDefinitionDomain() const{
+        return definitionDomain;
     }
 
     /**

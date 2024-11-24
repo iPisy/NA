@@ -12,11 +12,9 @@ int main(){
     Interpolator_N Sp2_interpolator(Sp2_interpolationPoints);
 
     cout<<"Answer of (a):"<<endl;
-    cout<<"Average weight polynomial for Sp1: "<<endl;
-    Sp1_interpolator.interpolate().print();
-    cout<<"Average weight polynomial for Sp2: "<<endl;
-    Sp2_interpolator.interpolate().print();
-    cout<<endl;
+    cout<<"Average weight polynomial for Sp1: "<<endl<<Sp1_interpolator.interpolate()<<endl;
+
+    cout<<"Average weight polynomial for Sp2: "<<endl<<Sp2_interpolator.interpolate()<<endl;
     
     cout<<"Answer of (b):"<<endl;
     cout<<"Define that a certain sample of larvae will die at day x "

@@ -27,7 +27,7 @@ protected:
     /**
      * @brief change the curve's pointer to polynomial's pointer. 
     */
-    const Polynomial* ToPolynomial(const Function* in) const{
+    const Polynomial* toPolynomial(const Function* in) const{
         return static_cast<const Polynomial*>(in);
     }
 };

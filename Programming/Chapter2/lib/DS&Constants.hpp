@@ -30,10 +30,14 @@ typedef struct DefinitionDomain{
     /**
      * @brief check if `x` is in the definition domain. 
     */
-    bool InDefinitionDomain(double x) const{
+    bool inDefinitionDomain(double x) const{
         return x>=l && x<=r;
     }
 
+    bool isDefault() const{
+        if(this->l==numeric_limits<double>::lowest() && this->r==numeric_limits<double>::max() && this->lClosed==1 && this->rClosed==1) return 1;
+        return 0;
+    }
     double get_l() const{
         if(lClosed) return l;
         return l+EPSILON;

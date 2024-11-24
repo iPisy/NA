@@ -55,14 +55,14 @@ void BezierSpline::print_Latex(string filename,const vector<string>& exactCurves
     for(int i=0;i<exactcurve_num;i++){
         string legendentry="";
         if(i==0) legendentry="exact curve";
-        outputer.addLine(exactCurves[i],legendentry,"dashed",curves[i]->get_l(),curves[i]->get_r());
+        outputer.addLine(exactCurves[i],legendentry,"dashed",curves[i]->getDefinitionDomain());
     }
 
     
     for(int i=0;i<curve_num;i++){
         string legendentry="";
         if(i==0) legendentry="Bezier spline";
-        outputer.addLine(m_BezierSpline[i]->getLatexFormatString(),m_BezierSpline[i]->get_l(),m_BezierSpline[i]->get_r(),legendentry);
+        outputer.addLine(m_BezierSpline[i]->toLatexFormatString(),m_BezierSpline[i]->getDefinitionDomain(),legendentry);
     }
     
     outputer.quickEnd();

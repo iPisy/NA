@@ -8,6 +8,7 @@
 #include<string>
 #include<limits>
 #include"NameLibrary.hpp"
+#include"DS&Constants.hpp"
 
 using namespace std;
 
@@ -25,12 +26,12 @@ public:
      * 
      * @param moreColor ==0: max 8 colors. ==1: max 18 colors, but may be hard to recognize.
      */
-    LatexOutputer(string filename,bool moreColor=0);
+    LatexOutputer(const string& filename,bool moreColor=0);
 
     /**
      * @brief Add a new image to .tex file.
      */
-    void newImage(string imageName,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max());
+    void newImage(const string& imageName,const DefinitionDomain& definitionDomain={});
 
     /**
      * @brief Add a line into the image of .tex file.
@@ -43,8 +44,8 @@ public:
      * A new legendentry implies a new line, thus the color of the line should change accordingly.
      * @param character the character of the line, choosing from "thick", "dashed", etc.
      */
-    void addLine(string line,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),string legendentry="",string character="");
-    void addLine(string line,string legendentry,string character="",double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max());
+    void addLine(const string& line,const DefinitionDomain& definitionDomain={},const string& legendentry="",const string& character="");
+    void addLine(const string& line,const string& legendentry,const string& character="",const DefinitionDomain& definitionDomain={});
 
     /**
      * @brief call when the image is completed. Add appendix of Image.
@@ -59,7 +60,7 @@ public:
     /**
      * @brief Used when only need to plot single image. Before start.
      */
-    void quickStart(string imageName,double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max());
+    void quickStart(const string& imageName,const DefinitionDomain& definitionDomain={});
 
     /**
      * @brief Used when only need to plot single image. After ploting.
@@ -70,7 +71,7 @@ private:
     /**
      * @brief Output preamble of a line.
      */
-    void linePreamble(string character,double l,double r,bool newLine);
+    void linePreamble(const string& character,const DefinitionDomain& definitionDomain,bool newLine);
 
     ofstream file;///< the file to put in.
 

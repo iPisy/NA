@@ -18,10 +18,10 @@ void BezierCurve::generateCurve(){
     }
 }
 
-string BezierCurve::getLatexFormatString(){
+string BezierCurve::toLatexFormatString(){
     string ret="(";
     for(auto& it:curve_Function){
-        ret+=ToPolynomial(it)->getLatexFormatString()+",";
+        ret+=toPolynomial(it)->getLatexFormatString()+",";
     }
     ret.pop_back();//pop needless ','.
     ret+=")";

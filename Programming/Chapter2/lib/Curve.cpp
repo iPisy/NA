@@ -29,7 +29,7 @@ vector<double> Curve::tangentVector(double t,int order) const{
 CurvePointList Curve::generatePointList(int number,int derivative_order,bool direction) const{
     if(number<=1) throw InvalidInputException{}; 
     IndependentVariableList list;
-    double start=get_l(),end=get_r();
+    double start=definitionDomain.get_l(),end=definitionDomain.get_r();
     double delta=(end-start)/number;
     start+=delta/2;//avoid extreme huge derivative.
     end-=delta/2;//avoid extreme huge derivative.

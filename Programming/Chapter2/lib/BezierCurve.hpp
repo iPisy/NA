@@ -26,7 +26,7 @@ public:
     /**
      * @brief Generate string of curve that can be drawn with LaTex. Format: ({func},{func},{func})
     */
-    string getLatexFormatString();
+    string toLatexFormatString();
 
 protected:
     ControlPointsList controlPointsList;

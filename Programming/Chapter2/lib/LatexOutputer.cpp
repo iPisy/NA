@@ -6,7 +6,7 @@
 #include"LatexOutputer.hpp"
 #include"Exceptions.hpp"
 
-LatexOutputer::LatexOutputer(string filename,bool moreColor):
+LatexOutputer::LatexOutputer(const string& filename,bool moreColor):
 file(filename),
 colorLibrary(moreColor?
 vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange", "purple", "brown", "lime", "olive", "pink", "teal", "violet", "gray", "darkgray", "lightgray"}
@@ -20,15 +20,15 @@ vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "or
     << "\\begin{document}\n";
 }
 
-void LatexOutputer::newImage(string imageName,double l,double r){
+void LatexOutputer::newImage(const string& imageName,const DefinitionDomain& definitionDomain){
     file << "\\begin{tikzpicture}\n"
     << "\\begin{axis}[\n"
     << "axis lines=middle,\n"
     << "xlabel=$x$, ylabel=$y$,\n"
     << "samples=200,\n";
 
-    if(l!=numeric_limits<double>::lowest() && r!=numeric_limits<double>::max()){
-        file << "domain="<<l<<":"<<r<<",\n";
+    if(!definitionDomain.isDefault()){
+        file << "domain="<<definitionDomain.get_l()<<":"<<definitionDomain.get_r()<<",\n";
     }
     
     file<< "title={"
@@ -40,27 +40,27 @@ void LatexOutputer::newImage(string imageName,double l,double r){
 }
 
 
-void LatexOutputer::addLine(string line,double l,double r,string legendentry,string character){
+void LatexOutputer::addLine(const string& line,const DefinitionDomain& definitionDomain,const string& legendentry,const string& character){
     bool newLine=0;
     if(legendentry!="") newLine=1;
     if(newLine){
         color=colorLibrary.getRandomName();
         if(color=="UsedUp") throw ColorUsedUpException{};
     }
-    linePreamble(character,l,r,newLine);
+    linePreamble(character,definitionDomain,newLine);
     file<<line<<";\n";
     if(newLine){
         file<<"\\addlegendentry{"<<legendentry<<"}\n";
     }
 }
-void LatexOutputer::addLine(string line,string legendentry,string character,double l,double r){
-    addLine(line,l,r,legendentry,character);
+void LatexOutputer::addLine(const string& line,const string& legendentry,const string& character,const DefinitionDomain& definitionDomain){
+    addLine(line,definitionDomain,legendentry,character);
 }
 
-void LatexOutputer::linePreamble(string character,double l,double r,bool newLine){
+void LatexOutputer::linePreamble(const string& character,const DefinitionDomain& definitionDomain,bool newLine){
     file<<"\\addplot["<<color;
     if(character!="") file<<","<<character;
-    if(l!=numeric_limits<double>::lowest() && r!=numeric_limits<double>::max()) file<<",domain="<<l<<":"<<r;
+    if(!definitionDomain.isDefault()) file<<",domain="<<definitionDomain.get_l()<<":"<<definitionDomain.get_r();
     if(!newLine) file<<",forget plot";
     file<<"]";
 }
@@ -76,8 +76,8 @@ void LatexOutputer::endFile(){
     file.close();
 }
 
-void LatexOutputer::quickStart(string imageName,double l,double r){
-    newImage(imageName,l,r);
+void LatexOutputer::quickStart(const string& imageName,const DefinitionDomain& definitionDomain){
+    newImage(imageName,definitionDomain);
 }
 
 void LatexOutputer::quickEnd(){

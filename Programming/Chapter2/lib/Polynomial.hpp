@@ -3,12 +3,9 @@
  * @brief Declaration of class @ref Polynomial and some functions concerning vector<Polynomial>.
 */
 #pragma once
-#include<iostream>
 #include<vector>
-#include<cmath>
-#include<algorithm>
+#include<string>
 #include"Function.hpp"
-#include"EquationSolver.hpp"
 #include"DS&Constants.hpp"
 using namespace std;
 
@@ -78,11 +75,6 @@ public:
      * It calls the private function @ref getLocalExtremeValue.
     */
     double getLocalMin() const;
-    
-    /**
-     * @brief Print polynomial in terminal.
-     */
-    void print() const;
 
     /**
      * @brief Generate string that illustrate the polynomial and can be drawn with LaTex.
@@ -121,15 +113,17 @@ private:
     void clearLeadingZero();
 
     /**
-     * @brief Private method of public method @ref print and @ref getLatexFormatString.
+     * @brief Private method of method @ref getLatexFormatString and `ostream`.
     */
-    string ToString() const;
+    string toString() const;
 
     /*
     ===================================================================================
     */
 
     //friends
+        //iostream
+    friend ostream& operator<<(ostream& out,const Polynomial& p);
         //Arithmetical operators
     friend Polynomial operator+(const Polynomial& lhs,const Polynomial& rhs);
     friend Polynomial operator-(const Polynomial& lhs,const Polynomial& rhs);
@@ -155,3 +149,6 @@ void operator*=(vector<Polynomial>& polyArray,const Polynomial& rhs);
     //still needed, as compiler can't choose the correct implicit conversion.
 vector<Polynomial> operator*(const vector<double>& doubleArray,const Polynomial& rhs);
 vector<Polynomial> operator*(const Polynomial& lhs,const vector<double>& doubleArray);
+
+//operators of iostream
+ostream& operator<<(ostream& out,const Polynomial& p);
