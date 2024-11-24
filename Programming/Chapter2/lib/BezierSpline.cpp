@@ -44,13 +44,14 @@ void BezierSpline::generateSpline(){
     }
 }
 
-void BezierSpline::print_Latex(string filename,const vector<string>& exactCurves,const vector<const Curve*>& curves){
-    LatexOutputer outputer(filename);
+void BezierSpline::print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName){
+    LatexOutputer outputer(fileName);
 
     int exactcurve_num=exactCurves.size();
     int curve_num=m_BezierSpline.size();
 
-    outputer.quickStart("Bezier Spline approximation, m="+to_string(curve_num)+".");
+    if(graphName=="") graphName="Bezier Spline approximation, m="+to_string(curve_num)+".";
+    outputer.quickStart(graphName);
 
     for(int i=0;i<exactcurve_num;i++){
         string legendentry="";
