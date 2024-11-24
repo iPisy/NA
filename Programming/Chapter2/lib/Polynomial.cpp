@@ -38,7 +38,7 @@ Polynomial Polynomial::getDerivative(int order) const{
  */
 Polynomial Polynomial::getDerivative(const Polynomial& in,int order) const{
     if(order==0) return in;
-    Polynomial deri(in.get_definitionDomain());
+    Polynomial deri(in.definitionDomain);
     int l=coefficient.size();
     for(int i=1;i<l;i++){
         deri.coefficient.push_back(i*in.coefficient[i]);
