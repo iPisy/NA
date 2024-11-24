@@ -26,7 +26,7 @@ public:
     Polynomial(const DefinitionDomain& definitionDomain={}):
     Function(definitionDomain){}
 
-    Polynomial(const vector<double>& init,DefinitionDomain definitionDomain={}):
+    Polynomial(const vector<double>& init,const DefinitionDomain& definitionDomain={}):
     coefficient(init),Function(definitionDomain){}
 
     Polynomial(double x):coefficient(vector<double>{x}){}

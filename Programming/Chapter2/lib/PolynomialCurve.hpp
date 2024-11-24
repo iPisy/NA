@@ -17,10 +17,10 @@ using namespace std;
 */
 class PolynomialCurve:public Curve{
 public:
-    PolynomialCurve(DefinitionDomain definitionDomain={}):
+    PolynomialCurve(const DefinitionDomain& definitionDomain={}):
     Curve(definitionDomain){}
 
-    PolynomialCurve(const vector<const Polynomial*>& curve_Function,DefinitionDomain definitionDomain):
+    PolynomialCurve(const vector<const Polynomial*>& curve_Function,const DefinitionDomain& definitionDomain):
     Curve(vector<const Function*>(curve_Function.begin(),curve_Function.end()),definitionDomain){}
 
 protected:

@@ -61,7 +61,7 @@ public:
 
     void set_rClosed(bool rClosed){this->definitionDomain.rClosed=rClosed;}
 
-    void set_definitionDomain(DefinitionDomain definitionDomain){this->definitionDomain=definitionDomain;}
+    void set_definitionDomain(const DefinitionDomain& definitionDomain){this->definitionDomain=definitionDomain;}
 
     double get_l() const{
         return definitionDomain.get_l();

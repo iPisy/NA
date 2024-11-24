@@ -21,10 +21,10 @@ using namespace std;
 */
 class Curve{
 public:
-    Curve(DefinitionDomain definitionDomain={}):
+    Curve(const DefinitionDomain& definitionDomain={}):
     definitionDomain(definitionDomain){}
 
-    Curve(const vector<const Function*>& curve_Function,DefinitionDomain definitionDomain={}):
+    Curve(const vector<const Function*>& curve_Function,const DefinitionDomain& definitionDomain={}):
     curve_Function(curve_Function),definitionDomain(definitionDomain){
         for(auto& it:curve_Function){
             const_cast<Function*>(it)->set_definitionDomain(definitionDomain);
@@ -91,5 +91,4 @@ protected:
     vector<const Function*> curve_Function;///< @ref Curve consists of a few @ref Function "Function"s.
 
     DefinitionDomain definitionDomain;
-
 };
