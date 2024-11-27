@@ -9,8 +9,9 @@ xlabel=$x$, ylabel=$y$,
 samples=200,
 domain=0:1,
 title={},
-enlargelimits]
-\addplot[]{x/(e^x-1)};
+enlargelimits,
+legend pos=outer north east]
+\addplot[,forget plot]{x/(e^x-1)};
 \end{axis}
 \end{tikzpicture}
 \end{document}
