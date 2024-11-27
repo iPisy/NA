@@ -19,6 +19,11 @@ DefinitionDomain DefinitionDomain::merge(const DefinitionDomain& lhs,const Defin
     return DefinitionDomain(lf->l,rf->r,lf->lClosed,rf->rClosed);
 }
 
+ostream& operator<<(ostream& out,const DefinitionDomain& foo){
+    out<<foo.get_l()<<":"<<foo.get_r();
+    return out;
+}
+
 ControlPoint toControlPoint(const CurvePoint& in){
     return in.value;
 }

@@ -50,6 +50,7 @@ public:
     void operator*=(const Polynomial& rhs);
 
     void operator/=(const Polynomial& rhs);
+    
     /**
      * @brief apply affine transformation @b x=ax'+b on *this.
      */
@@ -77,7 +78,7 @@ public:
     double getLocalMin() const;
 
     /**
-     * @brief Generate string that illustrate the polynomial and can be drawn with LaTex.
+     * @brief Generate string in format of LaTex.
     */
     string getLatexFormatString() const;
     
