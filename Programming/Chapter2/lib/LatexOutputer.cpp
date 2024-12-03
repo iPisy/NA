@@ -28,7 +28,7 @@ void LatexOutputer::newImage(const string& imageName,const DefinitionDomain& def
     << "samples=200,\n";
 
     if(!definitionDomain.isDefault()){
-        file << "domain="<<definitionDomain.get_l()<<":"<<definitionDomain.get_r()<<",\n";
+        file << "domain="<<definitionDomain<<",\n";
     }
     
     file<< "title={"
@@ -60,7 +60,7 @@ void LatexOutputer::addLine(const string& line,const string& legendentry,const s
 void LatexOutputer::linePreamble(const string& character,const DefinitionDomain& definitionDomain,bool newLine){
     file<<"\\addplot["<<color;
     if(character!="") file<<","<<character;
-    if(!definitionDomain.isDefault()) file<<",domain="<<definitionDomain.get_l()<<":"<<definitionDomain.get_r();
+    if(!definitionDomain.isDefault()) file<<",domain="<<definitionDomain;
     if(!newLine) file<<",forget plot";
     file<<"]";
 }
