@@ -20,12 +20,12 @@ int main(){
     cout<<"Define that a certain sample of larvae will die at day x "
     <<"iff average_weight_polynomial(x) <= 0"<<endl;
 
-    cout<<"However, the interpolation can only apply to the points within the section. "
-    <<"If the point is out of the section, f^{n+1}_(x) may have no definition or can be arbitrarily huge. "
-    <<"Thus the remainder can be arbitrarily huge, the interpolation is now meaningless."<<endl;
+    cout<<"However, the interpolation is reletively accurate only when the point falls in the section or close to endpoints, "
+    <<"otherwise the remainder can be very huge. "
+    <<"Thus using interpolation to estimate the value is now meaningless."<<endl;
 
     cout<<endl
-    <<"In the program, the interpolation polynomial has it's definition domain within 2 endpoints of the interpolation points. "
+    <<"In the program, the definition domain of the interpolation polynomial is assigned automatically, within 2 endpoints of the interpolation points. "
     <<"\033[31m"
     <<"Get the value out of the domain will cause throwing exceptions below."
     <<"\033[0m"
