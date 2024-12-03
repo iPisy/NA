@@ -1,9 +1,9 @@
+doc:
+	pdflatex Answer.tex
+	xdg-open Answer.pdf
+	make clean
 
-OBJ = $(wildcard *.tex)
-
-doc: ${OBJ}
-	@pdflatex $^
-
-.PHONY:clean
 clean:
-	rm -f *.aux *.log *.out *.synctex.gz  *.toc *.bbl *.run.xml *.blg
+	find . -type f ! -name "*.pdf" ! -name "*.tex" ! -name "makefile" -exec rm -f {} \;
+
+.PHONY:clean doc
