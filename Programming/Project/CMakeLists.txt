@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.10)
+project(NA_Project)
+
+FILE(GLOB LIB_SOURCES "lib/*.cpp")
+add_library(_ STATIC ${LIB_SOURCES})
+link_libraries(_)
+
+file(GLOB SOURCES "src/*.cpp")
+foreach(SOURCE ${SOURCES})
+    get_filename_component(SOURCE_NAME ${SOURCE} NAME_WE)
+    add_executable(${SOURCE_NAME} ${SOURCE})
+    set_target_properties(${SOURCE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../bin)
+endforeach(SOURCE ${SOURCES})
+
+file(GLOB TEST_SOURCES "lib/test/*.cpp")
+foreach(TEST_SOURCE ${TEST_SOURCES})
+    get_filename_component(TEST_SOURCE_NAME ${TEST_SOURCE} NAME_WE)
+    add_executable(${TEST_SOURCE_NAME} ${TEST_SOURCE})
+    set_target_properties(${TEST_SOURCE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../bin/test)
+endforeach(TEST_SOURCE ${TEST_SOURCES})
