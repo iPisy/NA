@@ -26,12 +26,12 @@ public:
      * 
      * @param moreColor ==0: max 8 colors. ==1: max 18 colors, but may be hard to recognize.
      */
-    LatexOutputer(const string& filename,bool moreColor=0);
+    LatexOutputer(const string& filename,bool Dimension_3=0,bool moreColor=0);
 
     /**
      * @brief Add a new image to .tex file.
      */
-    void newImage(const string& imageName,const DefinitionDomain& definitionDomain={});
+    void newImage(const string& imageName="",const DefinitionDomain& definitionDomain={});
 
     /**
      * @brief Add a line into the image of .tex file.
@@ -60,7 +60,7 @@ public:
     /**
      * @brief Used when only need to plot single image. Before start.
      */
-    void quickStart(const string& imageName,const DefinitionDomain& definitionDomain={});
+    void quickStart(bool Dimension_3=0,const string& imageName="",const DefinitionDomain& definitionDomain={});
 
     /**
      * @brief Used when only need to plot single image. After ploting.
@@ -78,4 +78,6 @@ private:
     string color;///< the color of the line at present.
 
     NameLibrary colorLibrary;///< offer many sort of colors.
+
+    bool Dimension_3;///< ==1 if the curve is in R^3.
 };

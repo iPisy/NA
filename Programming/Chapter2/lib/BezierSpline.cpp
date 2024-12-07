@@ -51,7 +51,7 @@ void BezierSpline::print_Latex(const string& fileName,const vector<string>& exac
     int curve_num=m_BezierSpline.size();
 
     if(graphName=="") graphName="Bezier Spline approximation, m="+to_string(curve_num)+".";
-    outputer.quickStart(graphName);
+    outputer.quickStart(0,graphName);
 
     for(int i=0;i<exactcurve_num;i++){
         string legendentry="";
