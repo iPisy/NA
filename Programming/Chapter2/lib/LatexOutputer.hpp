@@ -80,4 +80,6 @@ private:
     NameLibrary colorLibrary;///< offer many sort of colors.
 
     bool Dimension_3;///< ==1 if the curve is in R^3.
+
+    static const vector<string> m_short,m_long;
 };

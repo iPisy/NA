@@ -9,11 +9,7 @@
 LatexOutputer::LatexOutputer(const string& filename,bool Dimension_3,bool moreColor):
 file(filename),
 Dimension_3(Dimension_3),
-colorLibrary(moreColor?
-vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange", "purple", "brown", "lime", "olive", "pink", "teal", "violet", "gray", "darkgray", "lightgray"}
-:
-vector<string>{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange"}
-)
+colorLibrary( moreColor ? m_long : m_short )
 {
     file << "\\documentclass{standalone}\n"
     << "\\usepackage{pgfplots}\n"
@@ -89,3 +85,6 @@ void LatexOutputer::quickEnd(){
     endImage();
     endFile();
 }
+
+const vector<string> LatexOutputer::m_short{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange"};
+const vector<string> LatexOutputer::m_long{"black", "red", "green", "blue", "cyan", "magenta", "yellow", "orange", "purple", "brown", "lime", "olive", "pink", "teal", "violet", "gray", "darkgray", "lightgray"};
