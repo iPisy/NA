@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(NA_Project)
 
+include_directories("/usr/include/eigen3")
+
 FILE(GLOB LIB_SOURCES "lib/*.cpp")
 add_library(_ STATIC ${LIB_SOURCES})
 link_libraries(_)

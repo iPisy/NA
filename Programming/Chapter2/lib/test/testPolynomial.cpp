@@ -3,7 +3,10 @@
 
 using namespace std;
 
-int main(){}
+int main(){
+    Polynomial x(vector<double>{0,2,0,4,-2,0});
+    cout<<(x/3)<<endl;
+}
 
 // int main(){
 //     Polynomial A({1,-2,1}),a({-1,1});
