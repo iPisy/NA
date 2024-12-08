@@ -53,33 +53,9 @@ public:
     */
     FunctionPointList generatePointList(const IndependentVariableList& in,int derivative_order) const;
 
-    void set_l(double l){this->definitionDomain.l=l;}
-
-    void set_r(double r){this->definitionDomain.r=r;}
-
-    void set_lClosed(bool lClosed){this->definitionDomain.lClosed=lClosed;}
-
-    void set_rClosed(bool rClosed){this->definitionDomain.rClosed=rClosed;}
-
     void set_definitionDomain(const DefinitionDomain& definitionDomain){this->definitionDomain=definitionDomain;}
 
-    double get_l() const{
-        return definitionDomain.get_l();
-    }
-
-    double get_r() const{
-        return definitionDomain.get_r();
-    }
-
-    bool get_leftClosed() const{
-        return definitionDomain.lClosed;
-    }
-
-    bool get_rightClosed() const{
-        return definitionDomain.rClosed;
-    }
-
-    DefinitionDomain get_definitionDomain() const{
+    const DefinitionDomain& get_definitionDomain() const{
         return definitionDomain;
     }
 

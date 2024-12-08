@@ -142,8 +142,8 @@ double Polynomial::getLocalMin() const{
 
 double Polynomial::getLocalExtremeValue(extremeType type) const{
     IndependentVariableList extremePoints=getExtremePoints();
-    extremePoints.push_back(this->get_l());
-    extremePoints.push_back(this->get_r());
+    extremePoints.push_back(get_definitionDomain().l);
+    extremePoints.push_back(get_definitionDomain().r);
     double extremeValue=numeric_limits<double>::min();
     if(type==extremeType::MIN) extremeValue=numeric_limits<double>::max();
     while(!extremePoints.empty()){

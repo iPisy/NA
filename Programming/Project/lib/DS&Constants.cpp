@@ -7,22 +7,18 @@
 DefinitionDomain DefinitionDomain::merge(const DefinitionDomain& lhs,const DefinitionDomain& rhs){
     const DefinitionDomain* lf=nullptr,*rf=nullptr;
     if(lhs.l>rhs.l) lf=&lhs;
-    else if(lhs.l<rhs.l) lf=&rhs;
-    else if(lhs.lClosed==0) lf=&lhs;
     else lf=&rhs;
 
     if(lhs.r<rhs.r) rf=&lhs;
-    else if(lhs.r>rhs.r) rf=&rhs;
-    else if(lhs.rClosed==0) rf=&lhs;
     else rf=&rhs;
 
-    return DefinitionDomain(lf->l,rf->r,lf->lClosed,rf->rClosed);
+    return DefinitionDomain(lf->l,rf->r);
 }
 
 IndependentVariableList DefinitionDomain::generateVariableList(int number) const{
     if(number<=1) throw InvalidInputException{}; 
     IndependentVariableList list;
-    double start=get_l(),end=get_r();
+    double start=l,end=r;
     double delta=(end-start)/(number-1);
     for(int i=1;i<=number;i++){
         list.push_back(start);
@@ -33,7 +29,7 @@ IndependentVariableList DefinitionDomain::generateVariableList(int number) const
 }
 
 ostream& operator<<(ostream& out,const DefinitionDomain& foo){
-    out<<foo.get_l()<<":"<<foo.get_r();
+    out<<foo.l<<":"<<foo.r;
     return out;
 }
 

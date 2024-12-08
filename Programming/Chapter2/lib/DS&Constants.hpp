@@ -7,6 +7,7 @@
 #include<limits>
 #include<iostream>
 #include"Exceptions.hpp"
+#include<cmath>
 
 using namespace std;
 
@@ -101,11 +102,22 @@ ControlPointsList toControlPointsList(const CurvePointList& in);
 struct DefinitionDomain{
     double l///< left endpoint;
     ,r;///< right endpoint;
-    bool lClosed///< ==1 if left side of the interval is closed.
-    ,rClosed;///< ==1 if right side of the interval is closed.
 
     DefinitionDomain(double l=numeric_limits<double>::lowest(),double r=numeric_limits<double>::max(),bool lClosed=1,bool rClosed=1)
-    :l(l),r(r),lClosed(lClosed),rClosed(rClosed){}
+    {
+        set_l(l,lClosed);
+        set_r(r,rClosed);
+    }
+
+    void set_l(double l,bool lClosed=1){
+        this->l=l;
+        if(!lClosed) this->l=nextafter(l,numeric_limits<double>::infinity());
+    }
+
+    void set_r(double r,bool rClosed=1){
+        this->r=r;
+        if(!rClosed) this->r=nextafter(r,-numeric_limits<double>::infinity());
+    }
 
     /**
      * @brief merge 2 definition domains.
@@ -120,18 +132,8 @@ struct DefinitionDomain{
     }
 
     bool isDefault() const{
-        if(this->l==numeric_limits<double>::lowest() && this->r==numeric_limits<double>::max() && this->lClosed==1 && this->rClosed==1) return 1;
+        if(this->l==numeric_limits<double>::lowest() && this->r==numeric_limits<double>::max()) return 1;
         return 0;
-    }
-
-    double get_l() const{
-        if(lClosed) return l;
-        return l+DELTA;
-    }
-
-    double get_r() const{
-        if(rClosed) return r;
-        return r-DELTA;
     }
 
     IndependentVariableList generateVariableList(int number) const;
