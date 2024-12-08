@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+\setlength{\parindent}{0pt}
+
+\addbibresource{references.bib}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+
+\begin{document}
+% =================================================
+\title{Design of NA Project}
+
+\author{WangHao 3220103613
+  \thanks{Electronic address: \texttt{3220103613@zju.edu.cn}}}
+\affil{(Information and Computing Sciences, Class 2201), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+
+
+% ============================================
+\section*{1}
+\textbf{\large code reuse}
+I reuses many files in Programming Hw 2. They are all listed below.
+\begin{itemize}
+    \item Exceptions.hpp.
+    \item DS\&Constants.cpp(hpp).
+    \item Function.cpp(hpp).
+    \item Polynomial.cpp(hpp).
+    \item EquationSolver.cpp(hpp). Used in Polynomial.
+    \item Curve.cpp(hpp).
+    \item LatexOutputer.cpp(hpp).
+    \item NameLibrary.cpp(hpp). Used in LatexOutputer.
+\end{itemize}
+
+
+\section*{\center{\normalsize {Acknowledgement}} }
+
+\printbibliography
+
+\end{document}

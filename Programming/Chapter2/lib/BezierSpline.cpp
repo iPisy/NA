@@ -14,7 +14,7 @@ using namespace std;
 CurvePointList BezierSpline::connectInitList(const vector<CurvePointList>& initList){
     CurvePointList ret;
     for(auto& it:initList){
-        ret.insert(ret.end(),it.begin(),it.end());
+        ret.insert(ret.end(),++it.begin(),--it.end());
     }
     ret.push_back(ret[0]);
     return ret;

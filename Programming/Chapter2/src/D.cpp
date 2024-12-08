@@ -9,7 +9,7 @@ int main(){
     Interpolator_Hermite_N interpolator({{0,{0,75}},{0,{}},{3,{225,77}},{3,{}},{5,{383,80}},{5,{}},{8,{623,74}},{8,{}},{13,{993,72}},{13,{}}});
     Polynomial p_n_x=interpolator.interpolate();
     cout<<"Answer of (a):"<<endl;
-    cout<<"position: "<<p_n_x(10)<<endl<<"speed: "<<p_n_x.derivativeValue(10,1)<<endl;
+    cout<<"position: "<<p_n_x(10)<<endl<<"speed: "<<p_n_x.derivativeValue(10)<<endl;
     cout<<endl;
 
     cout<<"Answer of (b):"<<endl;
