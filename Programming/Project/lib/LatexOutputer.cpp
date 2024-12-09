@@ -77,7 +77,7 @@ void LatexOutputer::endFile(){
     file.close();
 }
 
-void LatexOutputer::quickStart(bool Dimension_3,const string& imageName,const DefinitionDomain& definitionDomain){
+void LatexOutputer::quickStart(const string& imageName,const DefinitionDomain& definitionDomain){
     newImage(imageName,definitionDomain);
 }
 

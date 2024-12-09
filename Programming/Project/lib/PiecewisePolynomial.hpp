@@ -2,6 +2,7 @@
 #include"Function.hpp"
 #include"Polynomial.hpp"
 #include<vector>
+#include"LatexOutputer.hpp"
 
 using namespace std;
 
@@ -36,6 +37,10 @@ public:
 
     friend PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
     friend PiecewisePolynomial operator*(const PiecewisePolynomial& lhs,const Polynomial& rhs);
+
+    void print_Latex_SolePoly(LatexOutputer& o,const string& PP_Name="") const;
+
+    void print_Latex(const string& filename) const;
 };
 
 PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);

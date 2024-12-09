@@ -60,7 +60,7 @@ public:
     /**
      * @brief Used when only need to plot single image. Before start.
      */
-    void quickStart(bool Dimension_3=0,const string& imageName="",const DefinitionDomain& definitionDomain={});
+    void quickStart(const string& imageName="",const DefinitionDomain& definitionDomain={});
 
     /**
      * @brief Used when only need to plot single image. After ploting.

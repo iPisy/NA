@@ -31,6 +31,22 @@ double PiecewisePolynomial::getDerivativeValue(double x,int order) const{
     return polys[idx].derivativeValue(x,order);
 }
 
+void PiecewisePolynomial::print_Latex_SolePoly(LatexOutputer& o,const string& PP_Name) const{
+    string legendentry=PP_Name;
+    if(legendentry=="") legendentry="Piecewise polynomial";
+    for(auto& it:polys){
+        o.addLine(it.getLatexFormatString(),it.get_definitionDomain(),legendentry);
+        legendentry="";
+    }
+}
+
+void PiecewisePolynomial::print_Latex(const string& filename) const{
+    LatexOutputer o(filename);
+    o.quickStart();
+    print_Latex_SolePoly(o);
+    o.quickEnd();
+}
+
 PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs){
     if(lhs.polys.empty()) return rhs;
     //default: 2 pp in the same order.
