@@ -30,17 +30,16 @@ void BFormSpline::generate_bases(const IndependentVariableList& knotList){
     
     IndependentVariableList extendedKnotList;
     for(int i=0;i<n;i++){
-        extendedKnotList.push_back(knotList[0]-(n-i)/(10*n)*(knotList.back()-knotList[0]));
+        extendedKnotList.push_back(knotList[0]-1.0*(n-i)*(knotList.back()-knotList[0])/(N-1));
     }
     extendedKnotList.insert(extendedKnotList.end(),knotList.begin(),knotList.end());
     for(int i=n+N;i<2*n+N;i++){
-        extendedKnotList.push_back(knotList.back()+(i-(n+N)+1)/(10*n)*(knotList.back()-knotList[0]));
+        extendedKnotList.push_back(knotList.back()+1.0*(i-(n+N)+1)*(knotList.back()-knotList[0])/(N-1));
     }
 
     //init
     for(int i=0;i<2*n+N-1;i++){
-        if(i<=n-1 || i>=n+N-1) PP_GenerationTable[0][i]=BFSRB(extendedKnotList[i],extendedKnotList[i+1],BFSRB::Mode::PlaceHolder);
-        else PP_GenerationTable[0][i]=BFSRB(extendedKnotList[i],extendedKnotList[i+1]);
+        PP_GenerationTable[0][i]=BFSRB(extendedKnotList[i],extendedKnotList[i+1]);
     }
 
     //dp
@@ -55,4 +54,12 @@ void BFormSpline::generate_bases(const IndependentVariableList& knotList){
     for(int i=0;i<N+n-1;i++){
         (*bases)[i]=PP_GenerationTable[n][i];
     }
+}
+
+Eigen::VectorXd BFormSpline::generate_b(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition){
+
+}
+
+void BFormSpline::generate_piecePoly(const Eigen::VectorXd& b){
+
 }

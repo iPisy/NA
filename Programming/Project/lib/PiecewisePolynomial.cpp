@@ -31,19 +31,19 @@ double PiecewisePolynomial::getDerivativeValue(double x,int order) const{
     return polys[idx].derivativeValue(x,order);
 }
 
-void PiecewisePolynomial::print_Latex_SolePoly(LatexOutputer& o,const string& PP_Name) const{
+void PiecewisePolynomial::print_Latex_SolePoly(LatexOutputer& o,int n,const string& PP_Name) const{
     string legendentry=PP_Name;
     if(legendentry=="") legendentry="Piecewise polynomial";
-    for(auto& it:polys){
-        o.addLine(it.getLatexFormatString(),it.get_definitionDomain(),legendentry);
+    for(int i=n;i<polys.size()-n;i++){
+        o.addLine(polys[i].getLatexFormatString(),polys[i].get_definitionDomain(),legendentry);
         legendentry="";
     }
 }
 
-void PiecewisePolynomial::print_Latex(const string& filename) const{
+void PiecewisePolynomial::print_Latex(const string& filename,int n) const{
     LatexOutputer o(filename);
     o.quickStart();
-    print_Latex_SolePoly(o);
+    print_Latex_SolePoly(o,n);
     o.quickEnd();
 }
 

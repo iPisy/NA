@@ -15,6 +15,6 @@ void Spline::print_Latex(const string& filename,const string& function_string,co
     LatexOutputer o(filename);
     o.quickStart();
     o.addLine(function_string,"exact function","dashed",function_class->get_definitionDomain());
-    piecewisePolynomial.print_Latex_SolePoly(o,"Spline");
+    piecewisePolynomial.print_Latex_SolePoly(o,n,"Spline");
     o.quickEnd();
 }
