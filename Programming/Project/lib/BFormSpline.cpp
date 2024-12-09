@@ -28,7 +28,7 @@ void BFormSpline::generate_bases(const FunctionPointList& fList){
 void BFormSpline::generate_bases(const IndependentVariableList& knotList){
     vector<vector<PiecewisePolynomial> > PP_GenerationTable(n+1,vector<PiecewisePolynomial>(N+2*n-1));
     
-    IndependentVariableList extendedKnotList(N+2*n);
+    IndependentVariableList extendedKnotList;
     for(int i=0;i<n;i++){
         extendedKnotList.push_back(knotList[0]-n+i);
     }
