@@ -16,17 +16,20 @@ protected:
     };
 
 private:
+    virtual void reuse(const Spline* s)=0;
     virtual void generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList)=0;
-    virtual Eigen::VectorXd generate_b(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition)=0;
-    virtual void generate_piecePoly(const Eigen::VectorXd& b)=0;
+    virtual Eigen::VectorXd generate_b(const FunctionPointList& fList)=0;
+    virtual void addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList)=0;
+    virtual void generate_piecePoly(Eigen::VectorXd& b)=0;
 
 protected:
     int n,k,N;
     Eigen::MatrixXd* A;
+    bool reuseFlag;
     PiecewisePolynomial piecewisePolynomial;
 
 public:
-    Spline(int n,int k):n(n),k(k),A(nullptr){}
+    Spline(int n,int k):n(n),k(k),A(nullptr),reuseFlag(0){}
 
     /**
      * @brief generate a spline.
@@ -38,5 +41,5 @@ public:
      */
     void generate(const Spline* s,const FunctionPointList& fList,const BoundaryCondition& boundaryCondition={},const IndependentVariableList& knotList={});
 
-    void print_Latex(const string& filename,const string& function_string,const Function* function_class,const string& graphName="");
+    void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName="");
 };

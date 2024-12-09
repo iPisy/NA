@@ -31,9 +31,9 @@ private:
 
 public:
     //ctors
-    PiecewisePolynomial():Function(DefinitionDomain{0,0,0,0}){}
-    PiecewisePolynomial(const Polynomial& init):Function(init.get_definitionDomain()){polys.push_back(init);}
-    PiecewisePolynomial(const vector<Polynomial>& init);
+    PiecewisePolynomial(){}
+    PiecewisePolynomial(const Polynomial& init){polys.push_back(init);}
+    PiecewisePolynomial(const vector<Polynomial>& init){polys=init;}
 
     friend PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
     friend PiecewisePolynomial operator*(const PiecewisePolynomial& lhs,const Polynomial& rhs);
