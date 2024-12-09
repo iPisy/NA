@@ -30,11 +30,11 @@ void BFormSpline::generate_bases(const IndependentVariableList& knotList){
     
     IndependentVariableList extendedKnotList;
     for(int i=0;i<n;i++){
-        extendedKnotList.push_back(knotList[0]-n+i);
+        extendedKnotList.push_back(knotList[0]-(n-i)/(10*n)*(knotList.back()-knotList[0]));
     }
     extendedKnotList.insert(extendedKnotList.end(),knotList.begin(),knotList.end());
     for(int i=n+N;i<2*n+N;i++){
-        extendedKnotList.push_back(knotList.back()+i-(n+N)+1);
+        extendedKnotList.push_back(knotList.back()+(i-(n+N)+1)/(10*n)*(knotList.back()-knotList[0]));
     }
 
     //init
