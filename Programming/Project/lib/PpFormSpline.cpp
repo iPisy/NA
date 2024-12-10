@@ -34,7 +34,7 @@ void PpFormSpline::generate_A(const FunctionPointList& fList,const BoundaryCondi
                 //Poly i
                 (*A)(r,c)=coef[c-i*(n+1)](fList[i+1].x);
                 //Poly i+1
-                (*A)(r,c)=-coef[c-i*(n+1)](fList[i+1].x);
+                (*A)(r,c+n+1)=-coef[c-i*(n+1)](fList[i+1].x);
             }
         }
     }
@@ -71,7 +71,7 @@ void PpFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd*
     }
 
     for(int order=1;order<=n-1;order++){
-        int r=(n+1)*(N-1)-1-(n-1)+order-1;
+        int r=(n+1)*(N-1)-(n-1)+order-1;
         for(auto& it:coef) it=it.getDerivative();
         for(int c=0;c<n+1;c++){
             //Poly i
