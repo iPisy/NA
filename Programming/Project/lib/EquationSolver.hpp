@@ -10,6 +10,8 @@
 
 using namespace std;
 
+///@cond
+
 /**
  * @brief The base class and an abstract class, defining the characteristics of equation solver. 
  * 
@@ -85,3 +87,5 @@ public:
 
     virtual double solve() override;
 };
+
+///@endcond
