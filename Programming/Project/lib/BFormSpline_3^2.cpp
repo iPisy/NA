@@ -24,9 +24,6 @@ void BFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
         for(int j=N-1;j<N+n-1;j++){
             (*A)(N+1,j)+=((*bases)[j]).derivativeValue(fList.back().x,2);
         }
-        //add b
-        for(int i=N;i<N+n-1;i++){
-            (*b)(i)=0;
-        }
+        //add b: do nothing.
     }
 }

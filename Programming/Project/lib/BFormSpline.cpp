@@ -86,10 +86,7 @@ void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* 
             }
         }
     }
-    //add b
-    for(int i=N;i<N+n-1;i++){
-        (*b)(i)=0;
-    }
+    //add b: do nothing.
 }
 
 void BFormSpline::generate_piecePoly(Eigen::VectorXd& b){
@@ -105,5 +102,5 @@ void BFormSpline::draw_GivenCoef(const vector<double>& coefs,const IndependentVa
     for(int i=0;i<N+n-1;i++){
         piecewisePolynomial+=(*bases)[i]*coefs[i];
     }
-    piecewisePolynomial.print_Latex(filename,n,"$Spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
+    piecewisePolynomial.print_Latex(filename,n,"$B-form spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
 }
