@@ -8,10 +8,7 @@ void BFormSpline::reuse(const Spline* s){
 }
 
 void BFormSpline::generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList){
-    if(boundaryCondition.type!=BoundaryCondition::Type::Theorem3_58){
-        if(!knotList.empty()) throw UnimplementedException{};
-        else generate_bases(fList);
-    }
+    if(boundaryCondition.type!=BoundaryCondition::Type::Theorem3_58) generate_bases(fList);
     else generate_bases(knotList);
     A=new Eigen::MatrixXd(Eigen::MatrixXd::Zero(N+n-1,N+n-1));
     
@@ -70,11 +67,14 @@ Eigen::VectorXd BFormSpline::generate_b(const FunctionPointList& fList){
 
 void BFormSpline::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList){
     if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,b,fList);
-    else throw UnimplementedException{};
+    else{
+        cerr<<"Only periodic boundary condition are implemented in B-form spline of order n, where n is arbitrary."<<endl;
+        throw UnimplementedException{};
+    }
 }
 
 void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList){
-    if(!reuseFlag){
+    if(!reused){
         //add A
         for(int i=1;i<n;i++){
             //line N-1+i

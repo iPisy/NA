@@ -2,16 +2,24 @@
 #include"LatexOutputer.hpp"
 
 void Spline::generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList){
-    if(boundaryCondition.type!=BoundaryCondition::Type::Theorem3_58) N=fList.size();
+    if(boundaryCondition.type!=BoundaryCondition::Type::Theorem3_58){
+        if(!knotList.empty()){
+            cerr<<"You cannot assign knot by yourself, unless in Thm 3.58."<<endl;
+            throw UnimplementedException{};
+        }
+        N=fList.size();
+    }
     else N=knotList.size();
-    if(boundaryCondition.type==BoundaryCondition::Type::Periodic && n!=1) fList.back().value=fList[0].value; 
+
+    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) fList.back().value=fList[0].value; 
+
     if(s!=nullptr){
         reuse(s);
-        reuseFlag=1;
+        reused=1;
     }
     else generate_A(fList,boundaryCondition,knotList);
     Eigen::VectorXd b=generate_b(fList);
-    addBoundaryCondition(A,&b,boundaryCondition,fList);
+    if(boundaryCondition.type!=BoundaryCondition::Type::Nothing) addBoundaryCondition(A,&b,boundaryCondition,fList);
     b=A->partialPivLu().solve(b);
     generate_piecePoly(b);
 }

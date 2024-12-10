@@ -72,7 +72,7 @@ public:
      * @param in independent variable list.
      * @param derivative_order the highest derivative order of the point.
     */
-    CurvePointList generatePointList(const IndependentVariableList& in,int derivative_order,bool direction=0) const;
+    CurvePointList generatePointList(const IndependentVariableList& in,int derivative_order=0,bool direction=0) const;
     
 protected:
 

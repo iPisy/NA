@@ -51,7 +51,7 @@ public:
      * @param in independent variable list.
      * @param derivative_order the highest derivative order of the point.
     */
-    FunctionPointList generatePointList(const IndependentVariableList& in,int derivative_order) const;
+    FunctionPointList generatePointList(const IndependentVariableList& in,int derivative_order=0) const;
 
     void set_definitionDomain(const DefinitionDomain& definitionDomain){this->definitionDomain=definitionDomain;}
 
