@@ -7,7 +7,7 @@ int PiecewisePolynomial::findPolynomial(double x) const{
     int l=0,r=polys.size()-1;
     while(l<r){
         int m=(l+r)/2;
-        if(x<polys[m].get_definitionDomain().l) l=m+1;
+        if(x>polys[m].get_definitionDomain().l) l=m+1;
         else if(x==polys[m].get_definitionDomain().l) return m;
         else r=m;
     }
@@ -44,10 +44,10 @@ void PiecewisePolynomial::print_Latex(const string& filename,int n) const{
 
 PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs){
     if(lhs.polys.empty()) return rhs;
-    //default: 2 pp in the same order.
+    //default: Append rhs to lhs, leaving rightmost polynomial outside.
     PiecewisePolynomial ret=lhs;
-    for(int l=1;l<ret.polys.size();l++){
-        ret.polys[l]+=rhs.polys[l-1];
+    for(int l=lhs.polys.size()-rhs.polys.size()+1;l<lhs.polys.size();l++){
+        ret.polys[l]+=rhs.polys[l-(lhs.polys.size()-rhs.polys.size()+1)];
     }
     ret.polys.push_back(rhs.polys.back());
     return ret;

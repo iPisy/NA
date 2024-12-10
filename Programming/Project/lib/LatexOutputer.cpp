@@ -12,6 +12,8 @@ Dimension_3(Dimension_3),
 colorLibrary( moreColor ? m_long : m_short )
 {
     file << "\\documentclass{standalone}\n"
+    << "\\usepackage{amsmath}"
+    << "\\usepackage{amssymb}"
     << "\\usepackage{pgfplots}\n"
     << "\\pgfplotsset{compat=1.16}\n"
     << "\\begin{document}\n";

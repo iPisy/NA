@@ -21,7 +21,7 @@ runTest: build src/run.sh
 	cd bin/test && ./run.sh
 
 simpleTest:
-	cd test && g++ -o test class.cpp test.cpp && ./test
+	cd test && g++ -I/usr/include/eigen3 -o test class.cpp test.cpp && ./test
 
 report: run doxygen LaTex
 	xdg-open report/html/index.html

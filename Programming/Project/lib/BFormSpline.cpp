@@ -13,7 +13,8 @@ void BFormSpline::generate_A(const FunctionPointList& fList,const BoundaryCondit
         else generate_bases(fList);
     }
     else generate_bases(knotList);
-    A=new Eigen::MatrixXd(N+n-1,N+n-1);
+    A=new Eigen::MatrixXd(Eigen::MatrixXd::Zero(N+n-1,N+n-1));
+    
     for(int i=0;i<fList.size();i++){
         for(int j=0;j<bases->size();j++){
             (*A)(i,j)=((*bases)[j])(fList[i].x);
@@ -60,7 +61,7 @@ void BFormSpline::generate_bases(const IndependentVariableList& knotList){
 }
 
 Eigen::VectorXd BFormSpline::generate_b(const FunctionPointList& fList){
-    Eigen::VectorXd ret(N+n-1);
+    Eigen::VectorXd ret=Eigen::VectorXd::Zero(N+n-1);
     for(int i=0;i<fList.size();i++){
         ret(i)=fList[i].value[0];
     }
@@ -75,13 +76,13 @@ void BFormSpline::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,con
 void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList){
     if(!reuseFlag){
         //add A
-        for(int i=1;i<n-1;i++){
+        for(int i=1;i<n;i++){
             //line N-1+i
             for(int j=0;j<=n;j++){
                 (*A)(N-1+i,j)=((*bases)[j]).derivativeValue(fList[0].x,i);
             }
             for(int j=N-2;j<N+n-1;j++){
-                (*A)(N-1+i,j)=((*bases)[j]).derivativeValue(fList.back().x,i);
+                (*A)(N-1+i,j)-=((*bases)[j]).derivativeValue(fList.back().x,i);
             }
         }
     }
@@ -91,7 +92,6 @@ void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* 
 }
 
 void BFormSpline::generate_piecePoly(Eigen::VectorXd& b){
-    b=(*A).fullPivLu().solve(b);
     for(int i=0;i<N+n-1;i++){
         piecewisePolynomial+=(*bases)[i]*b[i];
     }

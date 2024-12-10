@@ -10,7 +10,7 @@
 using namespace std;
 
 inline bool isZero(double x){
-    if(abs(x)<DELTA) return 1;
+    if(abs(x)<1e-14) return 1;
     else return 0;
 }
 
