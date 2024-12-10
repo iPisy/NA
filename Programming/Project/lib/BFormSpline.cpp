@@ -3,7 +3,7 @@
 #include"Exceptions.hpp"
 
 void BFormSpline::reuse(const Spline* s){
-    A=dynamic_cast<const BFormSpline*>(s)->A;
+    Spline::reuse(s);
     bases=dynamic_cast<const BFormSpline*>(s)->bases;
 }
 
@@ -92,7 +92,7 @@ void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* 
     //add b: do nothing.
 }
 
-void BFormSpline::generate_piecePoly(Eigen::VectorXd& b){
+void BFormSpline::generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList){
     for(int i=0;i<N+n-1;i++){
         piecewisePolynomial+=(*bases)[i]*b[i];
     }

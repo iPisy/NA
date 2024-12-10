@@ -10,7 +10,7 @@ private:
     void generate_bases(const IndependentVariableList& knotList);
     Eigen::VectorXd generate_b(const FunctionPointList& fList) override;
     virtual void addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList) override;
-    void generate_piecePoly(Eigen::VectorXd& b) override;
+    void generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList) override;
 protected:
     vector<PiecewisePolynomial>* bases;
     void periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList);

@@ -6,21 +6,21 @@
 
 class Spline{
 private:
-    /**
-     * @brief Reuse calculated things, e.g. A and bases(in B-form spline).
-     */
-    virtual void reuse(const Spline* s)=0;
     virtual void generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList)=0;
     virtual Eigen::VectorXd generate_b(const FunctionPointList& fList)=0;
     virtual void addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList)=0;
-    virtual void generate_piecePoly(Eigen::VectorXd& b)=0;
+    virtual void generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList)=0;
 
 protected:
     int n,k,N;
     Eigen::MatrixXd* A;
-    bool reused;///< ==1 if the spline reuse A. Then there is no need to add boundary condition for A.
     PiecewisePolynomial piecewisePolynomial;
 
+    /**
+     * @brief Reuse calculated things, e.g. A(in spline) and bases(in B-form spline).
+     */
+    virtual void reuse(const Spline* s){A=s->A;}
+    bool reused;///< ==1 if the spline reuse A. Then there is no need to add boundary condition for A.
 public:
     Spline(int n,int k):n(n),k(k),A(nullptr),reused(0){
         if(n%2==0 && n>2) throw EvenOrderSplineException{};

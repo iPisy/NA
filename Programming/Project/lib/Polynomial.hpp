@@ -41,7 +41,7 @@ public:
      * 
      * @param order the order of the derivative function.
     */
-    Polynomial getDerivative(int order) const;
+    Polynomial getDerivative(int order=1) const;
 
     void operator+=(const Polynomial& rhs);
 

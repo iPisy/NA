@@ -21,7 +21,7 @@ void Spline::generate(const Spline* s,FunctionPointList fList,const BoundaryCond
     Eigen::VectorXd b=generate_b(fList);
     if(boundaryCondition.type!=BoundaryCondition::Type::Nothing) addBoundaryCondition(A,&b,boundaryCondition,fList);
     b=A->partialPivLu().solve(b);
-    generate_piecePoly(b);
+    generate_piecePoly(b,fList);
 }
 
 void Spline::print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName){
