@@ -85,7 +85,7 @@ void PpFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd*
 void PpFormSpline::generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList){
     vector<Polynomial> foo;
     for(int i=0;i<N-1;i++){
-        int r=i*(N+1);
+        int r=i*(n+1);
         vector<double> polyCoef;
         for(int order=0;order<=n;order++){
             polyCoef.push_back(b(r+order));

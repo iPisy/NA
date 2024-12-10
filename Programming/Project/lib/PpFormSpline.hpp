@@ -7,6 +7,9 @@
 class PpFormSpline:public Spline{
 public:
     PpFormSpline(int n):Spline(n,n-1){}
+    void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName=""){
+        Spline::print_Latex(filename,function_string,function_obj,0,graphName);
+    }
 protected:
     void periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList);
 private:

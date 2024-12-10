@@ -21,6 +21,12 @@ protected:
      */
     virtual void reuse(const Spline* s){A=s->A;}
     bool reused;///< ==1 if the spline reuse A. Then there is no need to add boundary condition for A.
+
+    /**
+     * @param offside for B-form splines. Avoid drawing out of domain.
+     */
+    void print_Latex(const string& filename,const string& function_string,const Function& function_obj,int offside,const string& graphName="");
+
 public:
     Spline(int n,int k):n(n),k(k),A(nullptr),reused(0){
         if(n%2==0 && n>2) throw EvenOrderSplineException{};
@@ -35,6 +41,4 @@ public:
      * @param knotList Knots of the spline. The default value means that they fall on points in fList.
      */
     void generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition=BoundaryCondition_Periodic{},const IndependentVariableList& knotList={});
-
-    void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName="");
 };
