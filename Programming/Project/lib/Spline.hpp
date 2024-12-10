@@ -1,5 +1,6 @@
 #include"PiecewisePolynomial.hpp"
 #include<Eigen/Dense>
+#include"Exceptions.hpp"
 
 class Spline{
 protected:
@@ -8,7 +9,8 @@ protected:
             Complete,
             Natural,
             Periodic,
-            Theorem3_58
+            Theorem3_58,
+            Nothing
         };
         Type type;
         double l,r;
@@ -29,7 +31,9 @@ protected:
     PiecewisePolynomial piecewisePolynomial;
 
 public:
-    Spline(int n,int k):n(n),k(k),A(nullptr),reuseFlag(0){}
+    Spline(int n,int k):n(n),k(k),A(nullptr),reuseFlag(0){
+        if(n%2==0 && n>2) throw EvenOrderSplineException{};
+    }
 
     /**
      * @brief generate a spline.

@@ -12,4 +12,5 @@ class InvalidInputException{};
 class ColorUsedUpException{};
 class VectorSizeMismatchException{};
 class UnimplementedException{};// For operations that is actually resonable but is not required to implement in project.
+class EvenOrderSplineException{};
 /// @endcond
