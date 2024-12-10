@@ -34,7 +34,7 @@ public:
      * @param boundaryCondition Boundary condition of the spline. The default value is periodic.
      * @param knotList Knots of the spline. The default value means that they fall on points in fList.
      */
-    void generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList={});
+    void generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition=BoundaryCondition_Periodic{},const IndependentVariableList& knotList={});
 
     void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName="");
 };

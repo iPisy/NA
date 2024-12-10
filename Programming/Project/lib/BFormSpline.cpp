@@ -11,10 +11,13 @@ void BFormSpline::generate_A(const FunctionPointList& fList,const BoundaryCondit
     if(boundaryCondition.type!=BoundaryCondition::Type::Theorem3_58) generate_bases(fList);
     else generate_bases(knotList);
     A=new Eigen::MatrixXd(Eigen::MatrixXd::Zero(N+n-1,N+n-1));
-    
+
     for(int i=0;i<fList.size();i++){
-        for(int j=0;j<bases->size();j++){
-            (*A)(i,j)=((*bases)[j])(fList[i].x);
+        //ignore continuous items of 0.
+        for(int j=i;j<N+n-1;j++){
+            double foo=((*bases)[j])(fList[i].x);
+            if(foo==0) break;
+            (*A)(i,j)=foo;
         }
     }
 }
@@ -102,5 +105,5 @@ void BFormSpline::draw_GivenCoef(const vector<double>& coefs,const IndependentVa
     for(int i=0;i<N+n-1;i++){
         piecewisePolynomial+=(*bases)[i]*coefs[i];
     }
-    piecewisePolynomial.print_Latex(filename,n,"$B-form spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
+    piecewisePolynomial.print_Latex(filename,n,"$B\\text{-}form\\text{ }spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
 }
