@@ -1,22 +1,21 @@
+#pragma once
 #include"PiecewisePolynomial.hpp"
 #include<Eigen/Dense>
 #include"Exceptions.hpp"
 
-class Spline{
-protected:
-    struct BoundaryCondition{
-        enum class Type{
-            Complete,
-            Natural,
-            Periodic,
-            Theorem3_58,
-            Nothing
-        };
-        Type type;
-        double l,r;
-        BoundaryCondition(Type type=Type::Periodic,double l=0,double r=0):type(type),l(l),r(r){}
+struct BoundaryCondition{
+    enum class Type{
+        Complete,
+        Natural,
+        Periodic,
+        Theorem3_58
     };
+    Type type;
+    double l,r;
+    BoundaryCondition(Type type=Type::Periodic,double l=0,double r=0):type(type),l(l),r(r){}
+};
 
+class Spline{
 private:
     virtual void reuse(const Spline* s)=0;
     virtual void generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList)=0;
@@ -43,7 +42,7 @@ public:
      * @param boundaryCondition Boundary condition of the spline. The default value is periodic.
      * @param knotList Knots of the spline. The default value means that they fall on points in fList.
      */
-    void generate(const Spline* s,const FunctionPointList& fList,const BoundaryCondition& boundaryCondition={},const IndependentVariableList& knotList={});
+    void generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition={},const IndependentVariableList& knotList={});
 
     void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName="");
 };

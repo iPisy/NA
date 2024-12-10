@@ -78,14 +78,15 @@ void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* 
         //add A
         for(int i=1;i<n;i++){
             //line N-1+i
-            for(int j=0;j<=n;j++){
+            for(int j=0;j<n;j++){
                 (*A)(N-1+i,j)=((*bases)[j]).derivativeValue(fList[0].x,i);
             }
-            for(int j=N-2;j<N+n-1;j++){
+            for(int j=N-1;j<N+n-1;j++){
                 (*A)(N-1+i,j)-=((*bases)[j]).derivativeValue(fList.back().x,i);
             }
         }
     }
+    //add b
     for(int i=N;i<N+n-1;i++){
         (*b)(i)=0;
     }
@@ -95,4 +96,14 @@ void BFormSpline::generate_piecePoly(Eigen::VectorXd& b){
     for(int i=0;i<N+n-1;i++){
         piecewisePolynomial+=(*bases)[i]*b[i];
     }
+}
+
+void BFormSpline::draw_GivenCoef(const vector<double>& coefs,const IndependentVariableList& knotList,const string& filename){
+    N=knotList.size();
+    if(coefs.size()!=N+n-1) throw InvalidInputException{};
+    generate_bases(knotList);
+    for(int i=0;i<N+n-1;i++){
+        piecewisePolynomial+=(*bases)[i]*coefs[i];
+    }
+    piecewisePolynomial.print_Latex(filename,n,"$Spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
 }

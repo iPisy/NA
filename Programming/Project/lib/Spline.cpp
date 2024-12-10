@@ -1,9 +1,10 @@
 #include"Spline.hpp"
 #include"LatexOutputer.hpp"
 
-void Spline::generate(const Spline* s,const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList){
+void Spline::generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList){
     if(boundaryCondition.type!=BoundaryCondition::Type::Theorem3_58) N=fList.size();
     else N=knotList.size();
+    if(boundaryCondition.type==BoundaryCondition::Type::Periodic && n!=1) fList.back().value=fList[0].value; 
     if(s!=nullptr){
         reuse(s);
         reuseFlag=1;

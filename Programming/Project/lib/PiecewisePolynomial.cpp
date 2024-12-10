@@ -35,10 +35,10 @@ void PiecewisePolynomial::print_Latex_SolePoly(LatexOutputer& o,int n,const stri
     }
 }
 
-void PiecewisePolynomial::print_Latex(const string& filename,int n) const{
+void PiecewisePolynomial::print_Latex(const string& filename,int n,const string& PP_Name) const{
     LatexOutputer o(filename);
     o.quickStart();
-    print_Latex_SolePoly(o,n);
+    print_Latex_SolePoly(o,n,PP_Name);
     o.quickEnd();
 }
 
