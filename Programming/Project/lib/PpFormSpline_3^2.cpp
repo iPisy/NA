@@ -54,7 +54,7 @@ void PFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
         if(!reused){
             //add A
             (*A)(N-2,0)=1;
-            (*A)(N-1,N-1)=0;
+            (*A)(N-1,N-1)=1;
         }
         //add b: do nothing.
     }
@@ -64,14 +64,14 @@ void PFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
             (*A)(N-2,0)=1;
             (*A)(N-2,N-1)=-1;
 
-            (*A)(N-1,N-2)=(fList[N-1].x-fList[N-2].x)/(fList[1].x-fList[N-2].x);
+            (*A)(N-1,N-2)=(fList[N-1].x-fList[N-2].x)/(fList[1].x-fList[0].x+fList[N-1].x-fList[N-2].x);
             (*A)(N-1,N-1)=2;
-            (*A)(N-1,1)=(fList[1].x-fList[N-1].x)/(fList[1].x-fList[N-2].x);
+            (*A)(N-1,1)=(fList[1].x-fList[0].x)/(fList[1].x-fList[0].x+fList[N-1].x-fList[N-2].x);
         }
         //add b
-        double dq_latter=(fList[1].value[0]-fList[N-1].value[0])/(fList[1].x-fList[N-1].x);
+        double dq_latter=(fList[1].value[0]-fList[0].value[0])/(fList[1].x-fList[0].x);
         double dq_former=(fList[N-1].value[0]-fList[N-2].value[0])/(fList[N-1].x-fList[N-2].x);
-        (*b)(N-1)=6*(dq_latter-dq_former)/(fList[1].x-fList[N-2].x);
+        (*b)(N-1)=6*(dq_latter-dq_former)/(fList[1].x-fList[0].x+fList[N-1].x-fList[N-2].x);
     }
 }
 
