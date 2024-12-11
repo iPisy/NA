@@ -9,7 +9,7 @@ private:
     virtual void generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList)=0;
     virtual Eigen::VectorXd generate_b(const FunctionPointList& fList)=0;
     virtual void addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList)=0;
-    virtual void generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList)=0;
+    virtual void generate_PiecePoly(const Eigen::VectorXd& b,const FunctionPointList& fList,const BoundaryCondition& boundaryCondition)=0;
 
 protected:
     int n,k,N;

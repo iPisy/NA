@@ -69,14 +69,14 @@ Eigen::VectorXd BFormSpline::generate_b(const FunctionPointList& fList){
 }
 
 void BFormSpline::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList){
-    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,b,fList);
+    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,fList);
     else{
         cerr<<"Only periodic boundary condition are implemented in B-form spline of order n, where n is arbitrary."<<endl;
         throw UnimplementedException{};
     }
 }
 
-void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList){
+void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,const FunctionPointList& fList){
     if(!reused){
         //add A
         for(int i=1;i<n;i++){
@@ -92,7 +92,7 @@ void BFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* 
     //add b: do nothing.
 }
 
-void BFormSpline::generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList){
+void BFormSpline::generate_PiecePoly(const Eigen::VectorXd& b,const FunctionPointList& fList,const BoundaryCondition&){
     for(int i=0;i<N+n-1;i++){
         piecewisePolynomial+=(*bases)[i]*b[i];
     }

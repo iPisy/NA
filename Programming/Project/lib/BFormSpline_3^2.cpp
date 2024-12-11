@@ -2,10 +2,10 @@
 
 void BFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList){
     if(boundaryCondition.type==BoundaryCondition::Type::Theorem3_58){
-            cerr<<"Invalid boundary condition!"<<endl;
-            throw InvalidInputException{};
-        }
-    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,b,fList);
+        cerr<<"Invalid boundary condition!"<<endl;
+        throw InvalidInputException{};
+    }
+    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,fList);
     else if(boundaryCondition.type==BoundaryCondition::Type::Complete){
         const BoundaryCondition_Complete& foo=static_cast<const BoundaryCondition_Complete&>(boundaryCondition);
         double lv=foo.lv,rv=foo.rv;

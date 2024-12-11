@@ -95,7 +95,7 @@ ControlPoint toControlPoint(const CurvePoint& in);
 
 ControlPointsList toControlPointsList(const CurvePointList& in);
 
-using DifferenceQuotienttable=vector<vector<double> >;
+using DifferenceQuotientTable=vector<vector<double> >;
 
 /**
  * @brief definition domain of a function, curve, etc.

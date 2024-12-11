@@ -10,10 +10,10 @@ private:
     void generate_bases(const IndependentVariableList& knotList);
     Eigen::VectorXd generate_b(const FunctionPointList& fList) override;
     virtual void addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList) override;
-    void generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList) override;
+    void generate_PiecePoly(const Eigen::VectorXd& b,const FunctionPointList& fList,const BoundaryCondition&) override;
 protected:
     vector<PiecewisePolynomial>* bases;
-    void periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList);
+    void periodicBoundaryCondition(Eigen::MatrixXd* A,const FunctionPointList& fList);
 public:
     BFormSpline(int n):Spline(n,n-1){}
     void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName=""){

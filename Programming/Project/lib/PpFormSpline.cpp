@@ -1,6 +1,6 @@
 #include"PpFormSpline.hpp"
 
-void PpFormSpline::generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList){
+void PpFormSpline::generate_A(const FunctionPointList& fList,const BoundaryCondition&,const IndependentVariableList&){
     A=new Eigen::MatrixXd(Eigen::MatrixXd::Zero((N-1)*(n+1),(N-1)*(n+1)));
 
     //interepolation condition
@@ -52,14 +52,14 @@ Eigen::VectorXd PpFormSpline::generate_b(const FunctionPointList& fList){
 }
 
 void PpFormSpline::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList){
-    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,b,fList);
+    if(boundaryCondition.type==BoundaryCondition::Type::Periodic) periodicBoundaryCondition(A,fList);
     else{
         cerr<<"Only periodic boundary condition are implemented in pp-form spline of order n, where n is arbitrary."<<endl;
         throw UnimplementedException{};
     }
 }
 
-void PpFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const FunctionPointList& fList){
+void PpFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,const FunctionPointList& fList){
     //between Polynomial 1 and N-1, at point 1 and N.
 
     vector<Polynomial> coef;
@@ -82,7 +82,7 @@ void PpFormSpline::periodicBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd*
     }
 }
 
-void PpFormSpline::generate_piecePoly(Eigen::VectorXd& b,const FunctionPointList& fList){
+void PpFormSpline::generate_PiecePoly(const Eigen::VectorXd& b,const FunctionPointList& fList,const BoundaryCondition&){
     vector<Polynomial> foo;
     for(int i=0;i<N-1;i++){
         int r=i*(n+1);

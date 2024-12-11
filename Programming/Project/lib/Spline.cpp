@@ -20,8 +20,12 @@ void Spline::generate(const Spline* s,FunctionPointList fList,const BoundaryCond
     else generate_A(fList,boundaryCondition,knotList);
     Eigen::VectorXd b=generate_b(fList);
     if(boundaryCondition.type!=BoundaryCondition::Type::Nothing) addBoundaryCondition(A,&b,boundaryCondition,fList);
+    else if(n!=1){
+        cerr<<"You should offer boundary condition if n!=1."<<endl;
+        throw InvalidInputException{};
+    }
     b=A->partialPivLu().solve(b);
-    generate_piecePoly(b,fList);
+    generate_PiecePoly(b,fList,boundaryCondition);
 }
 
 void Spline::print_Latex(const string& filename,const string& function_string,const Function& function_obj,int offside,const string& graphName){
