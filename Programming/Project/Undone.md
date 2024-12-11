@@ -1,5 +1,5 @@
 - complete class `CurveFitter`
-- do more bonus.
+- do more bonus: order analysis, more functions.
 - consider using some output of doxygen.
 - organize files in appointed format.
 - write report.tex
