@@ -29,7 +29,7 @@ protected:
 
 public:
     Spline(int n,int k):n(n),k(k),A(nullptr),reused(0){
-        if(n%2==0 && n>2) throw EvenOrderSplineException{};
+        if(n%2==0 && n>2) cout<<"\033[31mWarning: if the order of the spline is even, the problem may be ill-posed. Then interpolation may fail.\033[0m"<<endl;
     }
 
     /**
