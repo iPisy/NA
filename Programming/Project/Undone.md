@@ -1,4 +1,5 @@
-- specialize pp_3^2 by completing boundary conditions
+- specialize pp_0^1 by a ctor.
+- specialize pp_3^2 by completing boundary conditions.
 - do more bonus.
 - consider using some output of doxygen.
 - organize files in appointed format.
