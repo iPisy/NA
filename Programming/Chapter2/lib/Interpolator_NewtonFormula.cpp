@@ -7,7 +7,7 @@
 
 Polynomial Interpolator_N::interpolate() const{
     int l=interpolationPoints.size();
-    vector<vector<double>> differenceQuotientTable(l,vector<double>(l));
+    DifferenceQuotientTable differenceQuotientTable(l,vector<double>(l));
     //init
     for(int i=0;i<l;i++){
         differenceQuotientTable[i][0]=getInitializeValue(differenceQuotientTable,i);
@@ -27,6 +27,6 @@ Polynomial Interpolator_N::interpolate() const{
     return p;
 }
 
-double Interpolator_N::calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const{
+double Interpolator_N::calculateDifferenceQuotient(const DifferenceQuotientTable& table,int i,int j) const{
     return (table[i+1][j-1]-table[i][j-1])/(interpolationPoints[i+j].x-interpolationPoints[i].x);
 }

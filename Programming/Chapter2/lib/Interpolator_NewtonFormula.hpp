@@ -36,6 +36,6 @@ protected:
     /**
      * @brief Calculate the element of difference quotient table. It can be overriden and imply on Hermite problem.
     */
-    virtual double calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const;
+    virtual double calculateDifferenceQuotient(const DifferenceQuotientTable& table,int i,int j) const;
  
 };

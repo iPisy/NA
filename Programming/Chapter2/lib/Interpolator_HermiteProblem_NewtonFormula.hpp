@@ -16,5 +16,5 @@ protected:
             if(interpolationPoints[i].x==interpolationPoints[i-1].x) return table[i-1][0];
         return Interpolator_N::getInitializeValue(table,i);
     }
-    double calculateDifferenceQuotient(const vector<vector<double>>& table,int i,int j) const override;
+    double calculateDifferenceQuotient(const DifferenceQuotientTable& table,int i,int j) const override;
 };
