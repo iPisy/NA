@@ -5,6 +5,11 @@
 
 class SphereCurveFitter;
 
+enum class knotMode{
+    CumulativeChordal,
+    Uniform
+};
+
 /**
  * @brief A curve fitter used in dimension 2. It use pp-form spline of order 3, which is the fastest.
  */
@@ -13,10 +18,6 @@ private:
     PFS3 spline_x,spline_y;
     friend class SphereCurveFitter;
 public:
-    enum class knotMode{
-        CumulativeChordal,
-        Uniform
-    };
     void fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& boundaryCondition);
     void print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName="");
 };

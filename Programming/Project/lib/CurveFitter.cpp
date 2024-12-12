@@ -50,7 +50,6 @@ void CurveFitter::print_Latex(const string& fileName,const vector<string>& exact
     }
 
     //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
-    int curve_num=spline_x.piecewisePolynomial.polys.size();
     vector<const Function*> foo{&(spline_x.piecewisePolynomial),&(spline_y.piecewisePolynomial)};
     Curve bar(foo,DefinitionDomain{0,1});
     o.addLine(bar.generateValueList(10000),"fitted curve");

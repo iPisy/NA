@@ -5,6 +5,6 @@ class SphereCurveFitter{
 private:
     CurveFitter curveFitter;
 public:
-    void fit(const CurveValueList& list);
+    void fit(knotMode mode,const CurveValueList& list);
     void print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName="");
 };
