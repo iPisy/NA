@@ -15,6 +15,8 @@ protected:
     int n,k,N;
     Eigen::MatrixXd* A;
     PiecewisePolynomial piecewisePolynomial;
+    friend class CurveFitter;
+    friend class SphereCurveFitter;
 
     /**
      * @brief Reuse calculated things, e.g. A(in spline) and bases(in B-form spline).

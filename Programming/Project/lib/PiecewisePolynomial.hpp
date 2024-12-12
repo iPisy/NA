@@ -14,6 +14,8 @@ using namespace std;
 class PiecewisePolynomial:public Function{
 private:
     vector<Polynomial> polys;
+    friend class CurveFitter;
+    friend class SphereCurveFitter;
 
     //overrides
     double getValue(double x) const override;

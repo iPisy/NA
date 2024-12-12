@@ -6,7 +6,6 @@
 #include"Curve.hpp"
 #include<iostream>
 #include<cstdlib>
-#include<algorithm>
 
 using namespace std;
 
@@ -26,11 +25,13 @@ vector<double> Curve::tangentVector(double t,int order) const{
     return ret;
 }
 
-CurvePointList Curve::generatePointList(int number,int derivative_order,bool direction) const{
-    return generatePointList(definitionDomain.generateVariableList(number),derivative_order,direction);
+CurvePointList Curve::generatePointList(int number,int derivative_order,bool b_reverse,bool withEnd) const{
+    IndependentVariableList l=definitionDomain.generateVariableList(withEnd?number:number+1,b_reverse);
+    if(!withEnd) l.pop_back();
+    return generatePointList(l,derivative_order);
 }
 
-CurvePointList Curve::generatePointList(const IndependentVariableList& in,int derivative_order,bool direction) const{
+CurvePointList Curve::generatePointList(const IndependentVariableList& in,int derivative_order) const{
     CurvePointList ret;
     for(auto it_=in.begin();it_!=in.end();it_++){
         auto it=*it_;
@@ -43,6 +44,28 @@ CurvePointList Curve::generatePointList(const IndependentVariableList& in,int de
         }
         ret.push_back(foo);
     }
-    if(direction) reverse(ret.begin(),ret.end());
+    return ret;
+}
+
+CurveValueList Curve::generateValueList(int number,int derivative_order,bool b_reverse,bool withEnd) const{
+    IndependentVariableList l=definitionDomain.generateVariableList(withEnd?number:number+1,b_reverse);
+    if(!withEnd) l.pop_back();
+    return generateValueList(l,derivative_order);
+}
+
+CurveValueList Curve::generateValueList(const IndependentVariableList& in,int derivative_order) const{
+    CurvePointList foo=generatePointList(in,derivative_order);
+    CurveValueList ret;
+    for(auto& it:foo){
+        ret.push_back(it.value);
+    }
+    return ret;
+}
+
+CurveValueList Curve::connectValueList(const vector<CurveValueList>& in){
+    CurveValueList ret;
+    for(auto& it:in){
+        ret.insert(ret.end(),it.begin(),it.end());
+    }
     return ret;
 }

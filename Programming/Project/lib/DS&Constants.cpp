@@ -3,6 +3,7 @@
  * @brief Implement function in @ref DS&Constants.hpp
  */
 #include"DS&Constants.hpp"
+#include<algorithm>
 
 DefinitionDomain DefinitionDomain::merge(const DefinitionDomain& lhs,const DefinitionDomain& rhs){
     const DefinitionDomain* lf=nullptr,*rf=nullptr;
@@ -15,7 +16,7 @@ DefinitionDomain DefinitionDomain::merge(const DefinitionDomain& lhs,const Defin
     return DefinitionDomain(lf->l,rf->r);
 }
 
-IndependentVariableList DefinitionDomain::generateVariableList(int number) const{
+IndependentVariableList DefinitionDomain::generateVariableList(int number,bool b_reverse) const{
     if(number<=1) throw InvalidInputException{}; 
     IndependentVariableList list;
     double start=l,end=r;
@@ -25,6 +26,7 @@ IndependentVariableList DefinitionDomain::generateVariableList(int number) const
         start+=delta;
     }
     list.back()=end;
+    if(b_reverse) reverse(list.begin(),list.end());
     return list;
 }
 

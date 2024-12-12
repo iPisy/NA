@@ -137,7 +137,7 @@ struct DefinitionDomain{
         return 0;
     }
 
-    IndependentVariableList generateVariableList(int number) const;
+    IndependentVariableList generateVariableList(int number,bool b_reverse=0) const;
 };
 
 ostream& operator<<(ostream& out,const DefinitionDomain& foo);
