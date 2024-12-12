@@ -26,7 +26,8 @@ void LatexOutputer::newImage(const string& imageName,const DefinitionDomain& def
     << "xlabel=$x$, ylabel=$y$,";
     if(Dimension_3) file<<" zlabel=$z$,\nview={60}{30},";
     file << "\n" 
-    << "samples=200,\n";
+    << "samples=500,\n"
+    << "smooth,\n";
 
     if(!definitionDomain.isDefault()){
         file << "domain="<<definitionDomain<<",\n";
