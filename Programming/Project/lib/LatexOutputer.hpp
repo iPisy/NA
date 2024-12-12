@@ -46,6 +46,8 @@ public:
      */
     void addLine(const string& line,const DefinitionDomain& definitionDomain={},const string& legendentry="",const string& character="");
     void addLine(const string& line,const string& legendentry,const string& character="",const DefinitionDomain& definitionDomain={});
+    void addLine(const FunctionPointList& list,const string& legendentry,const string& character="");
+    void addLine(const CurveValueList& list,const string& legendentry,const string& character="");
 
     /**
      * @brief call when the image is completed. Add appendix of Image.

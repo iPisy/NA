@@ -29,10 +29,15 @@ double PiecewisePolynomial::getDerivativeValue(double x,int order) const{
 void PiecewisePolynomial::print_Latex_SolePoly(LatexOutputer& o,int n,const string& PP_Name) const{
     string legendentry=PP_Name;
     if(legendentry=="") legendentry="Piecewise polynomial";
+    //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
+    int num=10000;
+    FunctionPointList FPL;
     for(int i=n;i<polys.size()-n;i++){
-        o.addLine(polys[i].getLatexFormatString(),polys[i].get_definitionDomain(),legendentry);
-        legendentry="";
+        int dnum=num/(polys.size()-2*n);
+        FunctionPointList foo=polys[i].generatePointList(dnum);
+        FPL.insert(FPL.end(),foo.begin(),foo.end());
     }
+    o.addLine(FPL,legendentry);
 }
 
 void PiecewisePolynomial::print_Latex(const string& filename,int n,const string& PP_Name) const{

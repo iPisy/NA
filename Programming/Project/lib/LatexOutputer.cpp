@@ -26,8 +26,7 @@ void LatexOutputer::newImage(const string& imageName,const DefinitionDomain& def
     << "xlabel=$x$, ylabel=$y$,";
     if(Dimension_3) file<<" zlabel=$z$,\nview={60}{30},";
     file << "\n" 
-    << "samples=500,\n"
-    << "smooth,\n";
+    << "samples=200,\n";
 
     if(!definitionDomain.isDefault()){
         file << "domain="<<definitionDomain<<",\n";
@@ -57,6 +56,29 @@ void LatexOutputer::addLine(const string& line,const DefinitionDomain& definitio
 }
 void LatexOutputer::addLine(const string& line,const string& legendentry,const string& character,const DefinitionDomain& definitionDomain){
     addLine(line,definitionDomain,legendentry,character);
+}
+
+void LatexOutputer::addLine(const FunctionPointList& list,const string& legendentry,const string& character){
+    string line="coordinates{\n";
+    for(auto& it:list){
+        line+="("+to_string(it.x)+","+to_string(it.value[0])+")\n";
+    }
+    line+="}";
+    addLine(line,{},legendentry,character);
+}
+
+void LatexOutputer::addLine(const CurveValueList& list,const string& legendentry,const string& character){
+    string line="coordinates{\n";
+    for(auto& it:list){
+        line+="(";
+        for(auto& foo:it[0]){
+            line+=to_string(foo)+",";
+        }
+        line.pop_back();
+        line+=")\n";
+    }
+    line+="}";
+    addLine(line,{},legendentry,character);
 }
 
 void LatexOutputer::linePreamble(const string& character,const DefinitionDomain& definitionDomain,bool newLine){

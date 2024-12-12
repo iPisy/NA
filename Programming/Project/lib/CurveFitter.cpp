@@ -2,7 +2,7 @@
 #include<cmath>
 using namespace std;
 
-void CurveFitter::fit(knotMode mode,const CurveValueList& list){
+void CurveFitter::fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& boundaryCondition){
     int knotsNum=list.size();
 
     //mode determine the way of generating VariableList.
@@ -32,8 +32,8 @@ void CurveFitter::fit(knotMode mode,const CurveValueList& list){
         FPL_y.push_back(FunctionPoint{tlist[i],{list[i][0][1]}});
     }
 
-    spline_x.generate(nullptr,FPL_x,BoundaryCondition_Periodic{});
-    spline_y.generate(&spline_x,FPL_y,BoundaryCondition_Periodic{});
+    spline_x.generate(nullptr,FPL_x,boundaryCondition);
+    spline_y.generate(&spline_x,FPL_y,boundaryCondition);
 }
     
 void CurveFitter::print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName){
@@ -49,15 +49,11 @@ void CurveFitter::print_Latex(const string& fileName,const vector<string>& exact
         o.addLine(exactCurves[i],legendentry,"dashed",curves[i]->getDefinitionDomain());
     }
 
+    //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
     int curve_num=spline_x.piecewisePolynomial.polys.size();
-    for(int i=0;i<curve_num;i++){
-        string legendentry="";
-        if(i==0) legendentry="fitted curve";
-        o.addLine("("+spline_x.piecewisePolynomial.polys[i].getLatexFormatString()+","
-        +spline_y.piecewisePolynomial.polys[i].getLatexFormatString()+")",
-        spline_x.piecewisePolynomial.polys[i].get_definitionDomain(),
-        legendentry);
-    }
+    vector<const Function*> foo{&(spline_x.piecewisePolynomial),&(spline_y.piecewisePolynomial)};
+    Curve bar(foo,DefinitionDomain{0,1});
+    o.addLine(bar.generateValueList(10000),"fitted curve");
 
     o.quickEnd();
 }
