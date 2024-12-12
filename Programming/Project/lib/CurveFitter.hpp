@@ -20,4 +20,5 @@ private:
 public:
     void fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& boundaryCondition);
     void print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName="");
+    void print_Latex_Sole(LatexOutputer& o,const string& legendentry);
 };

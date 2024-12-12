@@ -27,7 +27,7 @@ protected:
     /**
      * @param offside for B-form splines. Avoid drawing out of domain.
      */
-    void print_Latex(const string& filename,const string& function_string,const Function& function_obj,int offside,const string& graphName="");
+    void print_Latex(const string& filename,const string& function_string,const Function& function_obj,bool offside,const string& graphName="") const;
 
 public:
     Spline(int n,int k):n(n),k(k),A(nullptr),reused(0){
@@ -43,4 +43,13 @@ public:
      * @param knotList Knots of the spline. The default value means that they fall on points in fList.
      */
     void generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition=BoundaryCondition_Periodic{},const IndependentVariableList& knotList={});
+
+    double operator()(double x) const{
+        return piecewisePolynomial(x);
+    }
+
+    void print_Latex_Sole(LatexOutputer& o,bool offside,const string& legendentry) const{
+        piecewisePolynomial.print_Latex_SolePoly(o,offside?n:0,legendentry);
+    }
+
 };

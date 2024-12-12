@@ -28,10 +28,10 @@ void Spline::generate(const Spline* s,FunctionPointList fList,const BoundaryCond
     generate_PiecePoly(b,fList,boundaryCondition);
 }
 
-void Spline::print_Latex(const string& filename,const string& function_string,const Function& function_obj,int offside,const string& graphName){
+void Spline::print_Latex(const string& filename,const string& function_string,const Function& function_obj,bool offside,const string& graphName) const{
     LatexOutputer o(filename);
     o.quickStart();
     o.addLine(function_string,"exact function","dashed",function_obj.get_definitionDomain());
-    piecewisePolynomial.print_Latex_SolePoly(o,offside,"$spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
+    piecewisePolynomial.print_Latex_SolePoly(o,offside?n:0,"$spline\\in \\mathbb{S}_{"+to_string(n)+"}^{"+to_string(k)+"}$");
     o.quickEnd();
 }

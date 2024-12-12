@@ -17,7 +17,7 @@ protected:
 public:
     BFormSpline(int n):Spline(n,n-1){}
     void print_Latex(const string& filename,const string& function_string,const Function& function_obj,const string& graphName=""){
-        Spline::print_Latex(filename,function_string,function_obj,n,graphName);
+        Spline::print_Latex(filename,function_string,function_obj,1,graphName);
     }
     void draw_GivenCoef(const vector<double>& coefs,const IndependentVariableList& knotList,const string& filename);
 };

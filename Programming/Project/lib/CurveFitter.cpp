@@ -49,10 +49,14 @@ void CurveFitter::print_Latex(const string& fileName,const vector<string>& exact
         o.addLine(exactCurves[i],legendentry,"dashed",curves[i]->getDefinitionDomain());
     }
 
+    print_Latex_Sole(o,"fitted curve");
+
+    o.quickEnd();
+}
+
+void CurveFitter::print_Latex_Sole(LatexOutputer& o,const string& legendentry){
     //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
     vector<const Function*> foo{&(spline_x.piecewisePolynomial),&(spline_y.piecewisePolynomial)};
     Curve bar(foo,DefinitionDomain{0,1});
-    o.addLine(bar.generateValueList(10000),"fitted curve");
-
-    o.quickEnd();
+    o.addLine(bar.generateValueList(10000),legendentry);
 }

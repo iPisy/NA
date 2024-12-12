@@ -23,6 +23,13 @@ void SphereCurveFitter::print_Latex(const string& fileName,const vector<string>&
     }
 
     //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
+    print_Latex_Sole(o,"fitted curve");
+
+    o.quickEnd();
+}
+
+void SphereCurveFitter::print_Latex_Sole(LatexOutputer& o,const string& legendentry){
+    //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
     vector<const Function*> foo{&(curveFitter.spline_x.piecewisePolynomial),&(curveFitter.spline_y.piecewisePolynomial)};
     Curve bar(foo,DefinitionDomain{0,1});
     CurveValueList l=bar.generateValueList(10000);
@@ -31,7 +38,5 @@ void SphereCurveFitter::print_Latex(const string& fileName,const vector<string>&
         double x=it[0][0],y=it[0][1];
         out.push_back(CurveValue{vector<double>{2*x/(1+x*x+y*y),2*y/(1+x*x+y*y),(x*x+y*y-1)/(x*x+y*y+1)}});
     }
-    o.addLine(out,"fitted curve");
-
-    o.quickEnd();
+    o.addLine(out,legendentry);
 }
