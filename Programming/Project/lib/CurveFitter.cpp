@@ -23,6 +23,8 @@ void CurveFitter::fit(knotMode mode,const CurveValueList& list){
             );
         }
     }
+    //normalization
+    for(auto& it:tlist) it/=tlist.back();
 
     FunctionPointList FPL_x,FPL_y;
     for(int i=0;i<knotsNum;i++){
