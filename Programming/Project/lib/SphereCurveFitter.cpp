@@ -4,7 +4,7 @@ void SphereCurveFitter::fit(knotMode mode,const CurveValueList& list){
     CurveValueList foo;
     for(auto& it:list){
         double x=it[0][0],y=it[0][1],z=it[0][2];
-        foo.push_back(CurveValue{vector<double>{x/(1-z),y/(1-z)}});
+        foo.push_back(CurveValue{vector<double>{x/(1+z),y/(1+z)}});
     }
     curveFitter.fit(mode,foo,BoundaryCondition_Periodic{},BoundaryCondition_Periodic{});
 }
@@ -36,7 +36,7 @@ void SphereCurveFitter::print_Latex_Sole(LatexOutputer& o,const string& legenden
     CurveValueList out;
     for(auto& it:l){
         double x=it[0][0],y=it[0][1];
-        out.push_back(CurveValue{vector<double>{2*x/(1+x*x+y*y),2*y/(1+x*x+y*y),(x*x+y*y-1)/(x*x+y*y+1)}});
+        out.push_back(CurveValue{vector<double>{2*x/(1+x*x+y*y),2*y/(1+x*x+y*y),(1-x*x-y*y)/(x*x+y*y+1)}});
     }
     o.addLine(out,legendentry);
 }

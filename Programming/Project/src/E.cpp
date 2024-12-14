@@ -111,7 +111,7 @@ int main(){
     E_3_F_3 e3f3;
     Curve E_3({&e3f1,&e3f2,&e3f3},DefinitionDomain{0,2*PI});
 
-    for(int i=2;i<3;i++){
+    for(int i=0;i<3;i++){
         SphereCurveFitter CFU,CFC;
 
         LatexOutputer o("E3, m="+to_string(foo[i])+".tex",1);
