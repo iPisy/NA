@@ -13,6 +13,8 @@ using namespace std;
 
 #define DELTA (1e-6)
 
+#define SAMPLES 1000
+
 /**
  * @brief a list of distinct independent variable values.
 */

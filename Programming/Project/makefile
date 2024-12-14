@@ -33,7 +33,7 @@ doxygen: dirs Doxyfile
 
 LaTex: dirs src/report.tex
 	for file in bin/*.tex; do \
-		mv $${file} report/; \
+		mv "$$file" report/; \
 	done
 
 	@for file in report/*.tex; do \

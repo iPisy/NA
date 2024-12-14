@@ -2,7 +2,7 @@
 #include<cmath>
 using namespace std;
 
-void CurveFitter::fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& boundaryCondition){
+void CurveFitter::fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& x_boundaryCondition,const BoundaryCondition& y_boundaryCondition){
     int knotsNum=list.size();
 
     //mode determine the way of generating VariableList.
@@ -32,8 +32,8 @@ void CurveFitter::fit(knotMode mode,const CurveValueList& list,const BoundaryCon
         FPL_y.push_back(FunctionPoint{tlist[i],{list[i][0][1]}});
     }
 
-    spline_x.generate(nullptr,FPL_x,boundaryCondition);
-    spline_y.generate(&spline_x,FPL_y,boundaryCondition);
+    spline_x.generate(nullptr,FPL_x,x_boundaryCondition);
+    spline_y.generate(&spline_x,FPL_y,y_boundaryCondition);
 }
     
 void CurveFitter::print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName){
@@ -58,5 +58,5 @@ void CurveFitter::print_Latex_Sole(LatexOutputer& o,const string& legendentry){
     //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
     vector<const Function*> foo{&(spline_x.piecewisePolynomial),&(spline_y.piecewisePolynomial)};
     Curve bar(foo,DefinitionDomain{0,1});
-    o.addLine(bar.generateValueList(10000),legendentry);
+    o.addLine(bar.generateValueList(SAMPLES),legendentry);
 }

@@ -18,7 +18,7 @@ private:
     PFS3 spline_x,spline_y;
     friend class SphereCurveFitter;
 public:
-    void fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& boundaryCondition);
+    void fit(knotMode mode,const CurveValueList& list,const BoundaryCondition& x_boundaryCondition,const BoundaryCondition& y_boundaryCondition);
     void print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName="");
     void print_Latex_Sole(LatexOutputer& o,const string& legendentry);
 };

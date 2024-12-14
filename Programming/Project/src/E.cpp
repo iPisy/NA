@@ -43,10 +43,10 @@ int main(){
         o.addLine("({x},{2/3*(sqrt(abs(x))+sqrt(3-x*x))})",E_1_upper.getDefinitionDomain(),"exact curve","dashed");
         o.addLine("({x},{2/3*(sqrt(abs(x))-sqrt(3-x*x))})",E_1_lower.getDefinitionDomain(),"","dashed");
 
-        CFU.fit(knotMode::Uniform,Curve::connectValueList(vector<CurveValueList>{E_1_lower.generateValueList(bar[i],0,1,0),E_1_upper.generateValueList(bar[i],0,0,1)}),BoundaryCondition_Periodic{});
+        CFU.fit(knotMode::Uniform,Curve::connectValueList(vector<CurveValueList>{E_1_lower.generateValueList(bar[i],0,1,0),E_1_upper.generateValueList(bar[i],0,0,1)}),BoundaryCondition_Periodic{},BoundaryCondition_Periodic{});
         CFU.print_Latex_Sole(o,"uniform knots");
 
-        CFC.fit(knotMode::CumulativeChordal,Curve::connectValueList(vector<CurveValueList>{E_1_lower.generateValueList(bar[i],0,1,0),E_1_upper.generateValueList(bar[i],0,0,1)}),BoundaryCondition_Periodic{});
+        CFC.fit(knotMode::CumulativeChordal,Curve::connectValueList(vector<CurveValueList>{E_1_lower.generateValueList(bar[i],0,1,0),E_1_upper.generateValueList(bar[i],0,0,1)}),BoundaryCondition_Periodic{},BoundaryCondition_Periodic{});
         CFC.print_Latex_Sole(o,"cumulative chordal knots");
 
         o.quickEnd();
@@ -69,18 +69,20 @@ int main(){
     E_2_F_1 e2f1;
     E_2_F_2 e2f2;
     Curve E_2({&e2f1,&e2f2},DefinitionDomain{0,6*PI});
+    BoundaryCondition_Complete x_BCC(E_2.tangentVector(0,1)[0],E_2.tangentVector(6*PI,1)[1]),
+    y_BCC(E_2.tangentVector(0,1)[1],E_2.tangentVector(6*PI,1)[1]);
 
     for(int i=0;i<3;i++){
         CurveFitter CFU,CFC;
 
         LatexOutputer o("E2, m="+to_string(foo[i])+".tex");
         o.quickStart("Problem E, 2, m="+to_string(foo[i]));
-        o.addLine("({sin(x)+x*cos(x)},{cos(x)+x*sin(x)})",E_2.getDefinitionDomain(),"exact curve","dashed");
+        o.addLine(E_2.generateValueList(5000),"exact curve","dashed");
 
-        CFU.fit(knotMode::Uniform,E_2.generateValueList(foo[i]),BoundaryCondition_Periodic{});
+        CFU.fit(knotMode::Uniform,E_2.generateValueList(foo[i]),x_BCC,y_BCC);
         CFU.print_Latex_Sole(o,"uniform knots");
 
-        CFC.fit(knotMode::CumulativeChordal,E_2.generateValueList(foo[i]),BoundaryCondition_Periodic{});
+        CFC.fit(knotMode::CumulativeChordal,E_2.generateValueList(foo[i]),x_BCC,y_BCC);
         CFC.print_Latex_Sole(o,"cumulative chordal knots");
 
         o.quickEnd();
@@ -101,7 +103,7 @@ int main(){
 
     class E_3_F_3:public Function{
         double getValue(double x) const override{
-            return cos(cos(x))*cos(cos(x));
+            return cos(cos(x));
         }
     };
     E_3_F_1 e3f1;
@@ -109,12 +111,12 @@ int main(){
     E_3_F_3 e3f3;
     Curve E_3({&e3f1,&e3f2,&e3f3},DefinitionDomain{0,2*PI});
 
-    for(int i=0;i<3;i++){
+    for(int i=2;i<3;i++){
         SphereCurveFitter CFU,CFC;
 
         LatexOutputer o("E3, m="+to_string(foo[i])+".tex",1);
         o.quickStart("Problem E, 3, m="+to_string(foo[i]));
-        o.addLine("({sin(cos(x))*cos(sin(x))},{sin(cos(x))*sin(sin(x))},{cos(cos(x))*cos(cos(x))})",E_3.getDefinitionDomain(),"exact curve","dashed");
+        o.addLine(E_3.generateValueList(5000),"exact curve","thick");
 
         CFU.fit(knotMode::Uniform,E_3.generateValueList(foo[i]));
         CFU.print_Latex_Sole(o,"uniform knots");

@@ -6,7 +6,7 @@ void SphereCurveFitter::fit(knotMode mode,const CurveValueList& list){
         double x=it[0][0],y=it[0][1],z=it[0][2];
         foo.push_back(CurveValue{vector<double>{x/(1-z),y/(1-z)}});
     }
-    curveFitter.fit(mode,foo,BoundaryCondition_Periodic{});
+    curveFitter.fit(mode,foo,BoundaryCondition_Periodic{},BoundaryCondition_Periodic{});
 }
 
 void SphereCurveFitter::print_Latex(const string& fileName,const vector<string>& exactCurves,const vector<const Curve*>& curves,string graphName){
@@ -32,7 +32,7 @@ void SphereCurveFitter::print_Latex_Sole(LatexOutputer& o,const string& legenden
     //Generate points and connect them by LaTex. As LaTex is inaccurate in calculating, draw raw curve will cause huge error.
     vector<const Function*> foo{&(curveFitter.spline_x.piecewisePolynomial),&(curveFitter.spline_y.piecewisePolynomial)};
     Curve bar(foo,DefinitionDomain{0,1});
-    CurveValueList l=bar.generateValueList(10000);
+    CurveValueList l=bar.generateValueList(SAMPLES);
     CurveValueList out;
     for(auto& it:l){
         double x=it[0][0],y=it[0][1];
