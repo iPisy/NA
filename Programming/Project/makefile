@@ -24,29 +24,31 @@ simpleTest:
 	cd test && g++ -I/usr/include/eigen3 -o test class.cpp test.cpp && ./test
 
 report: run doxygen LaTex
-	xdg-open report/html/index.html
-	xdg-open report/report.pdf
-	xdg-open report/design.pdf
+	xdg-open doc/html/index.html
+	xdg-open doc/report.pdf
+	xdg-open doc/design.pdf
 
 doxygen: dirs Doxyfile
 	doxygen Doxyfile
 
-LaTex: dirs src/report.tex
+LaTex: dirs doc/report.tex
 	@for file in bin/*.tex; do \
-		mv "$$file" report/; \
+		mv "$$file" figure/; \
 	done
 	
-	cp src/A_convergence_rate.tex report/
+	cp doc/A_convergence_rate.tex "doc/BezierSpline, m=10.tex" "doc/BezierSpline, m=40.tex" "doc/BezierSpline, m=160.tex" figure/
 
-	@for file in report/*.tex; do \
+	@for file in figure/*.tex; do \
 		pdf_file=$${file%.tex}.pdf; \
 		if [ ! -f "$$pdf_file" ]; then \
-			pdflatex -output-directory=report "$$file"; \
+			pdflatex -output-directory=figure "$$file"; \
 		fi; \
 	done
 
-	cp src/report.tex src/design.tex src/references.bib report/
-	cd report \
+	cd figure \
+	&& find . -maxdepth 1 -type f ! -name "*.pdf" -exec rm -f {} \;
+
+	cd doc \
 	&& pdflatex design.tex \
 	&& bibtex design.aux \
 	&& pdflatex design.tex \
@@ -55,16 +57,15 @@ LaTex: dirs src/report.tex
 	&& bibtex report.aux \
 	&& pdflatex report.tex \
 	&& pdflatex report.tex \
-	&& find . -maxdepth 1 -type f ! -name "*.pdf" -exec rm -f {} \;
-
+	&& find . -maxdepth 1 -type f ! -name "*.pdf" ! -name "*.tex" ! -name "references.bib" -exec rm -f {} \;
 
 dirs:
 	mkdir -p build
-	mkdir -p report
+	mkdir -p figure
 
 clean:
 	rm -rf build
 	rm -rf bin
-	rm -rf report
+	rm -rf figure
 
 .PHONY: all build buildInDebug run runTest simpleTest report doxygen LaTex dirs clean
