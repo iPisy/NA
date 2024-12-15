@@ -37,9 +37,12 @@ int main(){
 
     PFS3 PFS3_N;
     PFS3_N.generate(nullptr,f2.generatePointList(4),BoundaryCondition_Natural());
-    PFS3_N.print_Latex("sqrt,S_3^2 ,Natural.tex","{sqrt(x)}",f2);
+    PFS3_N.print_Latex("sqrt,S_3^2, Natural.tex","{sqrt(x)}",f2);
 
     PFS3 PFS3_C;
     PFS3_C.generate(nullptr,f2.generatePointList(4),BoundaryCondition_Complete(f2.derivativeValue(1),f2.derivativeValue(10)));
     PFS3_C.print_Latex("sqrt,S_3^2, Complete.tex","{sqrt(x)}",f2);
+
+    BFormSpline draw(11);
+    draw.draw_GivenCoef(vector<double>{0.1,0.36,0.02,0.42,0.33,0.17,0.38,0.35,0.233,0.1,0.43,0.34,0.51,0.19},vector<double>{0.2,0.6931,1.14514,3.14},"Draw B form splines.tex");
 }

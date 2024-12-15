@@ -300,6 +300,52 @@ Two tables are represented below.
   \caption{Divided difference table, order=2}
 \end{figure}
 
+\section*{More functions}
+I do 5 more test to test the splines that have not been tested before, they are done in \texttt{moreFunctions.cpp}.\\
+\begin{itemize}
+  \item B-form spline $s \in \mathbb{S}_9^8$. This is to test the B-form spline of arbitrary order.
+  It interpolate $\cos(x)$ in periodic boundary condition, with 5 knots.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{cos_BFS.pdf}
+  \end{figure}
+
+  \item PP-form spline $s \in \mathbb{S}_7^6$. This is to test the PP-form spline of arbitrary order.
+  It interpolate $\cos(x)$ in periodic boundary condition, with 5 knots.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{cos_PFS.pdf}
+  \end{figure}
+
+  \newpage
+
+  \item PP-form spline $s \in \mathbb{S}_3^2$ with natural boundary condition.
+  It interpolate $\sqrt{x}$ with 4 knots.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{sqrt,S_3^2, Natural.pdf}
+  \end{figure}
+
+  \item PP-form spline $s \in \mathbb{S}_3^2$ with complete boundary condition.
+  It interpolate $\sqrt{x}$ with 4 knots.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{sqrt,S_3^2, Complete.pdf}
+  \end{figure}
+
+  \item B-form spline $s \in \mathbb{S}_{11}^{10}$.
+  This is for testing the drawing of spline. The knots are 0.2,0.6931,1.14514,3.14, and the coefficients are 0.1,0.36,0.02,0.42,0.33,0.17,0.38,0.35,0.233,0.1,0.43,0.34,0.51,0.19.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Draw B form splines.pdf}
+  \end{figure}
+\end{itemize}
+
 
 \printbibliography
 

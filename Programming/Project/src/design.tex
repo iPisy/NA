@@ -173,7 +173,8 @@ All structs and classes are introduced below (including those not appeared in th
   It allows 3 kind of boundary conditions, done by override \texttt{virtual void addBoundaryCondition(...);}.\\
   \item[BFS\_Thm\_3\_58]
   It represents B-form spline defined in Theorem 3.58\cite*{Thm_3_58}, a spline $\in \mathbb{S}_2^1$, whose knots are not interpolation points.\\ 
-  The generation procedure is same as BFormSpline, so I only need to override \texttt{virtual void addBoundaryCondition(...);}.
+  The generation procedure is same as BFormSpline.\\
+  So I only need to override \texttt{virtual void addBoundaryCondition(...);}.
   \item[CurveFitter]
   It represents a curve fitter, which can fit curve in \(\mathbb{R}^2\). \\
   It allows 2 ways of parameterization, using uniform parameter and using cumulative chordal length as parameter.\\
