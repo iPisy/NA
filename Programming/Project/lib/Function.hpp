@@ -40,7 +40,7 @@ public:
     /**
      * @brief generate a list of uniformly distributed points within the definition domain of the function.
      * 
-     * @param m number of points. As it includes the endpoints, it should >= 2.
+     * @param number number of points. As it includes the endpoints, it should >= 2.
      * @param derivative_order the highest derivative order of the point.
     */
     FunctionPointList generatePointList(int number,int derivative_order=0) const;

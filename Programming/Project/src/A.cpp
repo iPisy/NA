@@ -34,7 +34,7 @@ int main(){
             double x=(IVL[i][j]+IVL[i][j+1])/2;
             maximum=max(maximum,fabs(spline(x)-f(x)));
         }
-        cout<<legendentry+",Error="<<maximum<<endl;
+        cout<<legendentry+", error="<<maximum<<endl;
     }
     o.quickEnd();
 

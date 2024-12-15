@@ -57,4 +57,5 @@ int main(){
             }
         }
     }
+    cout<< ".tex files generated."<<endl;
 }

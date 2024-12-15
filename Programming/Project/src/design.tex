@@ -176,7 +176,10 @@ All structs and classes are introduced below (including those not appeared in th
   The generation procedure is same as BFormSpline, so I only need to override \texttt{virtual void addBoundaryCondition(...);}.
   \item[CurveFitter]
   It represents a curve fitter, which can fit curve in \(\mathbb{R}^2\). \\
-  It allows 2 ways of parameterization, using uniform parameter and using cumulative chordal length as parameter.
+  It allows 2 ways of parameterization, using uniform parameter and using cumulative chordal length as parameter.\\
+  It is worth mentioning that the matrix A is same in 2 splines, 
+  and \texttt{void generate\_A(...);} allows to reuse generated A by passing in pointer to generated spline, 
+  which speed up the calculation.\\
   \textbf{Related mathematical theories are introduced below.}\\
   We have a list of value point on curve. And we can generate the list of independent variable by 2 ways of parameterization above.
   Combining the independent variable and the value point on a certain direction (x or y), we get 2 list of points on function.

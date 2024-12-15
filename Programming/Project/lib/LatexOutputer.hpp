@@ -37,8 +37,7 @@ public:
      * @brief Add a line into the image of .tex file.
      * 
      * @param line the line to plot, in calculatable Latex format, like {sin(x)} or ({sin(x)},{cos(x)}).
-     * @param l left endpoint of definition domain.
-     * @param r right endpoint of definition domain.
+     * @param definitionDomain definition domain of the line.
      * @param legendentry the legendentry to add, in Latex math format "$...$" or just text. 
      * If not offered, it will not add legendentry. 
      * A new legendentry implies a new line, thus the color of the line should change accordingly.

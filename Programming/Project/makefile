@@ -35,6 +35,8 @@ LaTex: dirs src/report.tex
 	@for file in bin/*.tex; do \
 		mv "$$file" report/; \
 	done
+	
+	cp src/A_convergence_rate.tex report/
 
 	@for file in report/*.tex; do \
 		pdf_file=$${file%.tex}.pdf; \
@@ -45,6 +47,9 @@ LaTex: dirs src/report.tex
 
 	cp src/report.tex src/design.tex src/references.bib report/
 	cd report \
+	&& pdflatex design.tex \
+	&& bibtex design.aux \
+	&& pdflatex design.tex \
 	&& pdflatex design.tex \
 	&& pdflatex report.tex \
 	&& bibtex report.aux \

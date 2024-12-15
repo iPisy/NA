@@ -60,8 +60,8 @@ public:
      * 
      * @param number number of points. As it includes the endpoints, it should >= 2.
      * @param derivative_order the highest derivative order of the point.
-     * @param reverse used when dividing the shape into curves. @b reverse=0 generate 
-     * a list with increasing x, while @b reverse=1 generate a list with decreasing x.
+     * @param b_reverse used when dividing the shape into curves. @b b_reverse=0 generate 
+     * a list with increasing x, while @b b_reverse=1 generate a list with decreasing x.
      * @details implement by calling @ref generatePointList(const IndependentVariableList&,int) const.
     */
     CurvePointList generatePointList(int number,int derivative_order=0,bool b_reverse=0,bool withEnd=1) const;

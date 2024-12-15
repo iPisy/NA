@@ -1,0 +1,306 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+\setlength{\parindent}{0pt}
+
+\addbibresource{references.bib}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+
+\begin{document}
+% =================================================
+\title{Report of NA Project}
+
+\author{WangHao 3220103613
+  \thanks{Electronic address: \texttt{3220103613@zju.edu.cn}}}
+\affil{(Information and Computing Sciences, Class 2201), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+
+
+% ============================================
+
+\section*{Problem A}
+This is the N with max-norm of the interpolation error vector.
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|}
+  \hline
+  $N$ & error \\ \hline
+  6   & 0.421705       \\ \hline
+  11  & 0.0205289      \\ \hline
+  21  & 0.00316894     \\ \hline
+  41  & 0.000275356    \\ \hline  
+  81  & 0.00001609 \\ \hline
+  \end{tabular}
+  \caption{N and errors}
+\end{table}
+
+Draw those points in logarithmic graph. It is presented below.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{A_convergence_rate.pdf}
+  \caption{graph of $\log(N)$ with $\log(\text{error})$}
+\end{figure}
+
+We can make a conclusion that the convergence rate is 4, i.e. $error \propto N^{-4}$.
+
+\newpage
+
+The graph of spline and exact function is presented below.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{A.pdf}
+  \caption{splines against exact function}
+\end{figure}
+We can notice that the spline interpolation is free of wide oscillations in Runge phenomenon. 
+It is more precise than polynomial interpolation.
+
+\section*{Problem C}
+Complete boundary condition is used for spline in Theorem 3.57\cite{Thm_3_57} and 
+Thm 3.58 boundary condition is used for spline in Theorem 3.58\cite{Thm_3_58}.
+The graph of 2 splines and exact function is presented below.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{C.pdf}
+  \caption{splines against exact function}
+\end{figure}
+
+\section*{Problem D}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  $x$   & $E_S(x)$ of spline in Thm 3.57 & $E_S(x)$ of spline in Thm 3.58 \\ \hline
+  -3.5  & 0.000669568                   & 1.249e-16                     \\ \hline
+  -3    & 3.60822e-16                   & 0.00141838                    \\ \hline
+  -0.5  & 0.0205289                     & 0                             \\ \hline
+  0     & 0                             & 0.120238                      \\ \hline
+  0.5   & 0.0205289                     & 0                             \\ \hline
+  3     & 2.498e-16                     & 0.00141838                    \\ \hline
+  3.5   & 0.000669568                   & 1.38778e-17                   \\ \hline
+  \end{tabular}
+  \caption{Comparison of $E_S(x)$ for splines in Thm 3.57 and Thm 3.58.}
+\end{table}
+
+The reason why some of the errors are close to machine epsilon is that these points are interpolation points of the spline.
+The spline is constructed by using the condition that they passes through these points. Thus they should be close to machine epsilon.
+
+We can also notice that the spline in Theorem 3.57 performs much better than spline in Theorem 3.58 through graph and table above.
+This is because many reasons, but I can propose the major one.
+
+We all know that interpolation points should fall within interval where the second derivative is huge. By doing this, we can get more precise graphs.\\
+And in this case, spline in Theorem 3.57 get the point $(0,1)$, where the second derivative is hugest,
+as its interpolation point, while the other don't get that point.
+
+\section*{Problem E}
+\subsection*{i}
+Apparently we should use periodic boundary conditions, as the curve is a closed curve.
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E1, m=10.pdf}
+    \caption{m=10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E1, m=40.pdf}
+    \caption{m=40}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E1, m=160.pdf}
+    \caption{m=160}
+  \end{subfigure}
+  \caption{Curve fitting using $spline \in \mathbb{S}_3^2$}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{BezierSpline, m=10.pdf}
+    \caption{m=10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{BezierSpline, m=40.pdf}
+    \caption{m=40}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{BezierSpline, m=160.pdf}
+    \caption{m=160}
+  \end{subfigure}
+  \caption{Curve fitting using Bezier Curves}
+\end{figure}
+
+\textbf{Differences}\\
+We can notice that the fitted curve using cubic spline have the tendency to converge to the exact curve when $N$ get large,
+while cubic Bezier curves seems not.\\
+This is because cubic Bezier curves uses the derivative to generate its control points, which will be far from the exact curve when 
+the derivative get large (actually it converges to infinity in this case). Thus it's not proper to apply it to the curves which have large derivative.
+While for splines, it generate independent variable list by itself to be uniform or cumulative chordal length, 
+and distribute them in every direction. This means that the spline is independent of derivative. Thus it worked in this situation.
+
+\newpage
+
+\subsection*{ii}
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E2, m=10.pdf}
+    \caption{m=10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E2, m=40.pdf}
+    \caption{m=40}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E2, m=160.pdf}
+    \caption{m=160}
+  \end{subfigure}
+  \caption{Curve fitting using $spline \in \mathbb{S}_3^2$}
+\end{figure}
+
+\subsection*{iii}
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E3, m=10.pdf}
+    \caption{m=10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E3, m=40.pdf}
+    \caption{m=40}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{E3, m=160.pdf}
+    \caption{m=160}
+  \end{subfigure}
+  \caption{Curve fitting using $spline \in \mathbb{S}_3^2$}
+\end{figure}
+
+Through (ii) and (iii), we can notice that the differences is not significant when $m$ is huge.
+When $m$ is small, i.e. $m=10$, there are some differences. 
+In (ii) and (iii), the curvature of the one using cumulative chordal knots is smaller, while the other is bigger, thus having sharper turns.
+
+\section*{Problem F}
+I implement this problem by using class \textbf{PiecewisePolynomial}, 
+and create a new class \textbf{Table} in F.cpp 
+(as the name of the class is so long, and use name `Table' is Easily confusing, so I use name `Table' and write it in F.cpp).
+The class \textbf{Table} allows arbitrary n and knots. We take $n=1,2$ and uniform knots there.
+Two tables are represented below.
+
+\newpage
+
+\begin{figure}[ht]
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{order=1,row=0,column=0.pdf}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{order=1,row=1,column=0.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{order=1,row=1,column=1.pdf}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{order=1,row=2,column=0.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{order=1,row=2,column=1.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{order=1,row=2,column=2.pdf}
+  \end{subfigure}
+  \caption{Divided difference table, order=1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[ht]
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=0,column=0.pdf}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=1,column=0.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=1,column=1.pdf}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=2,column=0.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=2,column=1.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=2,column=2.pdf}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=3,column=0.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=3,column=1.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=3,column=2.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{order=2,row=3,column=3.pdf}
+  \end{subfigure}
+
+  \caption{Divided difference table, order=2}
+\end{figure}
+
+
+\printbibliography
+
+\end{document}
