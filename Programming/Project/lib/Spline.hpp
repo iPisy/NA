@@ -4,13 +4,20 @@
 #include"Exceptions.hpp"
 #include"BoundaryConditions.hpp"
 
-class Spline{
+class Spline:public Function{
 private:
     virtual void generate_A(const FunctionPointList& fList,const BoundaryCondition& boundaryCondition,const IndependentVariableList& knotList)=0;
     virtual Eigen::VectorXd generate_b(const FunctionPointList& fList)=0;
     virtual void addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const BoundaryCondition& boundaryCondition,const FunctionPointList& fList)=0;
     virtual void generate_PiecePoly(const Eigen::VectorXd& b,const FunctionPointList& fList,const BoundaryCondition& boundaryCondition)=0;
 
+    double getValue(double x) const override{
+        return piecewisePolynomial(x);
+    }
+
+    double getDerivativeValue(double x,int order) const override{
+        return piecewisePolynomial.derivativeValue(x,order);
+    }
 protected:
     int n,k,N;
     Eigen::MatrixXd* A;
@@ -43,10 +50,6 @@ public:
      * @param knotList Knots of the spline. The default value means that they fall on points in fList.
      */
     void generate(const Spline* s,FunctionPointList fList,const BoundaryCondition& boundaryCondition=BoundaryCondition_Periodic{},const IndependentVariableList& knotList={});
-
-    double operator()(double x) const{
-        return piecewisePolynomial(x);
-    }
 
     void print_Latex_Sole(LatexOutputer& o,bool offside,const string& legendentry) const{
         piecewisePolynomial.print_Latex_SolePoly(o,offside?n:0,legendentry);

@@ -46,6 +46,10 @@ void PiecewisePolynomial::print_Latex(const string& filename,int n,const string&
     o.quickEnd();
 }
 
+void PiecewisePolynomial::operator+=(const PiecewisePolynomial& rhs){
+    (*this)=(*this)+rhs;
+}
+
 PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs){
     if(lhs.polys.empty()) return rhs;
     //default: Append rhs to lhs, leaving rightmost polynomial outside.
@@ -57,12 +61,28 @@ PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePoly
     return ret;
 }
 
-void operator+=(PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs){
-    lhs=lhs+rhs;
-}
-
 PiecewisePolynomial operator*(const PiecewisePolynomial& lhs,const Polynomial& rhs){
     PiecewisePolynomial ret=lhs;
     ret.polys*=rhs;
+    return ret;
+}
+
+PiecewisePolynomial operator-(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs){
+    PiecewisePolynomial ret;
+    ret.polys.push_back(lhs.polys[0]-rhs.polys[0]);
+    for(int i=1;i<lhs.polys.size()-1;i++){
+        ret.polys.push_back(lhs.polys[i]-rhs.polys[i]);
+    }
+    Polynomial foo=lhs.polys.back();
+    foo.set_definitionDomain(DefinitionDomain{rhs.polys.back().get_definitionDomain().r,lhs.polys.back().get_definitionDomain().r});
+    ret.polys.push_back(foo);
+    return ret;
+}
+
+PiecewisePolynomial operator/(const PiecewisePolynomial& lhs,const Polynomial& rhs){
+    PiecewisePolynomial ret;
+    for(auto& it:lhs.polys){
+        ret.polys.push_back(it/rhs);
+    }
     return ret;
 }

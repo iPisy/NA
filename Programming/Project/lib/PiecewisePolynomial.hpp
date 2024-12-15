@@ -37,8 +37,14 @@ public:
     PiecewisePolynomial(const Polynomial& init){polys.push_back(init);}
     PiecewisePolynomial(const vector<Polynomial>& init){polys=init;}
 
+    void operator+=(const PiecewisePolynomial& rhs);
+
+    //for generating b-splines.
     friend PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
     friend PiecewisePolynomial operator*(const PiecewisePolynomial& lhs,const Polynomial& rhs);
+    //for Problem F.
+    friend PiecewisePolynomial operator-(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
+    friend PiecewisePolynomial operator/(const PiecewisePolynomial& lhs,const Polynomial& rhs);
 
     void print_Latex_SolePoly(LatexOutputer& o,int n=0,const string& PP_Name="") const;
 
@@ -47,6 +53,8 @@ public:
 
 PiecewisePolynomial operator+(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
 
-void operator+=(PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
-
 PiecewisePolynomial operator*(const PiecewisePolynomial& lhs,const Polynomial& rhs);
+
+PiecewisePolynomial operator-(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs);
+
+PiecewisePolynomial operator/(const PiecewisePolynomial& lhs,const Polynomial& rhs);
