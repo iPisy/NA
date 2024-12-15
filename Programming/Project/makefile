@@ -26,13 +26,13 @@ simpleTest:
 report: run doxygen LaTex
 	xdg-open report/html/index.html
 	xdg-open report/report.pdf
-
+	xdg-open report/design.pdf
 
 doxygen: dirs Doxyfile
 	doxygen Doxyfile
 
 LaTex: dirs src/report.tex
-	for file in bin/*.tex; do \
+	@for file in bin/*.tex; do \
 		mv "$$file" report/; \
 	done
 
@@ -43,8 +43,10 @@ LaTex: dirs src/report.tex
 		fi; \
 	done
 
-	cp src/report.tex src/references.bib report/
-	cd report && pdflatex report.tex \
+	cp src/report.tex src/design.tex src/references.bib report/
+	cd report \
+	&& pdflatex design.tex \
+	&& pdflatex report.tex \
 	&& bibtex report.aux \
 	&& pdflatex report.tex \
 	&& pdflatex report.tex \
