@@ -45,4 +45,6 @@ int main(){
 
     BFormSpline draw(11);
     draw.draw_GivenCoef(vector<double>{0.1,0.36,0.02,0.42,0.33,0.17,0.38,0.35,0.233,0.1,0.43,0.34,0.51,0.19},vector<double>{0.2,0.6931,1.14514,3.14},"Draw B form splines.tex");
+
+    cout<< ".tex files generated."<<endl;
 }

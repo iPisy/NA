@@ -67,5 +67,6 @@ clean:
 	rm -rf build
 	rm -rf bin
 	rm -rf figure
+	rm -rf ./doc/html/
 
 .PHONY: all build buildInDebug run runTest simpleTest report doxygen LaTex dirs clean
