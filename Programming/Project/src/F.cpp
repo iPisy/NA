@@ -31,9 +31,8 @@ void Table::generate(const vector<double>& t_iList){
 
     //init
     for(int i=0;i<=n+1;i++){
-        Polynomial unit(vector<double>{t_default?1.0*i:t_iList[i],-1});
+        Polynomial unit(vector<double>{t_default?1.0*i:t_iList[i],-1},DefinitionDomain{t_default?-1:2*t_iList[0]-t_iList[1],t_default?1.0*i:t_iList[i]});
         Polynomial foo=(t_default?n+1:t_iList[n+1]-t_iList[0])*unit;
-        cout<<i<<" "<<foo<<endl;
         for(int i=1;i<n;i++) foo*=unit;
         t[i][0]=PiecewisePolynomial(vector<Polynomial>{foo});
     }
@@ -47,15 +46,15 @@ void Table::generate(const vector<double>& t_iList){
 }
 
 int main(){
-    // const int n=2;
-    // for(int order=1;order<n;order++){
-    //     for(int j=0;j<)
-    // }
-    Table table(1);
-    table.generate();
-    LatexOutputer o("n=1.tex");
-    o.quickStart();
-    cout<<table.getTable()[2][2](1)<<endl;
-    table.getTable()[2][2].print_Latex_SolePoly(o);
-    o.quickEnd();
+    const int n=2;
+    for(int order=1;order<=n;order++){
+        Table table(order);
+        table.generate();
+        const vector<vector<PiecewisePolynomial> >& t=table.getTable();
+        for(int j=0;j<order+2;j++){
+            for(int i=j;i<order+2;i++){
+                t[i][j].print_Latex("order="+to_string(order)+",row="+to_string(i)+",column="+to_string(j)+".tex");
+            }
+        }
+    }
 }

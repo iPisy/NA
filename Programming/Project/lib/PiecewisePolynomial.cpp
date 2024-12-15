@@ -70,8 +70,8 @@ PiecewisePolynomial operator*(const PiecewisePolynomial& lhs,const Polynomial& r
 PiecewisePolynomial operator-(const PiecewisePolynomial& lhs,const PiecewisePolynomial& rhs){
     PiecewisePolynomial ret;
     ret.polys.push_back(lhs.polys[0]-rhs.polys[0]);
-    for(int i=1;i<lhs.polys.size()-1;i++){
-        ret.polys.push_back(lhs.polys[i]-rhs.polys[i]);
+    for(int i=1;i<rhs.polys.size();i++){
+        ret.polys.push_back(lhs.polys[i-1]-rhs.polys[i]);
     }
     Polynomial foo=lhs.polys.back();
     foo.set_definitionDomain(DefinitionDomain{rhs.polys.back().get_definitionDomain().r,lhs.polys.back().get_definitionDomain().r});

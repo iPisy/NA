@@ -202,6 +202,7 @@ Polynomial operator/(const Polynomial& lhs,const Polynomial& rhs){
         vector<double> bar(fooOrder-rhsOrder+1,0);
         bar.back()=1;
         foo-=rhs*Polynomial(bar)*singleCoefficient;
+        if(foo.coefficient.empty()) foo.coefficient={0};
     }
     return ans;
 }
