@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 \usepackage{geometry}
 \geometry{margin=1.5cm, vmargin={0pt,1cm}}
@@ -33,22 +34,169 @@
 
 
 % ============================================
-\section*{1}
-\textbf{\large code reuse}
-I reuses many files in Programming Hw 2. They are all listed below.
+\section*{code reuse}
+I reuses many files in Programming Hw 2. All of them are listed below.
 \begin{itemize}
     \item Exceptions.hpp.
     \item DS\&Constants.cpp(hpp).
     \item Function.cpp(hpp).
     \item Polynomial.cpp(hpp).
-    \item EquationSolver.cpp(hpp). Used in Polynomial.
+    \item EquationSolver.cpp(hpp).
     \item Curve.cpp(hpp).
     \item LatexOutputer.cpp(hpp).
-    \item NameLibrary.cpp(hpp). Used in LatexOutputer.
+    \item NameLibrary.cpp(hpp).
 \end{itemize}
 
+\section*{class introduction}
+Below is the inherit graph of my program, including classes that have inheritance relationship.
 
-\section*{\center{\normalsize {Acknowledgement}} }
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.55\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{./html/inherit_graph_5.png}
+      \caption{inherit graph of splines}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.4\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{./html/inherit_graph_0.png}
+      \caption{inherit graph of boundary conditions}
+  \end{subfigure}
+  \caption{inherit graph}
+\end{figure}
+
+All structs and classes are introduced below (including those not appeared in the graph above).
+\begin{description}
+  \item[DefinitionDomain] 
+  It represents definition domain, which can be applied to a function, curve, etc.
+  \item[Function] 
+  It represents function. \\
+  On the basis of \texttt{class function} in chapter 1, 
+  I add a check of definition domain when get value or derivative value.
+  \item[Curve] 
+  It represents curve. \\
+  Implemented by using \texttt{vector<const Function*>}. 
+  Every item of the vector is the function of the curve in a certain direction.
+  \item[Structs that define the points, values, etc. of function and curve]
+  There are about ten types, all defined and annotated using Doxygen comment format in file \texttt{DS\&Constants.hpp}.
+  \item[Polynomial] 
+  It represents polynomial.\\
+  Derived from \texttt{Function}.\\
+  Implemented by using \texttt{vector<double>} to record the coefficient of $x^i$.\\
+  Allows a lot of operations.
+  \item[PiecewisePolynomial] 
+  It represents piecewise polynomial, i.e. a piecewise function and every piece of it is a polynomial. \\ 
+  Derived from \texttt{Function}.\\
+  Implemented by using \texttt{vector<Polynomial>}. 
+  As every polynomial in it has disjoint definition domain, it is well-defined.
+  \texttt{operator()} is implemented through binary search.
+  \item[Spline] 
+  It represents spline $\in \mathbb{S}_n^k, \forall n,k$.\\
+  Derived from \texttt{Function}.\\
+  An abstract class and base class of every specified spline. \\
+  Have member variable \texttt{PiecewisePolynomial piecewisePolynomial}, recording the spline.\\
+  We can notice that generation of spline follows the same pattern:
+  \begin{itemize}
+    \item get necessary conditions.
+    \item generate matrix A.
+    \item generate vector b.
+    \item add boundary conditions. (complete generation of A and b.)
+    \item solve Ax=b.
+    \item generate spline by x.
+  \end{itemize}
+  Thus I write a function \texttt{void generate();}, including steps above. 
+  For steps that are different in different kind of splines, I use virtual functions. They are listed below.
+  \begin{itemize}
+    \item \texttt{virtual void generate\_A(...);}
+    \item \texttt{virtual Eigen::VectorXd generate\_b(...);}
+    \item \texttt{virtual void addBoundaryCondition(...);}
+    \item \texttt{virtual void generate\_PiecePoly(...);}
+  \end{itemize}
+  Apparently, those functions are all pure virtual functions in this base class.\\
+  Then 2 major kind of splines are derived from this base class.
+  \item[BoundaryCondition]
+  We introduce this before specified splines.\\
+  It represents boundary conditions for generation of the spline. \\
+  In the base class, I define a \texttt{enum class Type}.
+  The base class has a member variable \texttt{Type type}, recording the type of the boundary condition. 
+  And the constructor of the base class is declared protected to avoid being constructed by users, but allowed to be called by derived class.\\
+  Then it derives subclasses, representing different sort of boundary conditions. I defined 5 sort of boundary conditions.
+  \item[PpFormSpline] 
+  It represents PP-form spline $\in \mathbb{S}_n^{n-1}, \forall n$.\\
+  Derived from \texttt{Spline}.\\
+  Implemented by override pure virtual functions of the base class. \textbf{Related mathematical theories are introduced below.}\\
+  pp-form means every piece of the spline are expressed in the form of polynomial. 
+  Denote the number of the knots are N, then there are $(N-1)(n+1)$ variables.\\
+  Using the continuity of the spline up to the \(n-1\)th order, we obtain \((n-1)(N-2)\) equations.  
+  Using the values of the spline at the \(N\) nodes, we obtain \(2*(N-1)\) equations.  
+  Using the boundary conditions, we obtain \(n-1\) equations.\\
+  Write all of the conditions into the linear system, we get A and b. 
+  Then generation of the piecewise polynomial is done by just connect all polynomials (formed by using x).
+  \item[PFS1]
+  It represents PP-form spline $\in \mathbb{S}_1^0$.\\ 
+  Derived form \texttt{PpFormSpline}.\\
+  This is the specified case of PpFormSpline, n=1. Thus it is implemented only by call the constructor of the PpFormSpline and set the parameter to be 1.\\
+  Overload \texttt{void generate();}, as the boundary condition is always nothing.
+  \item[PFS3]
+  It represents PP-form spline $\in \mathbb{S}_3^2$.\\ 
+  Derived form \texttt{Spline}.\\
+  I can implement it just like \texttt{PFS1}. 
+  However, lemmas\cite*{Lemmas_constructing_pp-form_splines} in book reduces number of variables from \(4*(N-1)\) to \(N\), 
+  which is faster. 
+  And now whole procedure of generating spline is totally different from generating PpFormSpline, $n=3$. \\
+  Thus, I derived this class from spline and implement it by using lemmas in book.\\
+  It allows 3 kind of boundary conditions, done by override \texttt{virtual void addBoundaryCondition(...);}.\\
+  By the way, this is the fastest way in my project to generate a spline $\in \mathbb{S}_3^2$. Thus \texttt{class CurveFitter} uses it.
+  \item[BFSRB]
+  It represents B-form spline recursion base, which is defined in book\cite*{Defn_3_23}. \\
+  Derived form \texttt{PiecewisePolynomial}. It is constructed by calling the constructor of PiecewisePolynomial, giving the parameter of Polynomial.\\
+  \item[BFormSpline]
+  It represents B-form spline $\in \mathbb{S}_n^{n-1}, \forall n$.\\
+  Derived from \texttt{Spline}.\\
+  Implemented by override pure virtual functions of the base class. \textbf{Related mathematical theories are introduced below.}\\
+  Denote the number of the knots are N, then there are $(N+n-1)$ base functions. They are generated recursively from recursion base \texttt{BFSRB}.
+  As the spline is the linear combination of base functions, there are $(N+n-1)$ variables.\\
+  Using the values of the spline at the \(N\) nodes, we obtain \(N\) equations. 
+  Using the boundary conditions, we obtain \(n-1\) equations.\\
+  Write all of the conditions into the linear system, we get A and b. 
+  Then generation of the piecewise polynomial is done by doing linear combination of base functions.
+  \item[BFS1]
+  It represents B-form spline $\in \mathbb{S}_1^0, \forall n$.\\
+  Derived form \texttt{BFormSpline}.\\
+  This is the specified case of BFormSpline, n=1. Thus it is implemented only by call the constructor of the BFormSpline and set the parameter to be 1.\\
+  Overload \texttt{void generate();}, as the boundary condition is always nothing.
+  \item[BFS3]
+  It represents B-form spline $\in \mathbb{S}_3^2$.\\ 
+  Derived form \texttt{BFormSpline}.\\
+  Implemented like BFS1 way, just replacing the parameter from 1 to 3.\\
+  It allows 3 kind of boundary conditions, done by override \texttt{virtual void addBoundaryCondition(...);}.\\
+  \item[BFS\_Thm\_3\_58]
+  It represents B-form spline defined in Theorem 3.58\cite*{Thm_3_58}, a spline $\in \mathbb{S}_2^1$, whose knots are not interpolation points.\\ 
+  The generation procedure is same as BFormSpline, so I only need to override \texttt{virtual void addBoundaryCondition(...);}.
+  \item[CurveFitter]
+  It represents a curve fitter, which can fit curve in \(\mathbb{R}^2\). \\
+  It allows 2 ways of parameterization, using uniform parameter and using cumulative chordal length as parameter.
+  \textbf{Related mathematical theories are introduced below.}\\
+  We have a list of value point on curve. And we can generate the list of independent variable by 2 ways of parameterization above.
+  Combining the independent variable and the value point on a certain direction (x or y), we get 2 list of points on function.
+  Fitting 2 lists of points separately, using \texttt{class PFS3}, results in two splines, which are the estimates of the curve in the x- and y-directions. 
+  Since they share the same independent variable, the curve fitting is thus completed.
+  \item[SphereCurveFitter]
+  It represents a sphere curve fitter, which can fit curve on sphere in \(\mathbb{R}^3\). \textbf{Related mathematical theories are introduced below.}\\
+  We take interpolation points on the curve and perform a gnomonic projection to obtain interpolation points in $\mathbb{R}^2$. 
+  Then use \texttt{class CurveFitter} to get the fitted curve. Finally, the spline is projected back onto the sphere, completing the curve fitting on the spherical surface.
+  \item[LatexOutputer]
+  It is a class that can generate .tex files to plot function, curves, etc.
+  \item[NameLibrary]
+  It is a class that can randomly and non-repeatedly select names from a given name pool. There it is for \texttt{LatexOutputer} to get random color.
+  \item[...Exception]
+  In file \texttt{Exceptions.hpp}. It defines exception of the project.
+  \item[EquationSolver]
+  It is needed in \texttt{class Polynomial} to implement a member function (which is not used in project but used in Chapter2 Hw).
+\end{description}
+
+You can get more information about the design of the project from doxygen generated files ./doc/html/index.html.
 
 \printbibliography
 

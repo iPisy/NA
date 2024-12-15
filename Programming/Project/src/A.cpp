@@ -5,14 +5,14 @@
 
 using namespace std;
 
-class F:public Function{
-    using Function::Function;
-    double getValue(double x) const override{
-        return 1/(1+25*x*x);
-    }
-};
-
 int main(){
+    class F:public Function{
+        using Function::Function;
+        double getValue(double x) const override{
+            return 1/(1+25*x*x);
+        }
+    };
+
     //init
     F f(DefinitionDomain{-1,1});
     IndependentVariableList IVL[5];

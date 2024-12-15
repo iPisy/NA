@@ -6,14 +6,14 @@
 
 using namespace std;
 
-class F:public Function{
-    using Function::Function;
-    double getValue(double x) const override{
-        return 1/(1+x*x);
-    }
-};
-
 int main(){
+    class F:public Function{
+        using Function::Function;
+        double getValue(double x) const override{
+            return 1/(1+x*x);
+        }
+    };
+
     F f(DefinitionDomain{-5,5});
     IndependentVariableList IVL3,IVL2;
     for(int i=1;i<=11;i++) IVL3.push_back(i-6);
