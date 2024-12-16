@@ -34,7 +34,7 @@
 
 
 % ============================================
-\section*{code reuse}
+\section*{Code reuses}
 I reuses many files in Programming Hw 2. All of them are listed below.
 \begin{itemize}
     \item Exceptions.hpp.
@@ -47,7 +47,7 @@ I reuses many files in Programming Hw 2. All of them are listed below.
     \item NameLibrary.cpp(hpp).
 \end{itemize}
 
-\section*{class introduction}
+\section*{Class introduction}
 Below is the inherit graph of my program, including classes that have inheritance relationship.
 
 \begin{figure}[ht]
@@ -201,6 +201,25 @@ All structs and classes are introduced below (including those not appeared in th
 \end{description}
 
 You can get more information about the design of the project from doxygen generated files ./doc/html/index.html.
+
+\section*{Public interface}
+\begin{description}
+  \item[Spline] Although \texttt{Spline} is abstract class, it offers the public interface which are derived by all of its sub-class.
+  There are two public interfaces.
+  \begin{description}
+    \item[\texttt{Spline(int n,int k);}] Constructor. `n' means the order of the spline and `k' means the The continuity requirements of the spline.
+    \item[\texttt{generate();}]
+    The first parameter \texttt{const Spline* s} is for CurveFitter. If the matrix is already generated, we can reuse it. If not, you can offer nullptr.\\
+    The second parameter \texttt{FunctionPointList fList} is the interpolation points, they are points on the function. If you defines a function, you can use its member function 
+    \texttt{generatePointList(int number,int derivative\_order=0);} to easily get that.\\
+    The third parameter \texttt{const BoundaryCondition\& boundaryCondition=BoundaryCondition\_Periodic\{\}} is boundary conditions. You can objectify the boundary condition class (the sub-class, and offer values) and pass it in.\\
+    The fourth parameter \texttt{const IndependentVariableList\& knotList=\{\}} is for spline in Thm 3.58, whose knots are not interpolation points. \\
+    As some derived class don't need some parameter, they have overload the public interface, e.g. $s \in \mathbb{S}_1^0$ don't need boundary conditions. You can refer to their public interfaces when use them.
+    \item[\texttt{print\_Latex(); print\_Latex\_Sole();}]
+    The former one is for outputting the spline into a complete .tex files. The latter one is for adding the spline to a unfinished .tex files.
+    They all actually call the function of \texttt{class LatexOutputer}, then the outputting is convenient. You can refer to source codes in src/ and doxygen generated files to know more about them.
+  \end{description}
+\end{description}
 
 \printbibliography
 

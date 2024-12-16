@@ -111,7 +111,7 @@ And in this case, spline in Theorem 3.57 get the point $(0,1)$, where the second
 as its interpolation point, while the other don't get that point.
 
 \section*{Problem E}
-\subsection*{i}
+\subsection*{E(i)}
 Apparently we should use periodic boundary conditions, as the curve is a closed curve.
 \begin{figure}[ht]
   \centering
@@ -167,7 +167,7 @@ and distribute them in every direction. This means that the spline is independen
 
 \newpage
 
-\subsection*{ii}
+\subsection*{E(ii)}
 \begin{figure}[ht]
   \centering
   \begin{subfigure}{0.32\textwidth}
@@ -190,7 +190,7 @@ and distribute them in every direction. This means that the spline is independen
   \caption{Curve fitting using $spline \in \mathbb{S}_3^2$}
 \end{figure}
 
-\subsection*{iii}
+\subsection*{E(iii)}
 \begin{figure}[ht]
   \centering
   \begin{subfigure}{0.32\textwidth}
@@ -326,7 +326,7 @@ I do 5 more test to test the splines that have not been tested before, they are 
   The graph is shown below.
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.3\textwidth]{../figure/sqrt,S_3^2, Natural.pdf}
+    \includegraphics[width=0.5\textwidth]{../figure/sqrt,S_3^2, Natural.pdf}
   \end{figure}
 
   \item PP-form spline $s \in \mathbb{S}_3^2$ with complete boundary condition.
@@ -334,7 +334,7 @@ I do 5 more test to test the splines that have not been tested before, they are 
   The graph is shown below.
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.3\textwidth]{../figure/sqrt,S_3^2, Complete.pdf}
+    \includegraphics[width=0.5\textwidth]{../figure/sqrt,S_3^2, Complete.pdf}
   \end{figure}
 
   \item B-form spline $s \in \mathbb{S}_{11}^{10}$.
@@ -342,11 +342,28 @@ I do 5 more test to test the splines that have not been tested before, they are 
   The graph is shown below.
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.3\textwidth]{../figure/Draw B form splines.pdf}
+    \includegraphics[width=0.5\textwidth]{../figure/Draw B form splines.pdf}
   \end{figure}
+
+  \newpage
+
+  \item B-form spline $s \in \mathbb{S}_{11}^{10}$.
+  This is for testing the drawing of spline. The knots are same as those mentioned above, and the coefficients are all 1.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../figure/Draw B form splines, Partition of Unity.pdf}
+  \end{figure}
+  This have verified that B-splines are partition of unity.
 \end{itemize}
 
-
+\section*{Verify the consistency between PP-form and B-form}
+From a theoretical perspective, we've proved\cite{Thm_3_7} that there exist a unique spline ($\in \mathbb{S}_3^2$) when given same interpolation points and complete/natural/periodic boundary conditions.
+And since 2 forms of the spline are all splines, they must be same.\\
+I've done verification in \texttt{C.cpp}. 
+Using complete boundary condition and same interpolation points, I get a B-form and a PP-form spline, which are all $\in \mathbb{S}_3^2$.
+Then I take 100000 points in the definition domain $[-5,5]$, calculate the difference between two splines at these points, and get the maximum of them.
+The maximum turns out to be 1.9984e-15, which is close to machine epsilon, meaning the 2 splines are the same.
 \printbibliography
 
 \end{document}

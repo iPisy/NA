@@ -38,5 +38,5 @@ int main(){
     }
     o.quickEnd();
 
-    cout<< ".tex files generated."<<endl;
+    cout<<endl<<".tex files generated."<<endl;
 }

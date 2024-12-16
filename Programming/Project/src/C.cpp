@@ -1,6 +1,7 @@
 #include"../lib/Function.hpp"
 #include"../lib/BFormSpline_3^2.hpp"
 #include"../lib/BFormSpline_Thm3.58.hpp"
+#include"../lib/PpFormSpline_3^2.hpp"
 #include"../lib/Function.hpp"
 
 int main(){
@@ -29,6 +30,16 @@ int main(){
     Thm3_57.print_Latex_Sole(o,1,"spline of Theorem 3.57");
     Thm3_58.print_Latex_Sole(o,1,"spline of Theorem 3.58");
     o.quickEnd();
+
+    PFS3 PFS;
+    PFS.generate(nullptr,f.generatePointList(IVL3),BCC);
+    IndependentVariableList IVLTest=f.get_definitionDomain().generateVariableList(100000);
+    double maximum=0;
+    for(auto& it:IVLTest){
+        double foo=fabs(PFS(it)-Thm3_57(it));
+        if(foo>maximum) maximum=foo;
+    }
+    cout<<"Max error between B-form and PP-form spline with same conditions within interval: "<<maximum<<endl<<endl;
 
     cout<< ".tex files generated."<<endl;
 }
