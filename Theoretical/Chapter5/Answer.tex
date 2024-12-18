@@ -1,0 +1,409 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+\setlength{\parindent}{0pt}
+
+\addbibresource{references.bib}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis theoretical homework \# 5}
+
+\author{WangHao 3220103613
+  \thanks{Electronic address: \texttt{3220103613@zju.edu.cn}}}
+\affil{(Information and Computing Sciences, Class 2201), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+% ============================================
+\section*{I.}
+
+\subsection*{Proof of inner product}
+
+IP-I:
+\begin{align*}
+\langle v, v \rangle &= \int_{a}^{b} \rho(t) v(t) \overline{v(t)} \, dt \\
+&= \int_{a}^{b} \rho(t) |v(t)|^2 \, dt \geq 0
+\end{align*}
+
+IP-II:
+\begin{align*}
+\text{We have } & \int_{a}^{b} \rho(t) |v(t)|^2 \, dt = 0 \\
+\text{Given that } & \rho(t) > 0 \\
+\implies & v(t) \equiv 0
+\end{align*}
+
+IP-III:
+\begin{align*}
+\langle u+v, w \rangle &= \int_{a}^{b} \rho(t) \left( u(t) + v(t) \right) \overline{w(t)} \, dt \\
+&= \int_{a}^{b} \rho(t) u(t) \overline{w(t)} \, dt + \int_{a}^{b} \rho(t) v(t) \overline{w(t)} \, dt \\
+&= \langle u, w \rangle + \langle v, w \rangle
+\end{align*}
+
+IP-IV:\\
+$\forall c \in \mathbb{C}, \quad \text{We have}$
+\begin{align*}
+\langle cv, w \rangle &= \int_a^b \rho(t) cv(t) \overline{w(t)} \\
+&= c \int_a^b \rho(t) v(t) \overline{w(t)} \\
+&= c \langle v, w \rangle
+\end{align*}
+
+IP-V:
+\begin{align*}
+\langle v, w \rangle &= \int_a^b \rho(t) v(t) \overline{w(t)} \, dt \\
+&= \overline{\overline{\int_a^b \rho(t) v(t) \overline{w(t)}dt}} \,  \\
+&= \overline{\int_a^b \rho(t) \overline{v(t)} w(t) \, dt} \\
+&= \overline{\langle w, v \rangle}
+\end{align*}
+
+Thus this is a inner product.
+
+\subsection*{Proof of norm}
+The definition of norm in Theorem 5.7 is same as that in Definition B.170.
+And Lemma B.181 have proved that this is a norm.
+
+\section*{II.}
+
+\subsection*{II(a).}
+
+$$T_n(x) = \cos(n \arccos x)$$
+
+$\forall m, n \in \mathbb{N}$, Assume $m > n$,
+
+\begin{align*}
+\langle T_n, T_m \rangle &= \int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} \cos(m \arccos x) \cos(n \arccos x) \, dx .\\
+\end{align*}
+
+Let $ x = \cos \theta$, the above equation becomes
+
+\begin{align*}
+& \int_{0}^{\pi} \cos(m\theta) \cos(n\theta) \, d\theta \\
+&= \frac{1}{2} \int_{0}^{\pi} \left[ \cos((m+n)\theta) + \cos((m-n)\theta) \right] \, d\theta \\
+&= \frac{1}{2} ( \frac{\sin((m+n)\theta)}{m+n} )\mid_0^{\pi} + \frac{1}{2} ( \frac{\sin((m-n)\theta)}{m-n} ) \mid_0^{\pi} \\
+&= 0.
+\end{align*}
+
+$\int_{a}^{b} f(x) \, dx \mid_c^a$
+
+\subsection*{II(b).}
+For the functions \(1, x, 2x^2 - 1\), we perform normalization.
+
+Let \( u_1 = 1 \).
+
+The norm \( \|u_1\| \) is calculated as:
+\[
+\|u_1\| = \sqrt{\int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} \, dx}
+\]
+
+This integral can be evaluated as:
+\[
+= \sqrt{\arcsin x \bigg|_{-1}^{1}}
+\]
+
+\[
+= \sqrt{\pi}
+\]
+
+Thus, the normalized function \( u_1^* \) is:
+\[
+u_1^* = \frac{u_1}{\|u_1\|} = \frac{1}{\sqrt{\pi}}
+\]
+
+Let \( u_2 = x \).
+
+The norm \( \|u_2\| \) is calculated as:
+\[
+\|u_2\| = \sqrt{\int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} x^2 \, dx}
+\]
+
+Let \( x = \cos t \), then:
+\[
+\|u_2\| = \sqrt{\int_{\pi}^{0} \frac{1}{\sin t} \cos^2 t (-\sin t) \, dt}
+\]
+
+\[
+= \sqrt{\int_{0}^{\pi} \cos^2 t \, dt}
+\]
+
+\[
+= \sqrt{\left( \frac{1}{2} t + \frac{1}{4} \sin 2t \right) \bigg|_{0}^{\pi}}
+\]
+
+\[
+= \sqrt{\frac{\pi}{2}}
+\]
+
+Thus, the normalized function \( u_2^* \) is:
+\[
+u_2^* = \frac{u_2}{\|u_2\|} = \sqrt{\frac{2}{\pi}} x
+\]
+
+Let \( u_3 = 2x^2 - 1 \).
+
+The norm \( \|u_3\| \) is calculated as:
+\[
+\|u_3\| = \sqrt{\int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} (2x^2 - 1)^2 \, dx}
+\]
+
+Let \( x = \cos t \), then:
+\[
+\|u_3\| = \sqrt{\int_{0}^{\pi} \frac{1}{\sin t} \cos^2 t (-\sin t) \, dt}
+\]
+
+\[
+= \sqrt{\int_{0}^{\pi} \cos^2 t \, dt}
+\]
+
+\[
+= \sqrt{\frac{\pi}{2}}
+\]
+
+Thus, the normalized function \( u_3^* \) is:
+\[
+u_3^* = \frac{u_3}{\|u_3\|} = \sqrt{\frac{2}{\pi}} (2x^2 - 1)
+\]
+
+\section*{III.}
+
+\subsection*{III(a).}
+Use normalized Chebyshev polynomials \( u_1^* = \sqrt{\frac{1}{\pi}}, u_2^* = \sqrt{\frac{2}{\pi}} x, u_3^* = \sqrt{\frac{2}{\pi}} (2x^2 - 1) \), we calculate the inner products:
+
+\[
+\langle u_1^*, y \rangle = \int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} \sqrt{\frac{1}{\pi}} \, dx = 2\sqrt{\frac{1}{\pi}}
+\]
+
+\[
+\langle u_2^*, y \rangle = \int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} \sqrt{\frac{2}{\pi}} x \, dx = \frac{1}{2} \sqrt{\frac{2}{\pi}} x \bigg|_{-1}^{1} = 0
+\]
+
+\[
+\langle u_3^*, y \rangle = \int_{-1}^{1} \frac{1}{\sqrt{1-x^2}} \sqrt{\frac{2}{\pi}} (2x^2 - 1) \, dx = \sqrt{\frac{2}{\pi}} \left( \frac{2}{3} \pi - 1 \right) \bigg|_{-1}^{1} = -\frac{2}{3} \sqrt{\frac{2}{\pi}}
+\]
+
+Now, we can express \( \varphi(x) \) as a linear combination of \( u_1^*, u_2^*, \) and \( u_3^* \):
+\[
+\varphi(x) = \sum_{i=1}^{3} \langle u_i^*, y \rangle u_i^* = \frac{2}{\pi} - \frac{4}{3\pi} (2x^2 - 1) = -\frac{8}{3\pi} x^2 + \frac{10}{3\pi}
+\]
+
+\subsection*{III(b).}
+Taking the basis \(1, x, x^2\):
+
+We have \( G(1, x, x^2) \begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix} = \begin{bmatrix} \langle y, 1 \rangle \\ \langle y, x \rangle \\ \langle y, x^2 \rangle \end{bmatrix}, \)
+
+where \( G = \begin{bmatrix} \langle 1, 1 \rangle & \langle x, 1 \rangle & \langle x^2, 1 \rangle \\ \langle 1, x \rangle & \langle x, x \rangle & \langle x^2, x \rangle \\ \langle 1, x^2 \rangle & \langle x, x^2 \rangle & \langle x^2, x^2 \rangle \end{bmatrix} \)
+
+\(
+= \begin{bmatrix} \pi & 0 & \frac{\pi}{2} \\ 0 & \frac{\pi}{2} & 0 \\ \frac{\pi}{2} & 0 & \frac{3\pi}{8} \end{bmatrix}
+\)
+
+The right-hand side is:
+\[
+\begin{bmatrix} 2 \\ 0 \\ \frac{2}{3} \end{bmatrix}
+\]
+
+Solving for \( a_0, a_1, a_2 \), we get:
+\[
+a_0 = \frac{10}{3\pi}, \quad a_1 = 0, \quad a_2 = -\frac{8}{3\pi}
+\]
+
+Thus, the function \( \psi(x) \) is:
+\[
+\psi(x) = -\frac{8}{3\pi} x^2 + \frac{10}{3\pi}
+\]
+
+\section*{IV.}
+
+\subsection*{IV(a).}
+Let \( u_1 = 1 \), \( u_2 = x \), \( u_3 = x^2 \).
+
+The norm of \( u_1 \) is:
+\[
+\|u_1\| = \sqrt{\langle u_1, u_1 \rangle} = \sqrt{\sum_{i=1}^{12} |x_i|^2} = 2\sqrt{3}
+\]
+
+Thus, the normalized function \( u_1^* \) is:
+\[
+u_1^* = \frac{u_1}{\|u_1\|} = \frac{1}{2\sqrt{3}}
+\]
+
+The inner product \( \langle u_1, u_2 \rangle \) is:
+\[
+\langle u_1, u_2 \rangle = \sum_{i=1}^{12} \frac{1}{2\sqrt{3}} x_i = 13\sqrt{3}
+\]
+
+Let \( v_2 = u_2 - \langle u_1, u_2 \rangle u_1^* \):
+\[
+v_2 = x - 13\sqrt{3} \cdot \frac{1}{2\sqrt{3}} = x - \frac{13}{2}
+\]
+
+The norm of \( v_2 \) is:
+\[
+\|v_2\| = \sqrt{\langle v_2, v_2 \rangle} = \sqrt{\frac{18}{2} \left(i - \frac{13}{2}\right)^2} = \sqrt{143}
+\]
+
+Thus, the normalized function \( u_2^* \) is:
+\[
+u_2^* = \frac{v_2}{\|v_2\|} = \frac{1}{\sqrt{143}} \left(x - \frac{13}{2}\right)
+\]
+
+\[
+\langle u_3, u_1^* \rangle = \sum_{i=1}^{12} \frac{1}{2\sqrt{3}} \cdot \frac{1}{\sqrt{3}} = \frac{325}{\sqrt{3}}
+\]
+
+\[
+\langle u_3, u_2^* \rangle = \sum_{i=1}^{12} \frac{1}{\sqrt{143}} \left(i - \frac{13}{2}\right)^2 = \frac{1859}{\sqrt{143}} = 13\sqrt{143}
+\]
+
+Thus, we have:
+\[
+v_3 = u_3 - \langle u_3, u_1^* \rangle u_1^* - \langle u_3, u_2^* \rangle u_2^*
+\]
+
+\[
+= x^2 - \frac{325}{6} - 13\left(x - \frac{13}{2}\right)
+\]
+
+\[
+= x^2 - 13x + \frac{91}{3}
+\]
+
+The norm of \( v_3 \) is:
+\[
+\|v_3\| = \sqrt{\langle v_3, v_3 \rangle} = \sqrt{\frac{4004}{3}}
+\]
+
+Therefore, the normalized function \( u_3^* \) is:
+\[
+u_3^* = \sqrt{\frac{3}{4004}} \left(x^2 - 13x + \frac{91}{3}\right)
+\]
+
+\subsection*{IV(b).}
+\( a_i = \langle u_{i+1}^*, y \rangle \).
+
+We have:
+\[
+a_0 = \langle u_1^*, y \rangle = 479.7780736966
+\]
+
+\[
+a_1 = \langle u_2^*, y \rangle = 49.2546543894
+\]
+
+\[
+a_2 = \langle u_3^*, y \rangle = 330.3306671357
+\]
+
+The function \( \hat{\varphi} \) can be expressed as:
+\[
+\hat{\varphi} = \sum_{i=0}^{2} a_i u_{i+1}^* = 386.00 - 113.43x + 9.04x^2,
+\]
+which is same as it on notes.
+
+\subsection*{IV(c).}
+Calculation of $u_1^*,u_2^*,u_3^*$ can be reused, and calculation of $a_0,a_1,a_2$ cannot be reused, 
+while the normal equations can reuse matrix $G$ but need to calculate vector $b$ and $a_0,a_1,a_2$.\\
+This reuse implies that if N and $x_i$ not change and $y_i$ changes often, 
+we can calculate the orthonormal basis first to accelerate the whole process.
+
+\section*{V.}
+
+\subsection*{Theorem 5.66}
+
+\subsubsection*{PDI-I}
+Let \( A = V \Sigma U^* \), where \( V \) and \( U \) are orthogonal matrices, and \( \Sigma \) is a diagonal matrix.
+
+For any \( x \in \mathbb{R}^n \), we have:
+\[
+Ax = \sum_{i=1}^{r} v_i \sigma_i u_i^* x
+\]
+\[
+= \sum_{i=1}^{r} (\sigma_i u_i^* x) v_i \in \text{span}\{v_1, v_2, \ldots, v_r\}\quad(*)
+\]
+
+Now, consider \( AA^+ A x \):
+\[
+AA^+ A x = A \sum_{i=1}^{r} \frac{1}{\sigma_i} \langle Ax, v_i \rangle u_i
+\]
+\[
+= \sum_{i=1}^{r} \frac{1}{\sigma_i} \langle Ax, v_i \rangle A u_i
+\]
+\[
+= \sum_{i=1}^{r} \langle Ax, v_i \rangle v_i
+\]
+\[
+= Ax
+\]
+
+The last equation holds because \( (*) \).
+
+Thus, \( AA^+ A = A \).
+
+\subsubsection*{PDI-II}
+For any \( x \in \mathbb{R}^n \), we have:
+\[
+A^+ A A^+ x = A^+ A \sum_{i=1}^{r} \frac{1}{\sigma_i} \langle x, v_i \rangle u_i
+\]
+\[
+= A^+ \sum_{i=1}^{r} \langle x, v_i \rangle v_i
+\]
+\[
+= \sum_{i=1}^{r} \langle x, v_i \rangle \sum_{j=1}^{r} \frac{1}{\sigma_j} \langle v_i, v_j \rangle u_j
+\]
+\[
+= \sum_{i=1}^{r} \langle x, v_i \rangle \frac{1}{\sigma_i} u_i
+\]
+\[
+= A^+ x
+\]
+
+Thus, we conclude that \( A^+ A A^+ = A^+ \).
+
+\subsubsection*{PDI-III}
+
+\subsection*{Lemma 5.67}
+\subsubsection*{(5.63)}
+From PDI-1:
+\[
+A A^+ A = A
+\]
+\[
+\Rightarrow A^* A A^+ A = A^* A
+\]
+\[
+\Rightarrow A^+ A = (A^* A)^{-1} A^* A
+\]
+
+For any \( y \in \mathbb{F}^n \), since \( A \) has full column rank, \( Ay = z \in \mathbb{F}^m \), and $z$ is arbitrary:
+\[
+A^+ A y = (A^* A)^{-1} A^* A y
+\]
+\[
+\Rightarrow A^+ z = (A^* A)^{-1} A^* z
+\]
+\[
+\Rightarrow A^+ = (A^* A)^{-1} A^*
+\]
+
+
+\subsubsection*{(5.64)}
+By multiplying \( A^* \) on the right side and \( y \) on the left side of PDI-1, similar to (5.63), we get:
+\[
+A^+ = (A^* A)^{-1} A^*
+\]
+
+\printbibliography
+
+\end{document}
