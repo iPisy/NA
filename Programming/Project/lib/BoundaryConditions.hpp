@@ -7,7 +7,8 @@ public:
         Natural,
         Periodic,
         Theorem3_58,
-        Nothing
+        Nothing,
+        D2
     };
     Type type;
 protected:
@@ -34,4 +35,9 @@ struct BoundaryCondition_Theorem3_58:public BoundaryCondition{
 
 struct BoundaryCondition_Nothing:public BoundaryCondition{
     BoundaryCondition_Nothing():BoundaryCondition(BoundaryCondition::Type::Nothing){}
+};
+
+struct BoundaryCondition_D2:public BoundaryCondition{
+    double l,r;
+    BoundaryCondition_D2(double l,double r):BoundaryCondition(BoundaryCondition::Type::D2),l(l),r(r){}
 };

@@ -58,6 +58,16 @@ void PFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
         }
         //add b: do nothing.
     }
+    else if(boundaryCondition.type==BoundaryCondition::Type::D2){
+        const BoundaryCondition_D2& bc=static_cast<const BoundaryCondition_D2&>(boundaryCondition);
+        if(!reused){
+            //add A
+            (*A)(N-2,0)=1;
+            (*A)(N-1,N-1)=1;
+        }
+        (*b)(N-2)=bc.l;
+        (*b)(N-1)=bc.r;
+    }
     else{//periodic
         if(!reused){
             //add A

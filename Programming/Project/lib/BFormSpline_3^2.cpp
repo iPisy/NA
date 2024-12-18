@@ -23,6 +23,20 @@ void BFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
         (*b)(N)=lv;
         (*b)(N+1)=rv;
     }
+    else if(boundaryCondition.type==BoundaryCondition::Type::D2){
+        const BoundaryCondition_D2& bc=static_cast<const BoundaryCondition_D2&>(boundaryCondition);
+        if(!reused){
+            //add A
+            for(int j=0;j<n;j++){
+                (*A)(N,j)=((*bases)[j]).derivativeValue(fList[0].x,2);
+            }
+            for(int j=N-1;j<N+n-1;j++){
+                (*A)(N+1,j)+=((*bases)[j]).derivativeValue(fList.back().x,2);
+            }
+        }
+        (*b)(N-2)=bc.l;
+        (*b)(N-1)=bc.r;
+    }
     else{//natural        
         if(!reused){
             //add A
