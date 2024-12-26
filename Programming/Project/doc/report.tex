@@ -44,7 +44,7 @@
 \end{itemize}
 
 \section*{Problem A}
-This is the N with max-norm of the interpolation error vector.
+This is the table of N and max-norm of the interpolation error vector.
 \begin{table}[h!]
   \centering
   \begin{tabular}{|c|c|}
@@ -59,7 +59,7 @@ This is the N with max-norm of the interpolation error vector.
   \caption{N and errors}
 \end{table}
 
-Draw those points in logarithmic graph. It is presented below.
+Draw those points in logarithmic graph, which is presented below.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.5\textwidth]{../figure/A_convergence_rate.pdf}
@@ -78,11 +78,11 @@ The graph of spline and exact function is presented below.
   \caption{splines against exact function}
 \end{figure}
 We can notice that the spline interpolation is free of wide oscillations in Runge phenomenon. 
-It is more precise than polynomial interpolation.
+It is more precise than polynomial interpolation when N is large.
 
 \section*{Problem C}
-Complete boundary condition is used for spline in Theorem 3.57\cite{Thm_3_57} and 
-Thm 3.58 boundary condition is used for spline in Theorem 3.58\cite{Thm_3_58}.
+\texttt{Complete boundary condition} is used for spline in Theorem 3.57\cite{Thm_3_57} and 
+\texttt{Thm 3.58 boundary condition} is used for spline in Theorem 3.58\cite{Thm_3_58}.
 The graph of 2 splines and exact function is presented below.
 \begin{figure}[ht]
   \centering
@@ -112,7 +112,7 @@ The reason why some of the errors are close to machine epsilon is that these poi
 The spline is constructed by using the condition that they passes through these points. Thus they should be close to machine epsilon.
 
 We can also notice that the spline in Theorem 3.57 performs much better than spline in Theorem 3.58 through graph and table above.
-This is because many reasons, but I can propose the major one.
+This is because of many reasons, but I can propose the major one.
 
 We all know that interpolation points should fall within interval where the second derivative is huge. By doing this, we can get more precise graphs.\\
 And in this case, spline in Theorem 3.57 get the point $(0,1)$, where the second derivative is hugest,
@@ -228,7 +228,7 @@ In (ii) and (iii), the curvature of the one using cumulative chordal knots is sm
 \section*{Problem F}
 I implement this problem by using class \textbf{PiecewisePolynomial}, 
 and create a new class \textbf{Table} in F.cpp 
-(as the name of the class is so long, and use name `Table' is Easily confusing, so I use name `Table' and write it in F.cpp).
+(as the name of the class is so long, and use name `Table' is Easily confusing, I use name `Table' and write it in F.cpp).
 The class \textbf{Table} allows arbitrary n and knots. We take $n=1,2$ and uniform knots there.
 Two tables are represented below.
 
