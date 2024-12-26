@@ -34,8 +34,30 @@ void BFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
                 (*A)(N+1,j)+=((*bases)[j]).derivativeValue(fList.back().x,2);
             }
         }
-        (*b)(N-2)=bc.l;
-        (*b)(N-1)=bc.r;
+        (*b)(N)=bc.l;
+        (*b)(N+1)=bc.r;
+    }
+    else if(boundaryCondition.type==BoundaryCondition::Type::NotAKnot){
+        if(fList.size()<4){
+            cerr<<"When using not-a-knot boundary condition, the number of knots should >=4!"<<endl;
+            throw InvalidInputException{};
+        }
+        if(!reused){
+            //add A
+            int foo[2]={1,N-2};
+            for(int i=0;i<2;i++){
+                int knotIndex_start=foo[i];
+                int row=N+i;
+                double bar[3]={fList[knotIndex_start+1].x-fList[knotIndex_start].x,fList[knotIndex_start-1].x-fList[knotIndex_start+1].x,fList[knotIndex_start].x-fList[knotIndex_start-1].x};
+                for(int j=0;j<3;j++){
+                    int knotIndex=knotIndex_start+j;
+                    for(int c=knotIndex-1;c<=knotIndex+n-2;c++){
+                        (*A)(row,c)+=bar[j]*(*bases)[c].derivativeValue(fList[knotIndex-1].x,2);
+                    }
+                }
+            }
+        }
+        //add b: do nothing.
     }
     else{//natural        
         if(!reused){

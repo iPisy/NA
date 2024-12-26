@@ -65,8 +65,26 @@ void PFS3::addBoundaryCondition(Eigen::MatrixXd* A,Eigen::VectorXd* b,const Boun
             (*A)(N-2,0)=1;
             (*A)(N-1,N-1)=1;
         }
+        //add b
         (*b)(N-2)=bc.l;
         (*b)(N-1)=bc.r;
+    }
+    else if(boundaryCondition.type==BoundaryCondition::Type::NotAKnot){
+        if(fList.size()<4){
+            cerr<<"When using not-a-knot boundary condition, the number of knots should >=4!"<<endl;
+            throw InvalidInputException{};
+        }
+        if(!reused){
+            //add A
+            (*A)(N-2,0)=(fList[2].x-fList[1].x)/(fList[2].x-fList[0].x);
+            (*A)(N-2,1)=-1;
+            (*A)(N-2,2)=(fList[1].x-fList[0].x)/(fList[2].x-fList[0].x);
+
+            (*A)(N-1,N-3)=(fList[N-1].x-fList[N-2].x)/(fList[N-1].x-fList[N-3].x);
+            (*A)(N-1,N-2)=-1;
+            (*A)(N-1,N-1)=(fList[N-2].x-fList[N-3].x)/(fList[N-1].x-fList[N-3].x);
+        }
+        //add b:do nothing.
     }
     else{//periodic
         if(!reused){

@@ -8,7 +8,8 @@ public:
         Periodic,
         Theorem3_58,
         Nothing,
-        D2
+        D2,
+        NotAKnot
     };
     Type type;
 protected:
@@ -40,4 +41,8 @@ struct BoundaryCondition_Nothing:public BoundaryCondition{
 struct BoundaryCondition_D2:public BoundaryCondition{
     double l,r;
     BoundaryCondition_D2(double l,double r):BoundaryCondition(BoundaryCondition::Type::D2),l(l),r(r){}
+};
+
+struct BoundaryCondition_NotAKnot:public BoundaryCondition{
+    BoundaryCondition_NotAKnot():BoundaryCondition(BoundaryCondition::Type::NotAKnot){}
 };

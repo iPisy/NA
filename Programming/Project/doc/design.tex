@@ -121,7 +121,7 @@ All structs and classes are introduced below (including those not appeared in th
   In the base class, I define a \texttt{enum class Type}.
   The base class has a member variable \texttt{Type type}, recording the type of the boundary condition. 
   And the constructor of the base class is declared protected to avoid being constructed by users, but allowed to be called by derived class.\\
-  Then it derives subclasses, representing different sort of boundary conditions. I defined 5 sort of boundary conditions.
+  Then it derives subclasses, representing different sort of boundary conditions. I defined 7 sort of boundary conditions.
   \item[PpFormSpline] 
   It represents PP-form spline $\in \mathbb{S}_n^{n-1}, \forall n$.\\
   Derived from \texttt{Spline}.\\
@@ -143,10 +143,10 @@ All structs and classes are introduced below (including those not appeared in th
   Derived form \texttt{Spline}.\\
   I can implement it just like \texttt{PFS1}. 
   However, lemmas\cite*{Lemmas_constructing_pp-form_splines} in book reduces number of variables from \(4*(N-1)\) to \(N\), 
-  which is faster. 
-  And now whole procedure of generating spline is totally different from generating PpFormSpline, $n=3$. \\
+  which means it can be calculated faster. 
+  And whole procedure of generating spline is totally different from generating PpFormSpline, given parameter of $n=3$. \\
   Thus, I derived this class from spline and implement it by using lemmas in book.\\
-  It allows 3 kind of boundary conditions, done by override \texttt{virtual void addBoundaryCondition(...);}.\\
+  It allows 5 kind of boundary conditions (all defined in book\cite{Defn_3_5}), done by override \texttt{virtual void addBoundaryCondition(...);}.\\
   By the way, this is the fastest way in my project to generate a spline $\in \mathbb{S}_3^2$. Thus \texttt{class CurveFitter} uses it.
   \item[BFSRB]
   It represents B-form spline recursion base, which is defined in book\cite*{Defn_3_23}. \\
@@ -170,7 +170,7 @@ All structs and classes are introduced below (including those not appeared in th
   It represents B-form spline $\in \mathbb{S}_3^2$.\\ 
   Derived form \texttt{BFormSpline}.\\
   Implemented like BFS1 way, just replacing the parameter from 1 to 3.\\
-  It allows 3 kind of boundary conditions, done by override \texttt{virtual void addBoundaryCondition(...);}.\\
+  It allows 5 kind of boundary conditions (all defined in book\cite{Defn_3_5}), done by override \texttt{virtual void addBoundaryCondition(...);}.\\
   \item[BFS\_Thm\_3\_58]
   It represents B-form spline defined in Theorem 3.58\cite*{Thm_3_58}, a spline $\in \mathbb{S}_2^1$, whose knots are not interpolation points.\\ 
   The generation procedure is same as BFormSpline.\\
@@ -205,20 +205,20 @@ You can get more information about the design of the project from doxygen genera
 \section*{Public interface}
 \begin{description}
   \item[Spline] Although \texttt{Spline} is abstract class, it offers the public interface which are derived by all of its sub-class.
-  There are two public interfaces.
+  There are 3 public interfaces.
   \begin{description}
-    \item[\texttt{Spline(int n,int k);}] Constructor. `n' means the order of the spline and `k' means the The continuity requirements of the spline.
     \item[\texttt{generate();}]
     The first parameter \texttt{const Spline* s} is for CurveFitter. If the matrix is already generated, we can reuse it. If not, you can offer nullptr.\\
-    The second parameter \texttt{FunctionPointList fList} is the interpolation points, they are points on the function. If you defines a function, you can use its member function 
+    The second parameter \texttt{FunctionPointList fList} is the interpolation points, they are points on the function. If you defines a function (don't forget to assign the definition domain), you can use its member function 
     \texttt{generatePointList(int number,int derivative\_order=0);} to easily get that.\\
-    The third parameter \texttt{const BoundaryCondition\& boundaryCondition=BoundaryCondition\_Periodic\{\}} is boundary conditions. You can objectify the boundary condition class (the sub-class, and offer values) and pass it in.\\
-    The fourth parameter \texttt{const IndependentVariableList\& knotList=\{\}} is for spline in Thm 3.58, whose knots are not interpolation points. \\
-    As some derived class don't need some parameter, they have overload the public interface, e.g. $s \in \mathbb{S}_1^0$ don't need boundary conditions. You can refer to their public interfaces when use them.
+    The third parameter \texttt{const BoundaryCondition\& boundaryCondition=BoundaryCondition\_Periodic\{\}} is the boundary condition. You can objectify a sort of boundary condition class (the sub-class, and offer values it need) and pass it in.\\
+    The fourth parameter \texttt{const IndependentVariableList\& knotList=\{\}} is for spline in Thm 3.58, whose knots are not interpolation points. Then you should assign the knots by this parameter.\\
+    As some splines only require a subset of the above parameters, they overload the public interface, e.g. $s \in \mathbb{S}_1^0$ don't need boundary conditions, so this parameter doesn't appear in its parameter list. You can refer to their public interfaces when use.
     \item[\texttt{print\_Latex(); print\_Latex\_Sole();}]
     The former one is for outputting the spline into a complete .tex files. The latter one is for adding the spline to a unfinished .tex files.
     They all actually call the function of \texttt{class LatexOutputer}, then the outputting is convenient. You can refer to source codes in src/ and doxygen generated files to know more about them.
   \end{description}
+  \item[Specific Spline] To complete a spline interpolation, you just need to construct the spline you want to use, and then call functions mentioned above.
 \end{description}
 
 \printbibliography

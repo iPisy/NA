@@ -35,6 +35,14 @@
 
 % ============================================
 
+\section*{Features supported by this project}
+\begin{itemize}
+  \item All basic features. 300pts.
+  \item B-form and PP-form splines of arbitrary dimensions, supporting periodic boundary conditions. 100pts.
+  \item D2 \&\& not-a-knot boundary conditions for B-form and PP-form splines of order 3. 100pts.
+  \item More functions for test. 20pts.
+\end{itemize}
+
 \section*{Problem A}
 This is the N with max-norm of the interpolation error vector.
 \begin{table}[h!]
@@ -301,25 +309,25 @@ Two tables are represented below.
 \end{figure}
 
 \section*{More functions}
-I do 5 more test to test the splines that have not been tested before, they are done in \texttt{moreFunctions.cpp}.\\
+I do 8 more test to test the splines that have not been tested before, they are done in \texttt{moreFunctions.cpp}.\\
 \begin{itemize}
   \item B-form spline $s \in \mathbb{S}_9^8$. This is to test the B-form spline of arbitrary order.
   It interpolate $\cos(x)$ in periodic boundary condition, with 5 knots.
   The graph is shown below.
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.3\textwidth]{../figure/cos_BFS.pdf}
+    \includegraphics[width=0.5\textwidth]{../figure/cos_BFS.pdf}
   \end{figure}
+
+  \newpage
 
   \item PP-form spline $s \in \mathbb{S}_7^6$. This is to test the PP-form spline of arbitrary order.
   It interpolate $\cos(x)$ in periodic boundary condition, with 5 knots.
   The graph is shown below.
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.3\textwidth]{../figure/cos_PFS.pdf}
+    \includegraphics[width=0.5\textwidth]{../figure/cos_PFS.pdf}
   \end{figure}
-
-  \newpage
 
   \item PP-form spline $s \in \mathbb{S}_3^2$ with natural boundary condition.
   It interpolate $\sqrt{x}$ with 4 knots.
@@ -335,6 +343,24 @@ I do 5 more test to test the splines that have not been tested before, they are 
   \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{../figure/sqrt,S_3^2, Complete.pdf}
+  \end{figure}
+
+  \newpage
+
+  \item PP-form spline $s \in \mathbb{S}_3^2$ with D2 boundary condition.
+  It interpolate $\sqrt{x}$ with 4 knots.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../figure/sqrt,S_3^2, D2.pdf}
+  \end{figure}
+
+  \item PP-form spline $s \in \mathbb{S}_3^2$ with not-a-knot boundary condition.
+  It interpolate $\sqrt{x}$ with 4 knots.
+  The graph is shown below.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../figure/sqrt,S_3^2, Not-a-knot.pdf}
   \end{figure}
 
   \item B-form spline $s \in \mathbb{S}_{11}^{10}$.
@@ -358,7 +384,7 @@ I do 5 more test to test the splines that have not been tested before, they are 
 \end{itemize}
 
 \section*{Verify the consistency between PP-form and B-form}
-From a theoretical perspective, we've proved\cite{Thm_3_7} that there exist a unique spline ($\in \mathbb{S}_3^2$) when given same interpolation points and complete/natural/periodic boundary conditions.
+From a theoretical perspective, we've proved\cite{Thm_3_7} that there exist a unique spline ($\in \mathbb{S}_3^2$) with given interpolation points and complete/natural/periodic boundary conditions.
 And since 2 forms of the spline are all splines, they must be same.\\
 I've done verification in \texttt{C.cpp}. 
 Using complete boundary condition and same interpolation points, I get a B-form and a PP-form spline, which are all $\in \mathbb{S}_3^2$.
